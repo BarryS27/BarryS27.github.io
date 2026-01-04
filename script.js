@@ -1,37 +1,28 @@
 document.addEventListener("DOMContentLoaded", () => {
     
-    // Register GSAP ScrollTrigger
     gsap.registerPlugin(ScrollTrigger);
 
-    // --- 1. iOS Style Staggered Entry Animation (Loading) ---
+    // --- 1. iOS Style "Snappy" Entry Animation ---
     const tl = gsap.timeline();
 
-    tl.from(".navbar", {
-        x: -50,
-        opacity: 0,
-        duration: 1,
-        ease: "power3.out"
+    tl.to(".navbar", {
+        x: 0,
+        opacity: 0.3,
+        duration: 1.2,
+        ease: "expo.out"
     })
-    .from(".hero-content", {
-        y: 30,
-        opacity: 0,
-        duration: 0.8,
-        ease: "back.out(1.7)"
-    }, "-=0.5")
-    .from(".card:not(.hero-section)", {
-        y: 50,
-        opacity: 0,
-        duration: 0.8,
-        stagger: 0.2,
-        ease: "power2.out",
-        scrollTrigger: {
-            trigger: ".container",
-            start: "top 80%",
-        }
-    }, "-=0.6");
+    
+    .to(".hero-content, .section-label, .card, .footer", {
+        y: 0,
+        opacity: 1,
+        duration: 1,
+        stagger: 0.08,
+        ease: "expo.out",
+        clearProps: "all"
+    }, "-=1.0");
 
 
-    // --- 2. 3D Tilt Effect on Hover ---
+    // --- 2. iOS Control Center 3D Tilte ---
     const cards = document.querySelectorAll('.card');
 
     cards.forEach(card => {
@@ -40,43 +31,41 @@ document.addEventListener("DOMContentLoaded", () => {
             const x = e.clientX - rect.left;
             const y = e.clientY - rect.top;
             
-            // Calculate rotation based on mouse position
-            const xRotation = -((y - rect.height / 2) / 20); 
-            const yRotation = (x - rect.width / 2) / 20;
+            const xRotation = -((y - rect.height / 2) / 25); 
+            const yRotation = (x - rect.width / 2) / 25;
             
-            // Apply the transformation
             gsap.to(card, {
-                transform: `perspective(1000px) rotateX(${xRotation}deg) rotateY(${yRotation}deg) scale(1.02)`,
+                transform: `perspective(1000px) rotateX(${xRotation}deg) rotateY(${yRotation}deg) scale(1.01)`,
                 duration: 0.1,
-                ease: "power1.out"
+                ease: "power1.out",
+                overwrite: "auto"
             });
         });
 
-        // Reset card position when mouse leaves
         card.addEventListener('mouseleave', () => {
             gsap.to(card, {
                 transform: "perspective(1000px) rotateX(0) rotateY(0) scale(1)",
-                duration: 0.5,
-                ease: "elastic.out(1, 0.5)"
+                duration: 0.6,
+                ease: "elastic.out(1, 0.6)"
             });
         });
     });
 
 
-    // --- 3. Interactive Button "Press" Effect ---
-    const buttons = document.querySelectorAll('.portfolio-btn, .medium-btn, .contact-button, .view-work-btn');
+    // --- 3. Magnetic Button Press ---
+    const buttons = document.querySelectorAll('a.portfolio-btn, a.contact-button, a.project-link-button, .view-work-btn, .navbar a');
 
     buttons.forEach(btn => {
         btn.addEventListener('mousedown', () => {
-            gsap.to(btn, { scale: 0.95, duration: 0.1 });
+            gsap.to(btn, { scale: 0.94, duration: 0.1, ease: "power1.out" });
         });
 
         btn.addEventListener('mouseup', () => {
-            gsap.to(btn, { scale: 1, duration: 0.1 });
+            gsap.to(btn, { scale: 1, duration: 0.2, ease: "back.out(1.7)" });
         });
         
         btn.addEventListener('mouseleave', () => {
-            gsap.to(btn, { scale: 1, duration: 0.3 });
+            gsap.to(btn, { scale: 1, duration: 0.2 });
         });
     });
 
