@@ -78,4 +78,4 @@ If you want to view or modify this project on your local machine:
 
 ---
 
-*Barry Song. All Rights Reserved. © 2026*
+*The code is available under the MIT License, but the text content and images are © Barry Song.*
