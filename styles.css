@@ -1,8 +1,11 @@
+/* --- Beginning --- */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
+
 
 html {
     scroll-behavior: smooth;
 }
+
 
 body {
     background: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&q=80&w=2070') no-repeat center center fixed;
@@ -15,12 +18,18 @@ body {
     overflow-x: hidden;
 }
 
+
+/* Selection on text */
 ::selection {
     background-color: rgba(255, 255, 255, 0.2);
     text-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
 }
 
-/* --- 2. 核心布局容器 --- */
+
+
+/* --- Container --- */
+
+
 .container {
     display: flex;
     flex-direction: column;
@@ -30,7 +39,11 @@ body {
     gap: 40px;
 }
 
+
+
 /* --- Navbar --- */
+
+
 .navbar {
     position: fixed;
     left: 30px;
@@ -45,7 +58,7 @@ body {
     background: rgba(255, 255, 255, 0.05);
     backdrop-filter: blur(25px);
     -webkit-backdrop-filter: blur(25px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.12);
     padding: 40px 18px;
     border-radius: 100px;
     
@@ -53,74 +66,233 @@ body {
     transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+
 .navbar:hover {
     opacity: 1;
     transform: translateY(-50%) translateX(0);
     background: rgba(255, 255, 255, 0.12);
-    box-shadow: 20px 0 50px rgba(0, 0, 0, 0.2);
+    box-shadow: 20px 0 50px rgba(0, 0, 0, 0.3);
 }
 
-.pageLinks a {
-    font-size: 20px;
+
+.page-links a {
+    font-size: 22px;
     color: rgba(255, 255, 255, 0.5);
-    transition: 0.3s;
+    text-decoration: none;
+    transition: 0.3s ease;
 }
 
-.pageLinks a:hover {
+
+.page-links a:hover {
     color: #fff;
-    transform: scale(1.2) rotate(5deg);
+    transform: scale(1.2);
 }
 
-/* --- Cards --- */
+
+/* Status Indicator */
+.status-indicator {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 10px;
+}
+
+
+.status-dot {
+    width: 8px;
+    height: 8px;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 50%;
+    position: relative;
+}
+
+
+.status-dot::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.4);
+    border-radius: 50%;
+    z-index: -1;
+    animation: pulse 2s infinite ease-in-out;
+}
+
+
+.status-text {
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    opacity: 0.5;
+    color: #fff;
+}
+
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        opacity: 0.8;
+    }
+    70% {
+        transform: scale(3.5);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 0;
+    }
+}
+
+
+
+/* --- Glassmorphism Card --- */
+
+
 .card {
     background: rgba(255, 255, 255, 0.07) !important;
     backdrop-filter: blur(20px) !important;
     -webkit-backdrop-filter: blur(20px) !important;
-    border: 1px solid rgba(255, 255, 255, 0.12) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
     border-radius: 32px !important;
     padding: 45px !important;
-    color: #fff !important;
     transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
+
 
 .card:hover {
-    transform: translateY(-8px);
+    transform: translateY(-10px);
     background: rgba(255, 255, 255, 0.12) !important;
-    border-color: rgba(255, 255, 255, 0.25) !important;
+    border-color: rgba(255, 255, 255, 0.2) !important;
     box-shadow: 0 30px 60px rgba(0, 0, 0, 0.25);
-    cursor: default;
 }
 
-/* --- Buttons --- */
-.socialLink, .socialEmailLink {
-    background: rgba(255, 255, 255, 0.1) !important;
-    border-radius: 100px !important;
-    border: 1px solid rgba(255, 255, 255, 0.1) !important;
-    padding: 15px 30px !important;
-    font-weight: 500 !important;
+
+
+/* ---Inner --- */
+
+
+/* Main */
+.hero-content {
+    display: flex;
+    align-items: center;
+    gap: 30px;
 }
 
-.socialLink:hover, .socialEmailLink:hover {
-    background: rgba(255, 255, 255, 0.2) !important;
-    border-color: rgba(255, 255, 255, 0.4) !important;
+
+.profile-pic {
+    height: 150px;
+    width: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid rgba(255, 255, 255, 0.2);
 }
 
-.contactButton {
-    background: rgba(255, 255, 255, 0.15) !important;
-    border: 1px solid rgba(255, 255, 255, 0.3) !important;
-    border-radius: 100px !important;
-    padding: 20px 40px !important;
+
+.main-name {
+    font-size: 48px;
+    font-weight: 600;
+    margin: 0;
+    letter-spacing: -2px;
 }
 
-.contactButton:hover {
-    background: rgba(255, 255, 255, 0.25) !important;
-    box-shadow: 0 0 30px rgba(255, 255, 255, 0.15);
+
+.field-name {
+    font-size: 20px;
+    color: rgba(255, 255, 255, 0.6);
+    margin-top: 5px;
 }
 
-/* --- Mobile Design --- */
+
+/* Common */
+.section-label {
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    margin-bottom: 25px;
+}
+
+
+/* Skills */
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 20px;
+}
+
+
+.skill-item {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 15px;
+    border-radius: 18px;
+    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: 0.3s;
+}
+
+
+.skill-item i {
+    margin-right: 10px;
+    opacity: 0.8;
+}
+
+
+/* Projects */
+.project-image {
+    width: 100%;
+    border-radius: 20px;
+    margin-top: 25px;
+    filter: brightness(0.9);
+    transition: 0.4s;
+}
+
+
+.project-card:hover .project-image {
+    filter: brightness(1.05);
+}
+
+
+
+/* --- Buttons & footer --- */
+
+
+.contact-button {
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.15);
+    color: #fff;
+    text-decoration: none;
+    padding: 18px 45px;
+    border-radius: 100px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    font-weight: 500;
+    transition: 0.4s;
+    margin-top: 20px;
+}
+
+
+.contact-button:hover {
+    background: rgba(255, 255, 255, 0.25);
+    transform: scale(1.05);
+    box-shadow: 0 0 30px rgba(255, 255, 255, 0.1);
+}
+
+
+.footer {
+    text-align: center;
+    padding: 40px 0;
+    opacity: 0.5;
+    font-size: 14px;
+}
+
+
+
+/* --- Self-adaptation on mobile --- */
+
+
 @media (max-width: 768px) {
     .container { padding: 60px 20px; }
+    
     .navbar {
         left: 50%;
         top: auto;
@@ -128,8 +300,14 @@ body {
         transform: translateX(-50%);
         flex-direction: row;
         padding: 15px 35px;
-        opacity: 0.9;
+        opacity: 0.95;
     }
-    .navbar:hover { transform: translateX(-50%); }
-    .pageLinks { flex-direction: row; }
+    
+    .navbar:hover { transform: translateX(-50%) translateY(-5px); }
+    
+    .page-links { flex-direction: row; gap: 30px; }
+    
+    .main-name { font-size: 32px; }
+    
+    .hero-content { flex-direction: column; text-align: center; }
 }
