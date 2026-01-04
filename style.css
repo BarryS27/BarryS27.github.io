@@ -230,18 +230,3 @@ body {
     .hero-content { flex-direction: column; text-align: center; }
     .hero-actions { justify-content: center; }
 }
-
-
-/* --- 11. Initialization States (Anti-Flash) --- */
-
-.hero-content, 
-.card, 
-.section-label,
-.footer {
-    opacity: 0;
-    transform: translateY(20px); 
-}
-
-.navbar {
-    transform: translateX(-100px);
-}
