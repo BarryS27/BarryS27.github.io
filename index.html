@@ -1,10 +1,256 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>Barry's Space</title>
-    </head>
-    <body>
-        hello, body
-    </body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Meta tags for social media sharing -->
+    <meta property="og:title" content="Akshat Jalan - DevFolio" />
+    <meta
+      property="og:description"
+      content="This is a portfolio of my work, including both personal and production projects. Made with HTML, CSS, and Javascript"
+    />
+    <!-- Need to find an icon -->
+    <meta
+      property="og:image"
+      content="#"
+    />
+    <meta property="og:url" content="https://BarryS27.io/" />
+
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@500;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <title>Barry Song - Personal Webpage</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="navbar">
+        <div class="nameLink">
+            <!-- Add a Logo ? -->
+        </div>
+        <div class="socialLink">
+            <!-- Add some social links -->
+        </div>
+      </div>
+
+      <div class="about">
+        <div class="aboutSection">
+          <img class="myPic" alt="photo" src="images/MyPic.png" />
+          <div class="fieldSection">
+            <div>Barry Song</div>
+            <div class="fieldName">High School Student</div>
+          </div>
+        </div>
+        <div class="nameSection">
+          <div class="heading">ABOUT</div>
+          <!-- Decide what to write in 'About' -->
+        </div>
+      </div>
+
+      <div class="skills" id="skills">
+        <div class="skillSection" id="front">
+          <div class="skillHeader">Frontend.</div>
+          <div class="skillNameSection">
+            <div class="skillName">ReactJS</div>
+            <div class="skillName">HTML & CSS</div>
+            <div class="skillName">JavaScript</div>
+            <!-- <div class="skillName">React Native</div> -->
+          </div>
+        </div>
+        <div class="skillSection" id="back">
+          <div class="skillHeader">Backend.</div>
+          <div class="skillNameSection">
+            <div class="skillName">NodeJS</div>
+            <div class="skillName">ExpressJS</div>
+            <div class="skillName">MongoDB</div>
+          </div>
+        </div>
+        <div class="skillSection" id="lang">
+          <div class="skillHeader">Languages.</div>
+          <div class="skillNameSection">
+            <div class="skillName">Python</div>
+            <div class="skillName">Java</div>
+            <div class="skillName">SQL</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="experience" id="experience">
+        <div class="companySection">
+          <div class="experienceheading">EXPERIENCE</div>
+          <div>
+            <div class="companyName">Bank of America.</div>
+            <div class="companyPeriod">July 2022 - Present</div>
+            <div class="companySkills">
+              <div class="companySkillName">ReactJS</div>
+              <div class="companySkillName">Python</div>
+              <div class="companySkillName">SQL</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="experienceSection">
+          <div class="experienceItem">
+            <div class="experienceName">Software Engineer</div>
+            <div class="experienceDesc">
+              Managed banking loan data portal, which helps in facilitating
+              manual loan data sourcing and transformations crucial for FRB
+              reporting. Utilized ReactJs for frontend, integrated Python
+              backend, and streamlined Oracle SQL data management. Led and
+              implemented adaptable Frontend enhancements, and coordinated CRQ
+              quarterly releases. Upheld bank standards, improved code quality,
+              and introduced user-centric features, demonstrating comprehensive
+              technical leadership tailored for efficient data sourcing.
+            </div>
+          </div>
+          <!--
+          <div class="experienceItem">
+            <div class="experienceName">Sr. Tech Associate</div>
+            <div class="experienceDesc">
+              My role involves working with a full-stack technology stack. I
+              have expertise in utilizing ReactJS to design engaging and
+              responsive user interfaces. Additionally, I have proficiency in
+              Python FastAPI and SQL Oracle database, enabling me to create
+              scalable and reliable back-end systems.
+            </div>
+          </div>
+          -->
+        </div>
+      </div>
+
+      <div class="projects" id="projects">
+        <div class="projectHeader">
+          <div>
+            <div class="aboutHeading">PROJECTS</div>
+            <div class="projectName">CodeLance.</div>
+            <div class="projectDesc">
+              CodeLance is a MERN stack application which offers a specialized
+              freelancing platform tailored for clients seeking skilled
+              developers for their projects. Our platform simplifies the process
+              of finding and hiring talent, ensuring a seamless experience
+              through effective communication and collaboration tools. Powered
+              by the MERN stack, our backend utilizes NodeJS to provide robust
+              APIs for the frontend framework. MongoDB serves as the database,
+              ensuring a solid foundation for this dedicated developer
+              freelancing application.
+            </div>
+          </div>
+          <a
+            href="https://codelance-akshat.netlify.app/"
+            target="_blank"
+          >
+            <img class="projectLink" src="images/linkArrow.png" alt="link"
+          /></a>
+        </div>
+        <a
+          href="https://codelance-akshat.netlify.app/"
+          target="_blank"
+        >
+          <img
+            class="projectImg"
+            src="images/codelanceMock.png"
+            alt="Book shop"
+        /></a>
+      </div>
+
+      <div class="projects" id="projects">
+        <div class="projectHeader">
+          <div>
+            <div class="projectName">BookShop.</div>
+            <div class="projectDesc">
+              A React-based web app enabling users to browse, add books to their
+              cart, simulate smooth transactions and purchases using stripe
+              payment. Utilized CommerceJS for seamless integration of backend
+              APIs.
+            </div>
+          </div>
+          <a href="https://github.com/Akshatjalan/Book-store-Reactjs" target="_blank">
+            <img class="projectLink" src="images/linkArrow.png" alt="link"
+          /></a>
+        </div>
+        <a href="https://github.com/Akshatjalan/Book-store-Reactjs" target="_blank">
+          <img class="projectImg" src="images/bookStore.png" alt="Book shop"
+        /></a>
+      </div>
+
+      <div class="projects" id="projects">
+        <div class="projectHeader">
+          <div>
+            <div class="projectName">HarryPotter.</div>
+            <div class="projectDesc">
+              The Harry Potter Wizard Verse website is a one-stop hub for
+              Potterheads, providing essential information, interactive videos,
+              and a fun quiz using HTML, CSS, and JavaScript. With a responsive
+              design, animations on scroll, and dark/light modes, it ensures
+              compatibility across devices. Developed with a desktop-first
+              approach and mobile optimization, this user-friendly interface
+              welcomes fans of all ages into the enchanting world of Harry
+              Potter.
+            </div>
+          </div>
+          <a
+            href="https://akshatjalan.github.io/HarryPotter-akshat/"
+            target="_blank"
+          >
+            <img class="projectLink" src="images/linkArrow.png" alt="link"
+          /></a>
+        </div>
+        <a
+          href="https://akshatjalan.github.io/HarryPotter-akshat/"
+          target="_blank"
+        >
+          <img class="projectImg" src="images/hpMock.png" alt="Book shop"
+        /></a>
+      </div>
+
+      <div class="projects" id="projects">
+        <div class="projectHeader">
+          <div>
+            <div class="projectName">Amazon Redesign.</div>
+            <div class="projectDesc">
+              Redesigned Amazon's interface with the goal of enhancing user
+              experience. This project focuses on creating a modern, intuitive,
+              and user-friendly landing page, built using the MERN stack -
+              MongoDB, ExpressJS, ReactJS, NodeJS alongside JavaScript, HTML,
+              and CSS.
+            </div>
+          </div>
+          <a href="https://akshat-amazonredesign.netlify.app/" target="_blank">
+            <img class="projectLink" src="images/linkArrow.png" alt="link"
+          /></a>
+        </div>
+        <a href="https://akshat-amazonredesign.netlify.app/" target="_blank">
+          <img
+            class="projectImg"
+            src="images/amazonRedesignMock.png"
+            alt="Book shop"
+        /></a>
+      </div>
+
+      <div class="contact" id="contact">
+        <div class="contactName">Let's get started.</div>
+
+        <a class="contactButton" href="mailto:akshatjalanmain@gmail.com"
+          ><button>akshatjalanmain@gmail.com</button></a
+        >
+        <div class="pageLinks"><a href="#">Back to Top</a></div>
+      </div>
+
+      <div class="footer">
+        <div class="nameLink">akshat jalan.</div>
+        <div class="footerRight">all rights reserved © 2025</div>
+      </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.3/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.3/ScrollTrigger.min.js"></script>
+
+    <script src="script.js"></script>
+  </body>
 </html>
