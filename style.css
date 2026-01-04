@@ -1,148 +1,87 @@
-/* --- 1. Global Initialization & Background Settings --- */
+/* --- 1. Global Initialization --- */
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
 
-html {
-    scroll-behavior: smooth;
-}
+
+html { scroll-behavior: smooth; }
+
 
 body {
-    /* Darkening the background to ensure white text is readable */
     background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
                 url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&q=80&w=2070') no-repeat center center fixed;
     background-size: cover;
-    margin: 0;
-    padding: 0;
+    margin: 0; padding: 0;
     font-family: "Inter", sans-serif;
     color: #fff;
     line-height: 1.6;
     overflow-x: hidden;
 }
 
-/* Selection highlight effect */
-::selection {
-    background-color: rgba(255, 255, 255, 0.2);
-    text-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
-}
+::selection { background-color: rgba(255, 255, 255, 0.2); text-shadow: 0 0 15px rgba(255, 255, 255, 0.4); }
 
 
-/* --- 2. Main Layout Container --- */
+
+/* --- 2. Main Layout --- */
 
 .container {
-    display: flex;
-    flex-direction: column;
-    max-width: 1000px;
-    margin: 0 auto;
-    padding: 80px 20px;
-    gap: 40px;
+    display: flex; flex-direction: column;
+    max-width: 1000px; margin: 0 auto;
+    padding: 80px 20px; gap: 40px;
 }
 
 
-/* --- 3. Vertical Sidebar Navbar --- */
+
+/* --- 3. Navbar --- */
 
 .navbar {
-    position: fixed;
-    left: 0;
-    top: 50%;
+    position: fixed; left: 0; top: 50%;
     transform: translateY(-50%) translateX(-75%);
     z-index: 9999;
     
-    /* Layout */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 35px;
+    display: flex; flex-direction: column; align-items: center;
+    gap: 40px;
     
-    /* Shape: Vertical rectangular strip */
     width: 65px;
-    height: 60vh; 
-    padding: 40px 0;
-    border-radius: 0 30px 30px 0;
+    height: auto; 
+    min-height: 400px; 
+    padding: 50px 0;
     
-    /* Glassmorphism */
+    border-radius: 0 30px 30px 0;
     background: rgba(255, 255, 255, 0.08);
     backdrop-filter: blur(25px);
     -webkit-backdrop-filter: blur(25px);
     border: 1px solid rgba(255, 255, 255, 0.1);
-    
     opacity: 0.3;
     transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.navbar:hover {
-    opacity: 1;
-    transform: translateY(-50%) translateX(0);
-    background: rgba(255, 255, 255, 0.15);
-}
+.navbar:hover { opacity: 1; transform: translateY(-50%) translateX(0); background: rgba(255, 255, 255, 0.15); }
 
-/* Page Links Container */
 .page-links {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 30px;
-    width: 100%;
+    display: flex; flex-direction: column; align-items: center;
+    gap: 35px; width: 100%;
 }
 
 .page-links a {
-    font-size: 22px;
-    color: rgba(255, 255, 255, 0.5);
-    transition: 0.3s;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    font-size: 20px; color: rgba(255, 255, 255, 0.5);
+    transition: 0.3s; display: flex; justify-content: center; align-items: center;
 }
 
-.page-links a:hover {
-    color: #fff;
-    transform: scale(1.2);
-}
+.page-links a:hover { color: #fff; transform: scale(1.2); }
 
 
-/* --- 4. Status Indicator (Breathing Light) --- */
 
-.status-indicator {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 8px;
-    margin-bottom: 10px;
-}
+/* --- 4. Status Indicator --- */
 
-.status-dot {
-    width: 8px;
-    height: 8px;
-    background-color: rgba(255, 255, 255, 0.9);
-    border-radius: 50%;
-    position: relative;
-    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
-}
-
-.status-dot::after {
-    content: "";
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(255, 255, 255, 0.5);
-    border-radius: 50%;
-    animation: pulse 2s infinite ease-in-out;
-}
-
-.status-text {
-    font-size: 9px;
-    font-weight: 700;
-    letter-spacing: 1px;
-    opacity: 0.5;
-}
-
-@keyframes pulse {
-    0% { transform: scale(1); opacity: 0.8; }
-    70% { transform: scale(3.5); opacity: 0; }
-    100% { transform: scale(1); opacity: 0; }
-}
+.status-indicator { display: flex; flex-direction: column; align-items: center; gap: 8px; margin-bottom: 10px; }
+.status-dot { width: 8px; height: 8px; background-color: rgba(255, 255, 255, 0.9); border-radius: 50%; position: relative; box-shadow: 0 0 10px rgba(255, 255, 255, 0.5); }
+.status-dot::after { content: ""; position: absolute; width: 100%; height: 100%; background-color: rgba(255, 255, 255, 0.5); border-radius: 50%; animation: pulse 2s infinite ease-in-out; }
+.status-text { font-size: 9px; font-weight: 700; letter-spacing: 1px; opacity: 0.5; }
+@keyframes pulse { 0% { transform: scale(1); opacity: 0.8; } 70% { transform: scale(3.5); opacity: 0; } 100% { transform: scale(1); opacity: 0; } }
 
 
-/* --- 5. Uniform Glassmorphism Cards --- */
+
+/* --- 5. Cards --- */
 
 .card {
     background: rgba(255, 255, 255, 0.07) !important;
@@ -154,223 +93,119 @@ body {
     transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.card:hover {
-    transform: translateY(-8px);
-    background: rgba(255, 255, 255, 0.12) !important;
-    border-color: rgba(255, 255, 255, 0.25) !important;
-    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
-}
+.card:hover { transform: translateY(-8px); background: rgba(255, 255, 255, 0.12) !important; border-color: rgba(255, 255, 255, 0.25) !important; box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3); }
 
 
-/* --- 6. Hero Section & Actions --- */
 
-.hero-content {
-    display: flex;
-    align-items: center;
-    gap: 30px;
-}
+/* --- 6. Hero & Button Style --- */
 
-.profile-pic {
-    height: 100px;
-    width: 100px;
-    border-radius: 24px; 
-    object-fit: cover;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-}
+.hero-content { display: flex; align-items: center; gap: 30px; }
+.profile-pic { height: 100px; width: 100px; border-radius: 24px; object-fit: cover; border: 1px solid rgba(255, 255, 255, 0.2); }
+.main-name { font-size: 36px; font-weight: 600; margin: 0; letter-spacing: -1.5px; }
+.field-name { font-size: 18px; color: rgba(255, 255, 255, 0.5); margin-top: 4px; }
 
-.main-name {
-    font-size: 36px;
-    font-weight: 600;
-    margin: 0;
-    letter-spacing: -1.5px;
-}
+.hero-actions { margin-top: 25px; }
 
-.field-name {
-    font-size: 18px;
-    color: rgba(255, 255, 255, 0.5);
-    margin-top: 4px;
-}
 
-/* Portfolio Button (Capsule Style) */
-.hero-actions {
-    margin-top: 20px;
-}
-
-.portfolio-btn {
+.view-work-btn {
     display: inline-flex;
     align-items: center;
-    gap: 10px;
-    background: rgba(255, 255, 255, 0.2); 
+    gap: 12px;
+    background: rgba(255, 255, 255, 0.15);
     color: #fff;
     text-decoration: none;
-    padding: 12px 30px;
+    padding: 14px 35px;
     border-radius: 100px;
-    font-weight: 500;
+    font-weight: 600;
     font-size: 15px;
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.25);
     transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
 }
 
-.portfolio-btn:hover {
-    background: rgba(255, 255, 255, 0.3);
+.view-work-btn:hover {
+    background: rgba(255, 255, 255, 0.25);
     transform: translateY(-2px);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-}
-
-.portfolio-btn i {
-    font-size: 12px;
-    transition: transform 0.3s;
-}
-
-.portfolio-btn:hover i {
-    transform: translateX(5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
 }
 
 
-/* --- 7. Now Section Styles --- */
 
-.now-subtitle {
-    font-size: 16px;
-    opacity: 0.8;
-    margin-bottom: 25px;
-}
+/* --- 7. Now Section (Grid Layout) --- */
+
+.now-subtitle { font-size: 15px; opacity: 0.7; margin-bottom: 30px; }
 
 .now-grid {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 25px;
 }
 
 .now-item {
-    display: flex;
+    display: grid;
+    grid-template-columns: 30px 1fr;
     align-items: flex-start;
     gap: 15px;
-    padding-bottom: 15px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-.now-item:last-child {
-    border-bottom: none;
+.now-item:last-child { border-bottom: none; }
+
+.now-icon {
+    display: flex;
+    justify-content: center;
+    margin-top: 2px;
 }
 
-.now-item i {
-    margin-top: 5px;
-    color: rgba(255, 255, 255, 0.6);
-    font-size: 18px;
-}
+.now-icon i { color: rgba(255, 255, 255, 0.8); font-size: 18px; }
 
 .now-category {
     display: block;
-    font-size: 12px;
+    font-size: 11px;
     text-transform: uppercase;
-    letter-spacing: 1px;
-    opacity: 0.5;
-    margin-bottom: 2px;
-}
-
-.now-detail {
-    font-size: 16px;
-    font-weight: 500;
-}
-
-.now-footer {
-    margin-top: 10px;
-    font-size: 12px;
-    opacity: 0.3;
-    font-style: italic;
-}
-
-
-/* --- 8. Common Section Styles --- */
-
-.section-label {
+    letter-spacing: 2px;
     color: rgba(255, 255, 255, 0.4);
-    font-size: 12px;
-    text-transform: uppercase;
-    letter-spacing: 4px;
-    margin-bottom: 20px;
+    margin-bottom: 4px;
+    font-weight: 600;
 }
 
-
-/* --- 9. Skills & Projects (For Work Page) --- */
-
-.skills-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-    gap: 15px;
+.now-text {
+    font-size: 16px;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.9);
+    line-height: 1.5;
 }
 
-.skill-item {
-    background: rgba(255, 255, 255, 0.05);
-    padding: 12px;
-    border-radius: 15px;
-    text-align: center;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.project-image {
-    width: 100%;
-    border-radius: 20px;
-    margin-top: 20px;
-    opacity: 0.9;
-}
+.now-footer { margin-top: 10px; font-size: 12px; opacity: 0.3; font-style: italic; }
 
 
-/* --- 10. Buttons (Contact & GitHub) --- */
-/* Unified Capsule Styling */
 
-.contact-button, .project-link-button {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
+/* --- 8. Others --- */
+
+.section-label { color: rgba(255, 255, 255, 0.4); font-size: 12px; text-transform: uppercase; letter-spacing: 4px; margin-bottom: 20px; }
+
+
+.contact-button {
+    display: inline-flex; align-items: center; gap: 10px;
     background: rgba(255, 255, 255, 0.1) !important;
-    color: #fff !important;
-    text-decoration: none !important;
-    padding: 12px 28px !important;
-    border-radius: 100px !important; /* Capsule shape */
+    color: #fff !important; text-decoration: none !important;
+    padding: 12px 28px !important; border-radius: 100px !important;
     border: 1px solid rgba(255, 255, 255, 0.2) !important;
-    font-size: 14px;
-    font-weight: 500;
-    transition: 0.3s;
-    margin-top: 15px;
+    font-size: 14px; font-weight: 500; transition: 0.3s; margin-top: 15px;
 }
 
-.contact-button:hover, .project-link-button:hover {
-    background: rgba(255, 255, 255, 0.2) !important;
-    transform: translateY(-3px);
-    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-}
+.contact-button:hover { background: rgba(255, 255, 255, 0.2) !important; transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
 
 
-/* --- 11. Footer & Responsive --- */
+.footer { text-align: center; padding: 40px 0; opacity: 0.4; font-size: 13px; }
 
-.footer {
-    text-align: center;
-    padding: 40px 0;
-    opacity: 0.4;
-    font-size: 13px;
-}
+
 
 @media (max-width: 768px) {
     .container { padding: 60px 20px; }
-    
-    .navbar {
-        left: 50%; top: auto; bottom: 20px;
-        transform: translateX(-50%);
-        flex-direction: row; 
-        height: auto; width: auto;
-        padding: 15px 30px; 
-        border-radius: 50px;
-        opacity: 0.9;
-    }
-    
-    .page-links {
-        flex-direction: row;
-        gap: 30px;
-    }
-    
+    .navbar { left: 50%; top: auto; bottom: 20px; transform: translateX(-50%); flex-direction: row; min-height: auto; width: auto; padding: 15px 30px; border-radius: 50px; opacity: 0.9; }
+    .page-links { flex-direction: row; gap: 30px; }
     .hero-content { flex-direction: column; text-align: center; }
-    
-    .hero-actions { display: flex; justify-content: center; }
+    .hero-actions { justify-content: center; }
 }
