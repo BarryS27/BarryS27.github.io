@@ -2,9 +2,7 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
 
-
 html { scroll-behavior: smooth; }
-
 
 body {
     background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
@@ -20,7 +18,6 @@ body {
 ::selection { background-color: rgba(255, 255, 255, 0.2); text-shadow: 0 0 15px rgba(255, 255, 255, 0.4); }
 
 
-
 /* --- 2. Main Layout --- */
 
 .container {
@@ -28,7 +25,6 @@ body {
     max-width: 1000px; margin: 0 auto;
     padding: 80px 20px; gap: 40px;
 }
-
 
 
 /* --- 3. Navbar --- */
@@ -42,6 +38,7 @@ body {
     gap: 40px;
     
     width: 65px;
+    /* Height changed to auto/min-height to prevent cutting off icons */
     height: auto; 
     min-height: 400px; 
     padding: 50px 0;
@@ -70,7 +67,6 @@ body {
 .page-links a:hover { color: #fff; transform: scale(1.2); }
 
 
-
 /* --- 4. Status Indicator --- */
 
 .status-indicator { display: flex; flex-direction: column; align-items: center; gap: 8px; margin-bottom: 10px; }
@@ -78,7 +74,6 @@ body {
 .status-dot::after { content: ""; position: absolute; width: 100%; height: 100%; background-color: rgba(255, 255, 255, 0.5); border-radius: 50%; animation: pulse 2s infinite ease-in-out; }
 .status-text { font-size: 9px; font-weight: 700; letter-spacing: 1px; opacity: 0.5; }
 @keyframes pulse { 0% { transform: scale(1); opacity: 0.8; } 70% { transform: scale(3.5); opacity: 0; } 100% { transform: scale(1); opacity: 0; } }
-
 
 
 /* --- 5. Cards --- */
@@ -96,7 +91,6 @@ body {
 .card:hover { transform: translateY(-8px); background: rgba(255, 255, 255, 0.12) !important; border-color: rgba(255, 255, 255, 0.25) !important; box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3); }
 
 
-
 /* --- 6. Hero & Button Style --- */
 
 .hero-content { display: flex; align-items: center; gap: 30px; }
@@ -105,7 +99,6 @@ body {
 .field-name { font-size: 18px; color: rgba(255, 255, 255, 0.5); margin-top: 4px; }
 
 .hero-actions { margin-top: 25px; }
-
 
 .view-work-btn {
     display: inline-flex;
@@ -128,7 +121,6 @@ body {
     transform: translateY(-2px);
     box-shadow: 0 10px 25px rgba(0,0,0,0.15);
 }
-
 
 
 /* --- 7. Now Section (Grid Layout) --- */
@@ -180,13 +172,36 @@ body {
 .now-footer { margin-top: 10px; font-size: 12px; opacity: 0.3; font-style: italic; }
 
 
+/* --- 8. Work Page Elements (Missing in your code) --- */
 
-/* --- 8. Others --- */
+/* Skills Grid */
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 15px;
+}
 
-.section-label { color: rgba(255, 255, 255, 0.4); font-size: 12px; text-transform: uppercase; letter-spacing: 4px; margin-bottom: 20px; }
+.skill-item {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 12px;
+    border-radius: 15px;
+    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Project Image */
+.project-image {
+    width: 100%;
+    border-radius: 20px;
+    margin-top: 20px;
+    opacity: 0.9;
+}
 
 
-.contact-button {
+/* --- 9. Buttons (Contact & Project Link) --- */
+
+/* 这里把 .project-link-button 加进来了，确保 GitHub 按钮是椭圆的 */
+.contact-button, .project-link-button {
     display: inline-flex; align-items: center; gap: 10px;
     background: rgba(255, 255, 255, 0.1) !important;
     color: #fff !important; text-decoration: none !important;
@@ -195,12 +210,18 @@ body {
     font-size: 14px; font-weight: 500; transition: 0.3s; margin-top: 15px;
 }
 
-.contact-button:hover { background: rgba(255, 255, 255, 0.2) !important; transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
+.contact-button:hover, .project-link-button:hover { 
+    background: rgba(255, 255, 255, 0.2) !important; 
+    transform: translateY(-3px); 
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2); 
+}
 
+
+/* --- 10. Others & Responsive --- */
+
+.section-label { color: rgba(255, 255, 255, 0.4); font-size: 12px; text-transform: uppercase; letter-spacing: 4px; margin-bottom: 20px; }
 
 .footer { text-align: center; padding: 40px 0; opacity: 0.4; font-size: 13px; }
-
-
 
 @media (max-width: 768px) {
     .container { padding: 60px 20px; }
@@ -208,4 +229,19 @@ body {
     .page-links { flex-direction: row; gap: 30px; }
     .hero-content { flex-direction: column; text-align: center; }
     .hero-actions { justify-content: center; }
+}
+
+
+/* --- 11. Initialization States (Anti-Flash) --- */
+
+.hero-content, 
+.card, 
+.section-label,
+.footer {
+    opacity: 0;
+    transform: translateY(20px); 
+}
+
+.navbar {
+    transform: translateX(-100px);
 }
