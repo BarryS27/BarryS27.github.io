@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Page Not Found" />
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico" />
+    
+    <title>404 | Not Found</title>
+
+    <style>
+        .full-screen-center {
+            min-height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+        }
+
+        .error-card {
+            text-align: center;
+            max-width: 600px;
+            width: 100%;
+            padding: 60px 40px !important;
+        }
+
+        .terminal-text {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 32px;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 20px;
+            min-height: 40px;
+        }
+
+        .sub-message {
+            font-size: 16px;
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 40px;
+            opacity: 0;
+            transition: opacity 1s ease;
+        }
+
+        .cursor {
+            display: inline-block;
+            width: 10px;
+            background-color: #fff;
+            animation: blink 1s step-end infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        .home-btn {
+            opacity: 0; /* 初始隐藏 */
+            transform: translateY(20px);
+            transition: all 0.5s ease;
+        }
+        
+        .visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container full-screen-center">
+        <header class="card error-card">
+            <div class="hero-content" style="display: block;">
+                <i class="fa-solid fa-robot" style="font-size: 48px; color: rgba(255,255,255,0.3); margin-bottom: 20px;"></i>
+                
+                <div class="terminal-text">
+                    <span id="typewriter"></span><span class="cursor">&nbsp;</span>
+                </div>
+
+                <p class="sub-message" id="sub-msg">
+                    Seems like you've ventured into the void. <br>
+                    Let's get you back to safety.
+                </p>
+                
+                <div class="hero-actions home-btn" id="action-btn">
+                    <a href="index.html" class="view-work-btn">
+                        <i class="fa-solid fa-house"></i> Return Home
+                    </a>
+                </div>
+            </div>
+        </header>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const textToType = "404: PAGE NOT FOUND";
+            const typeWriterElement = document.getElementById('typewriter');
+            const subMsg = document.getElementById('sub-msg');
+            const actionBtn = document.getElementById('action-btn');
+            
+            let i = 0;
+            const typingSpeed = 100;
+
+            function typeWriter() {
+                if (i < textToType.length) {
+                    typeWriterElement.innerHTML += textToType.charAt(i);
+                    i++;
+                    setTimeout(typeWriter, typingSpeed);
+                } else {
+                    setTimeout(() => {
+                        subMsg.style.opacity = '1';
+                        actionBtn.classList.add('visible');
+                    }, 500);
+                }
+            }
+
+            setTimeout(typeWriter, 500);
+        });
+    </script>
+
+</body>
+</html>
