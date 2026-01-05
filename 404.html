@@ -49,13 +49,22 @@
         .cursor {
             display: inline-block;
             width: 10px;
-            background-color: #fff;
-            animation: blink 1s step-end infinite;
+            height: 1em;
+            vertical-align: middle;
+            background-color: rgba(52, 199, 89, 1);
+            box-shadow: 0 0 8px rgba(52, 199, 89, 0.8);
+            animation: breathe 1.2s ease-in-out infinite;
         }
 
         @keyframes blink {
             0%, 100% { opacity: 1; }
             50% { opacity: 0; }
+        }
+
+        #action-btn {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease;
         }
         
         .visible {
