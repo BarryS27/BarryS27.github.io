@@ -27,9 +27,6 @@ body {
     padding: 80px 20px; gap: 40px;
 }
 
-
-/* --- Common ---*/
-
 .timestamp { margin-top: 10px; font-size: 12px; opacity: 0.3; font-style: italic; }
 
 .card {
@@ -256,4 +253,4 @@ body {
     .page-links { flex-direction: row; gap: 30px; }
     .hero-content { flex-direction: column; text-align: center; }
     .hero-actions { justify-content: center; }
-}
+		}
