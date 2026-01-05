@@ -5,18 +5,18 @@
 html { scroll-behavior: smooth; }
 
 body {
-  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
-              url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&q=80&w=2070') 
-              no-repeat center center fixed;
-  background-size: cover;
-  margin: 0;
-  padding: 0;
-  font-family: "Inter", sans-serif;
-  color: rgba(255, 255, 255, 0.9);
-  line-height: 1.6;
-  overflow-x: hidden;
-  font-size: 16px;
-  font-weight: 400;
+	background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
+				url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&q=80&w=2070') 
+				no-repeat center center fixed;
+	background-size: cover;
+	margin: 0;
+	padding: 0;
+	font-family: "Inter", sans-serif;
+	color: rgba(255, 255, 255, 0.9);
+	line-height: 1.6;
+	overflow-x: hidden;
+	font-size: 16px;
+	font-weight: 400;
 }
 
 ::selection { background-color: rgba(255, 255, 255, 0.2); text-shadow: 0 0 15px rgba(255, 255, 255, 0.4); }
@@ -110,7 +110,15 @@ body {
 /* --- Hero --- */
 
 .hero-content { display: flex; align-items: center; gap: 30px; }
-.profile-pic { height: 100px; width: 100px; border-radius: 24px; object-fit: cover; border: 1px solid rgba(255, 255, 255, 0.2); }
+.profile-pic { 
+    height: 180px;
+    width: 180px;
+    border-radius: 30px;
+    object-fit: cover; 
+    border: 1px solid rgba(255, 255, 255, 0.2); 
+    flex-shrink: 0;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+}
 .main-name { font-size: 36px; font-weight: 600; margin: 0; letter-spacing: -1.5px; }
 .field-name { font-size: 18px; color: rgba(255, 255, 255, 0.5); margin-top: 4px; }
 
@@ -253,4 +261,5 @@ body {
     .page-links { flex-direction: row; gap: 30px; }
     .hero-content { flex-direction: column; text-align: center; }
     .hero-actions { justify-content: center; }
-		}
+	.profile-pic { width: 150px; height: 150px; margin-bottom: 15px; }
+}
