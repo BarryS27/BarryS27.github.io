@@ -8,7 +8,7 @@ body {
   margin: 0;
   padding: 0;
   font-family: "Inter", sans-serif;
-  color: rgba(255, 255, 255, 0.9);
+  color: rgba(255, 255, 255, 0.95);
   line-height: 1.6;
   overflow-x: hidden;
   font-size: 16px;
@@ -20,24 +20,21 @@ body {
 body::before {
     content: "";
     position: fixed;
-    top: 0; 
-    left: 0; 
-    width: 100%; 
-    height: 100%;
-    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), 
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), 
                 url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&q=80&w=2070') 
                 no-repeat center center fixed;
     background-size: cover;
-    filter: blur(12px); 
+    filter: blur(15px);
     transform: scale(1.1); 
-    z-index: -1;
+    z-index: -1; 
 }
 
 ::selection { background-color: rgba(255, 255, 255, 0.2); text-shadow: 0 0 15px rgba(255, 255, 255, 0.4); }
 
 .container {
     display: flex; flex-direction: column;
-    max-width: 1000px; margin: 0 auto;
+    max-width: 900px; margin: 0 auto;
     padding: 80px 20px; gap: 40px;
 }
 
@@ -49,17 +46,19 @@ body::before {
     font-weight: 600;
     color: #FFD700;
     letter-spacing: 0.5px;
-    text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.4);
 }
 
 .card {
-    background: rgba(255, 255, 255, 0.07) !important;
-    backdrop-filter: blur(20px) !important;
-    -webkit-backdrop-filter: blur(20px) !important;
-    border: 1px solid rgba(255, 255, 255, 0.1) !important;
-    border-radius: 32px !important;
+    background: rgba(255, 255, 255, 0.03) !important;
+    backdrop-filter: blur(25px) !important;
+    -webkit-backdrop-filter: blur(30px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.15) !important;
+    border-radius: 24px !important;
     padding: 40px !important;
-    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: all 0.4s ease;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
 
 .card:hover { transform: translateY(-8px); background: rgba(255, 255, 255, 0.12) !important; border-color: rgba(255, 255, 255, 0.25) !important; box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3); }
@@ -93,28 +92,30 @@ body::before {
 /* --- Navbar --- */
 
 .navbar {
-    position: fixed; left: 0; top: 50%;
+    position: fixed; left: 30px; top: 50%;
     transform: translateY(-50%) translateX(-75%);
     z-index: 9999;
     
     display: flex; flex-direction: column; align-items: center;
-    gap: 40px;
+    gap: 35px;
     
-    width: 65px;
+    width: 60px;
     height: auto; 
     min-height: 400px; 
-    padding: 50px 0;
+    padding: 30px 0;
     
-    border-radius: 0 30px 30px 0;
-    background: rgba(255, 255, 255, 0.08);
-    backdrop-filter: blur(25px);
-    -webkit-backdrop-filter: blur(25px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    opacity: 0.3;
-    transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    border-radius: 20px;
+    background: rgba(0, 0, 0, 0.2); 
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
-.navbar:hover { opacity: 1; transform: translateY(-50%) translateX(0); background: rgba(255, 255, 255, 0.15); }
+.navbar:hover {
+	background: rgba(0, 0, 0, 0.4); 
+    border-color: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
 
 .page-links {
     display: flex; flex-direction: column; align-items: center;
@@ -225,7 +226,7 @@ body::before {
 }
 
 .status-text {
-  font-size: 10px;
+  font-size: 9px;
   font-weight: 700;
   letter-spacing: 2px;
   opacity: 0.7;
@@ -277,8 +278,17 @@ body::before {
 
 @media (max-width: 768px) {
     .container { padding: 60px 20px; }
-    .navbar { left: 50%; top: auto; bottom: 20px; transform: translateX(-50%); flex-direction: row; min-height: auto; width: auto; padding: 15px 30px; border-radius: 50px; opacity: 0.9; }
+    .navbar { 
+        left: 50%; top: auto; bottom: 30px; 
+        transform: translateX(-50%); 
+        flex-direction: row; 
+        width: auto; height: auto; 
+        padding: 15px 30px; 
+        background: rgba(0, 0, 0, 0.6);
+        backdrop-filter: blur(20px);
+    }
 	.status-indicator { top: 20px; left: 20px; }
+	.status-text { display: none; }
     .page-links { flex-direction: row; gap: 30px; }
     .hero-content { flex-direction: column; text-align: center; }
     .hero-actions { justify-content: center; }
