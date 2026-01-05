@@ -1,24 +1,25 @@
-/* --- 1. Global Initialization --- */
+/* --- Global Initialization --- */
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
 
 html { scroll-behavior: smooth; }
 
 body {
-    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
-                url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&q=80&w=2070') no-repeat center center fixed;
-    background-size: cover;
-    margin: 0; padding: 0;
-    font-family: "Inter", sans-serif;
-    color: #fff;
-    line-height: 1.6;
-    overflow-x: hidden;
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
+              url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&q=80&w=2070') 
+              no-repeat center center fixed;
+  background-size: cover;
+  margin: 0;
+  padding: 0;
+  font-family: "Inter", sans-serif;
+  color: rgba(255, 255, 255, 0.9);
+  line-height: 1.6;
+  overflow-x: hidden;
+  font-size: 16px;
+  font-weight: 400;
 }
 
 ::selection { background-color: rgba(255, 255, 255, 0.2); text-shadow: 0 0 15px rgba(255, 255, 255, 0.4); }
-
-
-/* --- 2. Main Layout --- */
 
 .container {
     display: flex; flex-direction: column;
@@ -27,7 +28,49 @@ body {
 }
 
 
-/* --- 3. Navbar --- */
+/* --- Common ---*/
+
+.timestamp { margin-top: 10px; font-size: 12px; opacity: 0.3; font-style: italic; }
+
+.card {
+    background: rgba(255, 255, 255, 0.07) !important;
+    backdrop-filter: blur(20px) !important;
+    -webkit-backdrop-filter: blur(20px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 32px !important;
+    padding: 40px !important;
+    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.card:hover { transform: translateY(-8px); background: rgba(255, 255, 255, 0.12) !important; border-color: rgba(255, 255, 255, 0.25) !important; box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3); }
+
+
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(255, 255, 255, 0.15) !important;
+  color: #fff !important;
+  text-decoration: none !important;
+  padding: 14px 32px !important;
+  border-radius: 100px !important;
+  border: 1px solid rgba(255, 255, 255, 0.25) !important;
+  font-size: 15px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  margin-top: 15px;
+}
+
+.button:hover {
+  background: rgba(255, 255, 255, 0.25) !important;
+  transform: translateY(-2.5px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+
+
+/* --- Navbar --- */
 
 .navbar {
     position: fixed; left: 0; top: 50%;
@@ -38,7 +81,6 @@ body {
     gap: 40px;
     
     width: 65px;
-    /* Height changed to auto/min-height to prevent cutting off icons */
     height: auto; 
     min-height: 400px; 
     padding: 50px 0;
@@ -67,31 +109,8 @@ body {
 .page-links a:hover { color: #fff; transform: scale(1.2); }
 
 
-/* --- 4. Status Indicator --- */
 
-.status-indicator { display: flex; flex-direction: column; align-items: center; gap: 8px; margin-bottom: 10px; }
-.status-dot { width: 8px; height: 8px; background-color: rgba(255, 255, 255, 0.9); border-radius: 50%; position: relative; box-shadow: 0 0 10px rgba(255, 255, 255, 0.5); }
-.status-dot::after { content: ""; position: absolute; width: 100%; height: 100%; background-color: rgba(255, 255, 255, 0.5); border-radius: 50%; animation: pulse 2s infinite ease-in-out; }
-.status-text { font-size: 9px; font-weight: 700; letter-spacing: 1px; opacity: 0.5; }
-@keyframes pulse { 0% { transform: scale(1); opacity: 0.8; } 70% { transform: scale(3.5); opacity: 0; } 100% { transform: scale(1); opacity: 0; } }
-
-
-/* --- 5. Cards --- */
-
-.card {
-    background: rgba(255, 255, 255, 0.07) !important;
-    backdrop-filter: blur(20px) !important;
-    -webkit-backdrop-filter: blur(20px) !important;
-    border: 1px solid rgba(255, 255, 255, 0.1) !important;
-    border-radius: 32px !important;
-    padding: 40px !important;
-    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.card:hover { transform: translateY(-8px); background: rgba(255, 255, 255, 0.12) !important; border-color: rgba(255, 255, 255, 0.25) !important; box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3); }
-
-
-/* --- 6. Hero & Button Style --- */
+/* --- Hero --- */
 
 .hero-content { display: flex; align-items: center; gap: 30px; }
 .profile-pic { height: 100px; width: 100px; border-radius: 24px; object-fit: cover; border: 1px solid rgba(255, 255, 255, 0.2); }
@@ -100,30 +119,9 @@ body {
 
 .hero-actions { margin-top: 25px; }
 
-.view-work-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 12px;
-    background: rgba(255, 255, 255, 0.15);
-    color: #fff;
-    text-decoration: none;
-    padding: 14px 35px;
-    border-radius: 100px;
-    font-weight: 600;
-    font-size: 15px;
-    border: 1px solid rgba(255, 255, 255, 0.25);
-    transition: all 0.3s ease;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-}
-
-.view-work-btn:hover {
-    background: rgba(255, 255, 255, 0.25);
-    transform: translateY(-2px);
-    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-}
 
 
-/* --- 7. Now Section (Grid Layout) --- */
+/* --- Now Section --- */
 
 .now-subtitle { font-size: 15px; opacity: 0.7; margin-bottom: 30px; }
 
@@ -162,19 +160,63 @@ body {
     font-weight: 600;
 }
 
-.now-text {
-    font-size: 16px;
-    font-weight: 400;
-    color: rgba(255, 255, 255, 0.9);
-    line-height: 1.5;
+
+
+/* --- Status Indicator --- */
+
+.status-indicator {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
 }
 
-.now-footer { margin-top: 10px; font-size: 12px; opacity: 0.3; font-style: italic; }
+.status-dot {
+  width: 8px;
+  height: 8px;
+  background-color: rgba(52, 199, 89, 0.9);
+  border-radius: 50%;
+  position: relative;
+  box-shadow: 0 0 10px rgba(52, 199, 89, 0.5);
+}
+
+.status-dot::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(52, 199, 89, 0.5);
+  border-radius: 50%;
+  animation: pulse 2s infinite ease-in-out;
+}
+
+.status-text {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  opacity: 0.5;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  70% {
+    transform: scale(3.5);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0;
+  }
+}
 
 
-/* --- 8. Work Page Elements (Missing in your code) --- */
 
-/* Skills Grid */
+/* ------ work.html ------ */
+
 .skills-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
@@ -189,7 +231,10 @@ body {
     border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
+
+
 /* Project Image */
+
 .project-image {
     width: 100%;
     border-radius: 20px;
@@ -198,26 +243,8 @@ body {
 }
 
 
-/* --- 9. Buttons (Contact & Project Link) --- */
 
-/* 这里把 .project-link-button 加进来了，确保 GitHub 按钮是椭圆的 */
-.contact-button, .project-link-button {
-    display: inline-flex; align-items: center; gap: 10px;
-    background: rgba(255, 255, 255, 0.1) !important;
-    color: #fff !important; text-decoration: none !important;
-    padding: 12px 28px !important; border-radius: 100px !important;
-    border: 1px solid rgba(255, 255, 255, 0.2) !important;
-    font-size: 14px; font-weight: 500; transition: 0.3s; margin-top: 15px;
-}
-
-.contact-button:hover, .project-link-button:hover { 
-    background: rgba(255, 255, 255, 0.2) !important; 
-    transform: translateY(-3px); 
-    box-shadow: 0 10px 20px rgba(0,0,0,0.2); 
-}
-
-
-/* --- 10. Others & Responsive --- */
+/* --- Responsive --- */
 
 .section-label { color: rgba(255, 255, 255, 0.4); font-size: 12px; text-transform: uppercase; letter-spacing: 4px; margin-bottom: 20px; }
 
