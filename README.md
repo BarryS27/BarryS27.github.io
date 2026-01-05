@@ -1,7 +1,7 @@
 # Barry Song | Personal Portfolio
 
 ![Website Status](https://img.shields.io/website?url=https%3A%2F%2Fbarrys27.github.io)
-![License]()
+![License](https://img.shields.io/github/license/barrys27/barrys27.github.io)
 ![Top Language](https://img.shields.io/github/languages/top/barrys27/barrys27.github.io)
 
 Welcome to the repository of my personal portfolio website. This site serves as a central hub to showcase my academic projects, technical skills, and writing. It is designed with a modern **Glassmorphism** aesthetic and hosted on **GitHub Pages**.
