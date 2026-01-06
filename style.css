@@ -44,42 +44,60 @@ body::before {
     font-family: 'Playfair Display', serif;
     font-style: italic;
     font-weight: 600;
-    color: #FFD700;
     letter-spacing: 0.5px;
-    text-shadow: 0 0 10px rgba(255, 215, 0, 0.4);
+	background: linear-gradient(
+        135deg, 
+        #F3E5AB 0%, 
+        #FFF8DC 50%, 
+        #DAC080 100%
+    );
+	-webkit-background-clip: text;
+    background-clip: text;
+	color: transparent;
+	text-shadow: 0 2px 5px rgba(0,0,0,0.2), 0 0 15px rgba(243, 229, 171, 0.3);
 }
 
 .card {
     background: rgba(255, 255, 255, 0.03) !important;
     backdrop-filter: blur(25px) !important;
     -webkit-backdrop-filter: blur(30px) !important;
-    border: 1px solid rgba(255, 255, 255, 0.08) !important;
-    border-top: 1px solid rgba(255, 255, 255, 0.15) !important;
     border-radius: 24px !important;
     padding: 40px !important;
     transition: all 0.4s ease;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+	border: 1px solid rgba(255, 255, 255, 0.08) !important;
+	box-shadow: 
+        -1px -1px 0px 0px rgba(52, 199, 89, 0.5),
+        inset 1px 1px 0px 0px rgba(255, 255, 255, 0.1),
+        0 20px 40px rgba(0, 0, 0, 0.2);
 }
 
-.card:hover { transform: translateY(-8px); background: rgba(255, 255, 255, 0.12) !important; border-color: rgba(255, 255, 255, 0.25) !important; box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3); }
+.card:hover {
+    transform: translateY(-5px);
+    background: rgba(255, 255, 255, 0.06) !important;
+    
+    box-shadow: 
+        -1px -1px 4px 0px rgba(52, 199, 89, 0.8), 
+        inset 1px 1px 0px 0px rgba(255, 255, 255, 0.2),
+        0 30px 60px rgba(0, 0, 0, 0.4);
+}
 
 
 
 .button {
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
-  background: rgba(255, 255, 255, 0.15) !important;
-  color: #fff !important;
-  text-decoration: none !important;
-  padding: 14px 32px !important;
-  border-radius: 100px !important;
-  border: 1px solid rgba(255, 255, 255, 0.25) !important;
-  font-size: 15px;
-  font-weight: 600;
-  transition: all 0.3s ease;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-  margin-top: 15px;
+	display: inline-flex;
+	align-items: center;
+	gap: 12px;
+	background: rgba(255, 255, 255, 0.15) !important;
+	color: #fff !important;
+	text-decoration: none !important;
+	padding: 14px 32px !important;
+	border-radius: 100px !important;
+	border: 1px solid rgba(255, 255, 255, 0.25) !important;
+	font-size: 15px;
+	font-weight: 600;
+	transition: all 0.3s ease;
+	box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+	margin-top: 15px;
 }
 
 .button:hover {
@@ -269,15 +287,19 @@ body::before {
 .footer { text-align: center; padding: 40px 0; opacity: 0.4; font-size: 13px; }
 
 @media (max-width: 768px) {
-    .container { padding: 60px 20px; }
+    .container { padding-bottom: 120px; }
     .navbar { 
-        left: 50%; top: auto; bottom: 30px; 
+        left: 50%; top: auto;
+		bottom: calc(20px + env(safe-area-inset-bottom));
         transform: translateX(-50%); 
         flex-direction: row; 
         width: auto; height: auto; 
         padding: 15px 30px; 
-        background: rgba(0, 0, 0, 0.6);
+        background: rgba(0, 0, 0, 0.7);
         backdrop-filter: blur(20px);
+		border: 1px solid rgba(255,255,255,0.1);
+        border-radius: 50px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.3);
     }
 	.status-indicator { top: 20px; left: 20px; }
 	.status-text { display: none; }
