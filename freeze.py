@@ -3,7 +3,7 @@ import sass
 from flask_frozen import Freezer
 from app import app
 
-def compile_scss()
+def compile_scss():
     scss_file = os.path.join('static', 'styles.scss')
     css_file = os.path.join('static', 'styles.css')  
     
