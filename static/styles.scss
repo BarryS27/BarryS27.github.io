@@ -37,18 +37,25 @@ $font-serif: 'Playfair Display', serif;
    2. Mixins (Reusable Tools)
    ========================================= */
 
-// --- VisionOS Crystal Glass Material ---
-@mixin glass-material($blur: 25px, $opacity: 0.05, $border-color: rgba(255, 255, 255, 0.12)) {
-    background: rgba(255, 255, 255, $opacity) !important;
-    backdrop-filter: blur($blur) saturate(180%) !important;
-    -webkit-backdrop-filter: blur($blur) saturate(180%) !important;
+// --- Glassmorphism ---
+@mixin glass-material($blur: 40px, $opacity: 0.03) {
+    background: linear-gradient(
+        145deg, 
+        rgba(255, 255, 255, 0.08) 0%,
+        rgba(255, 255, 255, 0.01) 100%
+    ) !important;
+
+    backdrop-filter: blur($blur) saturate(200%) brightness(1.1) !important;
+    -webkit-backdrop-filter: blur($blur) saturate(200%) brightness(1.1) !important;
     
-    // Glass edge highlights (Top and Left are brighter to simulate light source)
-    border: 1px solid $border-color !important;
-    border-top: 1px solid lighten($border-color, 10%) !important;
-    border-left: 1px solid lighten($border-color, 10%) !important;
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.4) !important;
+    border-left: 1px solid rgba(255, 255, 255, 0.3) !important;
     
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+    box-shadow: 
+        0 20px 40px rgba(0, 0, 0, 0.4),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.05),
+        inset 0 0 20px rgba(255, 255, 255, 0.02) !important;
 }
 
 // --- Flexbox Utility ---
@@ -146,55 +153,44 @@ body {
    ========================================= */
 
 // --- Static Content Card ---
-// Used for "About" or "Now" sections. Solid, grounded, no movement.
 .card {
-    @include glass-material;
+    @include glass-material(40px, 0.03);
     border-radius: $radius-card !important;
     padding: 40px !important;
     
-    // Physics: Only allow color transitions, strictly no movement (transform).
-    transition: background-color 0.2s ease, border-color 0.2s ease;
-    transform: none !important; 
     position: relative;
-
-    // Hover: Only subtle lighting change
-    @media (hover: hover) {
-        &:hover {
-            background: rgba(255, 255, 255, 0.08) !important;
-            border-color: rgba(255, 255, 255, 0.25) !important;
-            transform: none !important;
-        }
-    }
+    overflow: hidden;
 }
 
 // --- Interactive Card ---
-
 .interactive-card {
     cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
 
+    
     @media (hover: hover) {
         &:hover {
-            // Hover: Glows with the Lavender theme color
-            background: $color-interactive-glow !important;
-            border-color: rgba($color-interactive, 0.3) !important;
+            background: linear-gradient(
+                145deg, 
+                rgba($color-interactive, 0.15) 0%, 
+                rgba(255, 255, 255, 0.05) 100%
+            ) !important;
+            
+            border-color: rgba($color-interactive, 0.5) !important;
+            border-top-color: rgba($color-interactive, 0.8) !important;
+            
+            box-shadow: 
+                0 30px 60px rgba(0, 0, 0, 0.5),
+                inset 0 0 0 1px rgba($color-interactive, 0.2),
+                inset 0 0 30px rgba($color-interactive, 0.1) !important;
+                
+            transform: translateY(-4px) !important;
         }
     }
 
-    // Active (Click): System-style highlight (instant brighten)
     &:active {
-        background: rgba(255, 255, 255, 0.18) !important;
-        transform: none !important; // No bounce, strictly stable
-    }
-
-    // Hack: Makes the entire card clickable if it contains an <a> tag
-    a {
-        position: static;
-        &::after {
-            content: "";
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            z-index: 1;
-        }
+        transform: scale(0.98) translateY(0) !important;
+        background: rgba(255, 255, 255, 0.1) !important;
     }
 }
 
@@ -268,7 +264,7 @@ body {
 
 // 2. Status Indicator
 .pill {
-    @include glass-material(20px, 0.1, rgba(255, 255, 255, 0.15));
+    @include glass-material(30px, 0.05);
     border-radius: 100px;
     padding: 8px 16px;
     display: flex; align-items: center; gap: 10px;
@@ -297,7 +293,7 @@ body {
 
 // 3. Navbar
 .menu {
-    @include glass-material(25px, 0.15, rgba(255, 255, 255, 0.15));
+    @include glass-material(40px, 0.02);
     border-radius: 16px;
     padding: 15px;
     
