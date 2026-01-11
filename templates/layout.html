@@ -27,12 +27,15 @@
             </div>
             
             <div class="page-links">
-                <a href="{{ url_for('index') }}" title="Home">
-                    <i class="fa-solid fa-house"></i>
-                </a>
-                <a href="{{ url_for('work') }}" title="My Work">
-                    <i class="fa-solid fa-briefcase"></i>
-                </a>
+                {% if active_page == 'work' %}
+                    <a href="{{ url_for('index') }}" title="Back to Home">
+                        <i class="fa-solid fa-house"></i>
+                    </a>
+                {% else %}
+                    <a href="{{ url_for('work') }}" title="View My Work">
+                        <i class="fa-solid fa-briefcase"></i>
+                    </a>
+                {% endif %}
                 <a href="https://github.com/BarryS27" target="_blank" rel="noopener noreferrer">
 					          <i class="fa-brands fa-github"></i>
 				</a>
