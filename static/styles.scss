@@ -38,8 +38,6 @@ $font-serif: 'Playfair Display', serif;
    ========================================= */
 
 // --- VisionOS Crystal Glass Material ---
-// Creates a frosted glass effect with high transparency and blur.
-// $blur: Blur intensity, $opacity: Background opacity
 @mixin glass-material($blur: 25px, $opacity: 0.05, $border-color: rgba(255, 255, 255, 0.12)) {
     background: rgba(255, 255, 255, $opacity) !important;
     backdrop-filter: blur($blur) saturate(180%) !important;
@@ -103,7 +101,7 @@ body {
     position: relative;
     min-height: 100vh;
     background-color: $color-bg;
-    -webkit-overflow-scrolling: touch; // Smooth scrolling on iOS
+    -webkit-overflow-scrolling: touch;
 
     // Selection color matches the interactive theme
     &::selection {
@@ -170,8 +168,7 @@ body {
 }
 
 // --- Interactive Card ---
-// Used for "Work" or projects. Adds click feedback.
-// MUST add class="interactive-card" in HTML.
+
 .interactive-card {
     cursor: pointer;
 
@@ -242,7 +239,7 @@ body {
     filter: drop-shadow(0 0 10px rgba(243, 229, 171, 0.2));
 }
 
-// --- Dynamic Island (灵动岛导航) ---
+// --- Dynamic Island ---
 
 // Island
 .island {
@@ -423,24 +420,72 @@ body {
 }
 
 
-// --- Work Section ---
+// --- Work Section (Skills & Projects) ---
+
 .skills-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-    gap: 15px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 15px;
 }
+
 .skill-item {
-    background: rgba(255, 255, 255, 0.05);
-    padding: 12px;
-    border-radius: 15px;
-    text-align: center;
+    background: rgba(255, 255, 255, 0.03); 
     border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 100px;
+    
+    padding: 8px 18px;
+    font-size: 13px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.7);
+    letter-spacing: 0.5px;
+    
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    
+    cursor: default;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    
+    i { 
+        font-size: 14px; 
+        opacity: 0.8;
+    }
+
+    &:hover {
+        background: rgba($color-interactive, 0.15);
+        border-color: rgba($color-interactive, 0.4);
+        color: #fff;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        
+        i { opacity: 1; color: $color-interactive; }
+    }
 }
+
 .project-image {
     width: 100%;
     border-radius: 20px;
     margin-top: 20px;
     opacity: 0.9;
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+.project-header {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    
+    .project-title {
+        margin: 5px 0;
+        font-size: 22px;
+        font-weight: 600;
+        
+        a:hover {
+            color: $color-interactive !important;
+            transition: color 0.2s ease;
+        }
+    }
 }
 
 
