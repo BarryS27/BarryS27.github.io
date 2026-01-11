@@ -26,11 +26,11 @@ body::before {
         linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
         
         image-set(
-            url('https://images.unsplash.com/photo-1513061379709-ef0cd1695189?auto=format&fit=crop&q=75&blur=100&fm=webp&w=600') 600w,
+            url('unsplash.jpg') 600w,
 
-            url('https://images.unsplash.com/photo-1513061379709-ef0cd1695189?auto=format&fit=crop&q=75&blur=100&fm=webp&w=1200') 1200w,
+            url('unsplash.jpg') 1200w,
 
-            url('https://images.unsplash.com/photo-1513061379709-ef0cd1695189?auto=format&fit=crop&q=75&blur=100&fm=webp&w=2070') 2070w
+            url('unsplash.jpg') 2070w
         );
 
     background-repeat: no-repeat;
