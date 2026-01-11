@@ -21,17 +21,11 @@ body::before {
     content: "";
     position: fixed;
     top: 0; left: 0; width: 100%; height: 100%;
+	background-color: #111;
     
     background-image: 
         linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
-        
-        image-set(
-            url('unsplash.jpg') 600w,
-
-            url('unsplash.jpg') 1200w,
-
-            url('unsplash.jpg') 2070w
-        );
+        url('unsplash.jpg');
 
     background-repeat: no-repeat;
     background-position: center center;
