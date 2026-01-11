@@ -38,7 +38,7 @@
             </a>
         </div>
         <div>
-            <img class="project-image" src="/static/images/project-preview.jpg" alt="System Interface Preview" onerror="this.style.display='none'"/>
+            <img class="project-image" src="{{ url_for('static', filename='images/project-preview.jpg') }}" alt="System Interface Preview" onerror="this.style.display='none'"/>
         </div>
     </section>
 {% endblock %}
