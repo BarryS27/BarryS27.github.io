@@ -20,40 +20,46 @@
 
     <body>
 
-        <nav class="navbar">
-            <div class="status-indicator">
-                <span class="status-dot"></span>
-                <span class="status-text">LIVE</span>
-            </div>
+        <div class="island" id="island">
             
-            <div class="page-links">
-                {% if active_page == 'work' %}
-                    <a href="{{ url_for('index') }}" title="Back to Home">
-                        <i class="fa-solid fa-house"></i>
-                    </a>
-                {% else %}
-                    <a href="{{ url_for('work') }}" title="View My Work">
-                        <i class="fa-solid fa-briefcase"></i>
-                    </a>
-                {% endif %}
-                <a href="https://github.com/BarryS27" target="_blank" rel="noopener noreferrer">
-					          <i class="fa-brands fa-github"></i>
-				</a>
-                <a href="https://medium.com/@BarryS27" target="_blank" rel="noopener noreferrer">
-        					  <i class="fa-brands fa-medium"></i>
-        		</a>
-                <!-- <a href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer">
-        					  <i class="fa-brands fa-linkedin"></i>
-        		</a> -->
-                <!-- <a href="mailto:songbairu.27@gmail.com">
-					          <i class="fa-solid fa-envelope"></i>
-				</a> -->
-                <a href="https://github.com/BarryS27/BarryS27.github.io/issues/new" target="_blank" title="Found a bug? Duck it!">
-                    <i class="fa-solid fa-bug"></i>
-                </a>
+            <div class="pill">
+                <div class="dot"></div>
+                <span class="text">LIVE</span>
             </div>
-        </nav>
 
+            <nav class="menu">
+                <div class="links">
+                    {% if active_page == 'work' %}
+                        <a href="{{ url_for('index') }}" title="Back to Home">
+                            <i class="fa-solid fa-house"></i>
+                        </a>
+                    {% else %}
+                        <a href="{{ url_for('work') }}" title="View My Work">
+                            <i class="fa-solid fa-briefcase"></i>
+                        </a>
+                    {% endif %}
+                    <a href="https://github.com/BarryS27" target="_blank" rel="noopener noreferrer">
+					          <i class="fa-brands fa-github"></i>
+                    </a>
+                    <a href="https://medium.com/@BarryS27" target="_blank" rel="noopener noreferrer">
+                                <i class="fa-brands fa-medium"></i>
+                    </a>
+                    <!-- <a href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer">
+                                <i class="fa-brands fa-linkedin"></i>
+                    </a> -->
+                    <!-- <a href="mailto:songbairu.27@gmail.com">
+                                <i class="fa-solid fa-envelope"></i>
+                    </a> -->
+                    <a href="https://github.com/BarryS27/BarryS27.github.io/issues/new" target="_blank" title="Found a bug? Duck it!">
+                        <i class="fa-solid fa-bug"></i>
+                    </a>
+                </div>
+                <div class="pin" onclick="togglePin()" title="Pin Menu">
+                    <i class="fa-solid fa-thumbtack"></i>
+                </div>
+            </nav>
+
+        </div>
         <div class="container {% block container_class %}{% endblock %}">
 
             {% block content %}
@@ -67,6 +73,8 @@
         </div>
 
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.3/gsap.min.js"></script>
+
+        <script src="{{ url_for('static', filename='script.js') }}"></script>
 		
     </body>
 

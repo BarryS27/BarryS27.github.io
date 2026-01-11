@@ -242,89 +242,120 @@ body {
     filter: drop-shadow(0 0 10px rgba(243, 229, 171, 0.2));
 }
 
-// --- Navigation Bar ---
-.navbar {
+// --- Dynamic Island (灵动岛导航) ---
+
+// Island
+.island {
     position: fixed;
-    left: 0; top: 50%;
-    transform: translateY(-50%) translateX(-75%);
-    z-index: 100;
+    top: 24px; left: 24px;
+    z-index: 1000;
     
-    @include flex-box(column, center, flex-start, 40px);
-    width: 65px;
-    height: auto;
-    min-height: 400px;
-    padding: 50px 0;
-    
-    border-radius: 0 30px 30px 0;
-    @include glass-material(25px, 0.08, rgba(255, 255, 255, 0.1));
-    
-    opacity: 0.3;
-    transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    padding-bottom: 20px; 
+    margin-bottom: -20px; 
 
-    @media (hover: hover) {
-        &:hover {
-            opacity: 1;
-            transform: translateY(-50%) translateX(0);
-            background: rgba(255, 255, 255, 0.15);
-        }
+    &:hover .menu,
+    &.pinned .menu {
+        opacity: 1;
+        transform: translateY(0);
+        pointer-events: auto;
+    }
+    
+    &:hover .pill {
+        background: rgba(255, 255, 255, 0.2);
     }
 }
 
-.page-links {
-    @include flex-box(column, center, center, 35px);
-    width: 100%;
-
-    a {
-        font-size: 20px;
-        color: $color-text-muted;
-        transition: 0.3s;
-        @include flex-box(row, center, center);
-
-        @media (hover: hover) {
-            &:hover {
-                color: $color-interactive; // Turns Lavender on hover
-                transform: scale(1.1); // Slight scale allowed for icons only
-            }
-        }
-    }
-}
-
-// --- Status Indicator (Pulsing Dot) ---
-.status-indicator {
-    @include flex-box(column, center, center, 8px);
-    margin-bottom: 10px;
-
-    .status-dot {
+// 2. Status Indicator
+.pill {
+    @include glass-material(20px, 0.1, rgba(255, 255, 255, 0.15));
+    border-radius: 100px;
+    padding: 8px 16px;
+    display: flex; align-items: center; gap: 10px;
+    cursor: default;
+    transition: all 0.3s ease;
+    
+    .dot {
         width: 8px; height: 8px;
-        background-color: rgba($color-status-live, 0.9);
+        background-color: $color-status-live;
         border-radius: 50%;
         position: relative;
-        box-shadow: 0 0 10px rgba($color-status-live, 0.5);
-
-        // Pulsing animation ring
-        &::after {
-            content: "";
-            position: absolute;
-            width: 100%; height: 100%;
-            background-color: rgba($color-status-live, 0.5);
-            border-radius: 50%;
+        box-shadow: 0 0 8px rgba($color-status-live, 0.6);
+        
+        &::after { // Breathe
+            content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            border-radius: 50%; background-color: $color-status-live;
             animation: pulse 2s infinite ease-in-out;
         }
     }
     
-    .status-text {
-        font-size: 9px; font-weight: 700;
-        letter-spacing: 1px;
-        opacity: 0.5;
+    .text {
+        font-size: 11px; font-weight: 700; letter-spacing: 1px;
+        color: rgba(255, 255, 255, 0.7);
     }
 }
 
-@keyframes pulse {
-    0% { transform: scale(1); opacity: 0.8; }
-    70% { transform: scale(3.5); opacity: 0; }
-    100% { transform: scale(1); opacity: 0; }
+// 3. Navbar
+.menu {
+    @include glass-material(25px, 0.15, rgba(255, 255, 255, 0.15));
+    border-radius: 16px;
+    padding: 15px;
+    
+    display: flex; flex-direction: column; align-items: center; gap: 15px;
+    
+    // Hide
+    opacity: 0;
+    transform: translateY(-10px);
+    pointer-events: none;
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    box-shadow: 0 10px 40px rgba(0,0,0,0.3);
 }
 
+.links {
+    display: flex; flex-direction: column; gap: 20px;
+    
+    a {
+        color: $color-text-muted; font-size: 18px; transition: 0.2s;
+        width: 30px; height: 30px;
+        display: flex; justify-content: center; align-items: center;
+        border-radius: 8px;
+        
+        &:hover {
+            color: $color-interactive;
+            background: rgba(255, 255, 255, 0.1);
+            transform: scale(1.1);
+        }
+    }
+}
+
+// Pin-Button
+.pin {
+    margin-top: 5px; padding-top: 10px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    width: 100%; display: flex; justify-content: center;
+    
+    i {
+        font-size: 14px; color: rgba(255, 255, 255, 0.3);
+        cursor: pointer; transition: 0.3s;
+        &:hover { color: #fff; }
+    }
+}
+
+// Status - Pinned
+.island.pinned .pin i {
+    color: $color-interactive;
+    transform: rotate(45deg);
+}
+
+// Breathe
+@keyframes pulse {
+    0% { transform: scale(1); opacity: 0.8; }
+    70% { transform: scale(2.5); opacity: 0; }
+    100% { transform: scale(1); opacity: 0; }
+}
 
 /* =========================================
    5. Section Styles
@@ -437,27 +468,27 @@ body {
 @media (max-width: 768px) {
     .container { padding-bottom: 120px; }
     
-    .navbar {
-        left: 50%; top: auto;
-        bottom: calc(20px + env(safe-area-inset-bottom));
-        transform: translateX(-50%);
-        flex-direction: row;
-        width: auto; height: auto;
-        padding: 15px 30px;
-        
-        // Mobile Navbar: Darker background to ensure icon visibility
-        background: rgba(0, 0, 0, 0.7);
-        backdrop-filter: blur(20px);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        border-radius: 50px;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-        opacity: 1;
-
-        .status-indicator { top: 20px; left: 20px; position: absolute; }
-        .status-text { display: none; }
+    .island {
+        top: auto; bottom: 30px;
+        left: 50%; transform: translateX(-50%);
+        flex-direction: column-reverse;
+        align-items: center;
     }
-
-    .page-links { flex-direction: row; gap: 30px; }
+    
+    .menu {
+        transform: translateY(10px);
+        flex-direction: row;
+        padding: 10px 20px;
+    }
+    
+    .links { flex-direction: row; gap: 20px; }
+    .pin { display: none; }
+    
+    .island:active .menu,
+    .island:focus-within .menu {
+        opacity: 1; transform: translateY(0); pointer-events: auto;
+    }
+    
     .hero-content { flex-direction: column; text-align: center; }
     .hero-actions { justify-content: center; }
     .profile-pic { width: 150px; height: 150px; margin-bottom: 15px; }
