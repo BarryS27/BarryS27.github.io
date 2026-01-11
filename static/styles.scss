@@ -14,10 +14,7 @@ $color-brand-gold-mid: #FFF8DC;
 $color-brand-gold-end: #DAC080;
 
 // --- Interactive Color: Pale Lavender ---
-// Soft, elegant, and calming. Used for hover states and accents.
 $color-interactive: #C4B5FD; 
-
-// Subtle glow background for hover states
 $color-interactive-glow: rgba($color-interactive, 0.12);
 
 // --- Tag/Accent Colors (Nature Inspired) ---
@@ -37,25 +34,46 @@ $font-serif: 'Playfair Display', serif;
    2. Mixins (Reusable Tools)
    ========================================= */
 
-// --- Glassmorphism ---
-@mixin glass-material($blur: 40px, $opacity: 0.03) {
-    background: linear-gradient(
-        145deg, 
-        rgba(255, 255, 255, 0.08) 0%,
-        rgba(255, 255, 255, 0.01) 100%
-    ) !important;
+// --- Material A: Apple Standard Glass (Steady State) ---
+// Used for: .card, .menu, containers
+@mixin glass-standard($blur: 30px, $opacity: 0.02) {
+    background: rgba(255, 255, 255, $opacity) !important;
+    
+    // Standard saturation, keeping colors neutral
+    backdrop-filter: blur($blur) saturate(110%) brightness(1.05) !important;
+    -webkit-backdrop-filter: blur($blur) saturate(110%) brightness(1.05) !important;
+    
+    // Subtle, physical borders
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.15) !important; 
+    
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2); 
+}
 
-    backdrop-filter: blur($blur) saturate(200%) brightness(1.1) !important;
-    -webkit-backdrop-filter: blur($blur) saturate(200%) brightness(1.1) !important;
+// --- Material B: Liquid Glass (Active State) ---
+// Used for: .button, .pill, hover states
+@mixin glass-liquid($opacity: 0.1) {
+    // Linear gradient background for "flow" effect
+    background: linear-gradient(
+        135deg, 
+        rgba(255, 255, 255, $opacity + 0.05) 0%, 
+        rgba(255, 255, 255, $opacity) 100%
+    ) !important;
     
-    border: 1px solid rgba(255, 255, 255, 0.15) !important;
-    border-top: 1px solid rgba(255, 255, 255, 0.4) !important;
-    border-left: 1px solid rgba(255, 255, 255, 0.3) !important;
+    // High saturation! Makes background colors pop
+    backdrop-filter: blur(20px) saturate(180%) brightness(1.2) !important;
+    -webkit-backdrop-filter: blur(20px) saturate(180%) brightness(1.2) !important;
     
+    // Stronger highlight borders
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.5) !important;
+    border-left: 1px solid rgba(255, 255, 255, 0.4) !important;
+    
+    // Inner Glow
     box-shadow: 
-        0 20px 40px rgba(0, 0, 0, 0.4),
-        inset 0 0 0 1px rgba(255, 255, 255, 0.05),
-        inset 0 0 20px rgba(255, 255, 255, 0.02) !important;
+        0 10px 30px rgba(0, 0, 0, 0.3),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.1),
+        inset 0 0 20px rgba(255, 255, 255, 0.05) !important;
 }
 
 // --- Flexbox Utility ---
@@ -67,7 +85,7 @@ $font-serif: 'Playfair Display', serif;
     gap: $gap;
 }
 
-// --- Text Gradient (For Gold Text) ---
+// --- Text Gradient ---
 @mixin text-gradient($start, $mid, $end) {
     background: linear-gradient(135deg, $start 0%, $mid 50%, $end 100%);
     -webkit-background-clip: text;
@@ -77,11 +95,9 @@ $font-serif: 'Playfair Display', serif;
 
 // --- Hide Scrollbar ---
 @mixin hide-scrollbar {
-    scrollbar-width: none; // Firefox
-    -ms-overflow-style: none; // IE/Edge
-    &::-webkit-scrollbar {
-        display: none; // Chrome/Safari
-    }
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    &::-webkit-scrollbar { display: none; }
 }
 
 
@@ -110,13 +126,12 @@ body {
     background-color: $color-bg;
     -webkit-overflow-scrolling: touch;
 
-    // Selection color matches the interactive theme
     &::selection {
         background-color: rgba($color-interactive, 0.3);
         text-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
     }
 
-    // Full-screen background image setup
+    // Full-screen background image
     &::before {
         content: "";
         position: fixed;
@@ -126,7 +141,6 @@ body {
         background-position: center center;
         background-size: cover;
         
-        // Blur and darken the background to make text readable
         filter: blur(30px) saturate(150%) brightness(0.7);
         transform: scale(1.2); 
         z-index: -1; 
@@ -152,77 +166,74 @@ body {
    4. Components
    ========================================= */
 
-// --- Static Content Card ---
+// --- Static Content Card (Standard Glass) ---
 .card {
-    @include glass-material(40px, 0.03);
+    @include glass-standard(40px, 0.03);
     border-radius: $radius-card !important;
     padding: 40px !important;
     
     position: relative;
     overflow: hidden;
+    transform: none !important;
+    transition: background-color 0.3s ease;
 }
 
 // --- Interactive Card ---
 .interactive-card {
     cursor: pointer;
     transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-
     
     @media (hover: hover) {
         &:hover {
-            background: linear-gradient(
-                145deg, 
-                rgba($color-interactive, 0.15) 0%, 
-                rgba(255, 255, 255, 0.05) 100%
-            ) !important;
-            
-            border-color: rgba($color-interactive, 0.5) !important;
-            border-top-color: rgba($color-interactive, 0.8) !important;
+            // Morph into Liquid Glass
+            background: linear-gradient(135deg, rgba($color-interactive, 0.1) 0%, rgba(255,255,255,0.02) 100%) !important;
+            backdrop-filter: blur(20px) saturate(180%) brightness(1.1) !important;
+            border-color: rgba($color-interactive, 0.4) !important;
+            border-top-color: rgba($color-interactive, 0.7) !important;
             
             box-shadow: 
-                0 30px 60px rgba(0, 0, 0, 0.5),
-                inset 0 0 0 1px rgba($color-interactive, 0.2),
-                inset 0 0 30px rgba($color-interactive, 0.1) !important;
-                
+                0 30px 60px rgba(0,0,0,0.5),
+                inset 0 0 20px rgba($color-interactive, 0.15) !important;
+            
             transform: translateY(-4px) !important;
         }
     }
 
     &:active {
         transform: scale(0.98) translateY(0) !important;
-        background: rgba(255, 255, 255, 0.1) !important;
     }
 }
 
-// --- Buttons ---
+// --- Buttons (Liquid Glass Default) ---
 .button {
-    @include flex-box(row, center, center, 12px);
-    // Slightly more opaque than cards to pop out
-    @include glass-material(15px, 0.15, rgba(255, 255, 255, 0.25));
+    @include flex-box(row, center, center, 10px);
+    @include glass-liquid(0.15); // Liquid by default
     
     display: inline-flex;
     color: #fff !important;
     text-decoration: none !important;
-    padding: 14px 32px !important;
+    padding: 12px 28px !important;
     border-radius: $radius-btn !important;
     font-size: 15px;
     font-weight: 600;
-    margin-top: 15px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
     
-    transition: background-color 0.2s ease, border-color 0.2s ease;
-    transform: none !important;
+    transition: all 0.3s ease;
+    i { transition: transform 0.3s ease; }
 
     @media (hover: hover) {
         &:hover {
-            // Hover: Mixes in a bit of Lavender
-            background: rgba($color-interactive, 0.25) !important;
-            border-color: rgba($color-interactive, 0.5) !important;
+            background: rgba($color-interactive, 0.3) !important;
+            border-color: rgba($color-interactive, 0.6) !important;
+            box-shadow: 0 0 20px rgba($color-interactive, 0.4) !important;
+            
+            i { transform: translateX(3px); }
         }
     }
 
     &:active {
-        background: rgba(255, 255, 255, 0.3) !important;
+        transform: scale(0.96);
+        background: rgba(255, 255, 255, 0.4) !important;
     }
 }
 
@@ -235,9 +246,12 @@ body {
     filter: drop-shadow(0 0 10px rgba(243, 229, 171, 0.2));
 }
 
-// --- Dynamic Island ---
 
-// Island
+/* =========================================
+   5. Dynamic Island (Navigation)
+   ========================================= */
+
+// 1. Island Container
 .island {
     position: fixed;
     top: 24px; left: 24px;
@@ -262,9 +276,9 @@ body {
     }
 }
 
-// 2. Status Indicator
+// 2. Status Pill (Liquid Glass)
 .pill {
-    @include glass-material(30px, 0.05);
+    @include glass-liquid(0.1); // Active element
     border-radius: 100px;
     padding: 8px 16px;
     display: flex; align-items: center; gap: 10px;
@@ -278,7 +292,7 @@ body {
         position: relative;
         box-shadow: 0 0 8px rgba($color-status-live, 0.6);
         
-        &::after { // Breathe
+        &::after { // Breathe animation
             content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             border-radius: 50%; background-color: $color-status-live;
             animation: pulse 2s infinite ease-in-out;
@@ -291,15 +305,15 @@ body {
     }
 }
 
-// 3. Navbar
+// 3. Menu (Standard Glass)
 .menu {
-    @include glass-material(40px, 0.02);
+    @include glass-standard(40px, 0.1); // Container element
     border-radius: 16px;
     padding: 15px;
     
     display: flex; flex-direction: column; align-items: center; gap: 15px;
     
-    // Hide
+    // Hide default
     opacity: 0;
     transform: translateY(-10px);
     pointer-events: none;
@@ -324,7 +338,7 @@ body {
     }
 }
 
-// Pin-Button
+// Pin Button
 .pin {
     margin-top: 5px; padding-top: 10px;
     border-top: 1px solid rgba(255, 255, 255, 0.1);
@@ -337,21 +351,21 @@ body {
     }
 }
 
-// Status - Pinned
+// Pinned State
 .island.pinned .pin i {
     color: $color-interactive;
     transform: rotate(45deg);
 }
 
-// Breathe
 @keyframes pulse {
     0% { transform: scale(1); opacity: 0.8; }
     70% { transform: scale(2.5); opacity: 0; }
     100% { transform: scale(1); opacity: 0; }
 }
 
+
 /* =========================================
-   5. Section Styles
+   6. Section Styles
    ========================================= */
 
 // --- Hero Section ---
@@ -371,7 +385,7 @@ body {
 .hero-actions { margin-top: 25px; }
 
 
-// --- Now Section (Automatic Coloring) ---
+// --- Now Section ---
 .now-subtitle { font-size: 15px; opacity: 0.7; margin-bottom: 30px; }
 .now-grid { @include flex-box(column, stretch, flex-start, 25px); }
 
@@ -388,10 +402,7 @@ body {
     .now-icon {
         @include flex-box(row, center, center);
         margin-top: 2px;
-        i { 
-            font-size: 18px; 
-            transition: color 0.3s ease;
-        }
+        i { font-size: 18px; transition: color 0.3s ease; }
     }
     
     .now-category {
@@ -404,19 +415,14 @@ body {
         font-weight: 600;
     }
 
-    // --- Automatic Color Assignment Logic ---
-    // 1st Item (Reading): Mint Green
+    // Color Logic
     &:nth-child(1) .now-icon i { color: $color-tag-reading; }
-    
-    // 2nd Item (Learning): Lavender
     &:nth-child(2) .now-icon i { color: $color-interactive; }
-    
-    // 3rd Item (Building): Airy Blue
     &:nth-child(3) .now-icon i { color: $color-tag-building; }
 }
 
 
-// --- Work Section (Skills & Projects) ---
+// --- Work Section (Skills Chips & Projects) ---
 
 .skills-grid {
     display: flex;
@@ -425,6 +431,7 @@ body {
     margin-top: 15px;
 }
 
+// Floating Chips Style
 .skill-item {
     background: rgba(255, 255, 255, 0.03); 
     border: 1px solid rgba(255, 255, 255, 0.1);
@@ -443,10 +450,7 @@ body {
     cursor: default;
     transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
     
-    i { 
-        font-size: 14px; 
-        opacity: 0.8;
-    }
+    i { font-size: 14px; opacity: 0.8; }
 
     &:hover {
         background: rgba($color-interactive, 0.15);
@@ -503,12 +507,13 @@ body {
 
 
 /* =========================================
-   6. Responsive Design
+   7. Responsive Design (Mobile Dock)
    ========================================= */
 
 @media (max-width: 768px) {
     .container { padding-bottom: 140px; }
     
+    // --- Dock Logic ---
     .island {
         top: auto; 
         bottom: 25px;
@@ -521,10 +526,11 @@ body {
         width: auto;
     }
 
+    // Hide PC Elements
     .pill { display: none; }
     .pin { display: none; }
     
-    // Dock
+    // Mobile Dock Menu
     .menu {
         opacity: 1 !important;
         transform: none !important;
