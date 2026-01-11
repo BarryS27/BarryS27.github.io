@@ -12,7 +12,8 @@
         <link rel="stylesheet" href="style.css" />
         <link rel="icon" type="image/x-icon" href="images/favicon.ico" />
         
-        <title> {{page_title}} </title>
+        <title> {% block page_title %}{% endblock %} </title>
+        {% block extra_head %}{% endblock %}
     </head>
 
 
@@ -26,31 +27,31 @@
             </div>
             
             <div class="page-links">
-
-
-
-				
+                <a href="/" title="Home">
+                    <i class="fa-solid fa-house"></i>
+                </a>
+                <a href="/work" title="My Work">
+                    <i class="fa-solid fa-briefcase"></i>
+                </a>
                 <a href="https://github.com/BarryS27" target="_blank" rel="noopener noreferrer">
 					          <i class="fa-brands fa-github"></i>
-				        </a>
+				</a>
                 <a href="https://medium.com/@BarryS27" target="_blank" rel="noopener noreferrer">
         					  <i class="fa-brands fa-medium"></i>
-        				</a>
+        		</a>
                 <!-- <a href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer">
         					  <i class="fa-brands fa-linkedin"></i>
-        				</a> -->
+        		</a> -->
                 <!-- <a href="mailto:songbairu.27@gmail.com">
 					          <i class="fa-solid fa-envelope"></i>
-				        </a> -->
+				</a> -->
             </div>
         </nav>
 
-        <div class="container">
+        <div class="container {% block container_class %}{% endblock %}">
 
-            
-
-
-
+            {% block content %}
+            {% endblock %}
 
             <footer class="footer">
                 <p>Bairu Song</p>

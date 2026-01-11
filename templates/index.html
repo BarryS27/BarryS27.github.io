@@ -1,0 +1,74 @@
+{% extends "layout.html" %}
+
+{% block page_title %}Barry S | Home{% endblock %}
+
+{% block content %}
+
+    <header class="card hero-section">
+        <div class="hero-content">
+            <img class="profile-pic" src="/static/images/profile.jpg" alt="Me" />
+            
+            <div class="hero-text">
+                <h1 class="main-name">Bairu Song ( Barry )</h1>
+                <p class="field-name">High School Student</p>
+                
+                <div class="hero-actions">
+                    <a href="/work" class="button">
+                        View My Work <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="card">
+        <h2 class="section-label">About</h2>
+        <div>
+            <p>
+                I am a high school student passionate about data-driven decision making. 
+                Currently focused on leveraging Python and SQL to derive business insights.
+            </p>
+        </div>
+    </section>
+
+    <section class="card now-section">
+        <h2 class="section-label">Now</h2>
+        <p class="now-subtitle">What I'm focused on at this moment:</p>
+        
+        <div class="now-grid">
+            <div class="now-item">
+                <div class="now-icon"><i class="fa-solid fa-book-open"></i></div>
+                <div class="now-details">
+                    <span class="now-category">Reading: </span>
+                    "Bad Blood"
+                </div>
+            </div>
+
+            <div class="now-item">
+                <div class="now-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+                <div class="now-details">
+                    <span class="now-category">Learning: </span>
+                        • Intermediate HTML & CSS<br>
+                        • Basic Javascript
+                </div>
+            </div>
+
+            <div class="now-item">
+                <div class="now-icon"><i class="fa-solid fa-code"></i></div>
+                <div class="now-details">
+                    <span class="now-category">Building: </span>
+                    Student Academics Management System v1.2.2
+                </div>
+            </div>
+            
+            <div class="timestamp">
+                Updated: Jan 4th, 2026
+            </div>
+        </div>
+    </section>
+
+    <section class="card contact-section">
+        <h2 class="section-label">Get in Touch</h2>
+        </section>
+
+{% endblock %}

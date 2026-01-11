@@ -1,0 +1,44 @@
+{% extends "layout.html" %}
+
+{% block page_title %}Work{% endblock %}
+
+{% block content %}
+    <header class="card hero-section">
+        <div class="hero-content" style="justify-content: center; text-align: center;">
+            <div class="hero-text">
+                <h1 class="main-name">My Portfolio</h1>
+                <p class="field-name">Selected Projects & Technical Skills</p>
+            </div>
+        </div>
+    </header>
+
+    <section class="card">
+        <h2 class="section-label">Technical Stack</h2>
+        <div class="skills-grid">
+            <div class="skill-item"><i class="fa-brands fa-python"></i> Python</div>
+            <div class="skill-item"><i class="fa-brands fa-c"></i> C</div>
+            <div class="skill-item"><i class="fa-solid fa-database"></i> SQL</div>
+            <div class="skill-item"><i class="fa-brands fa-html5"></i> HTML5</div>
+            <div class="skill-item"><i class="fa-brands fa-css3-alt"></i> CSS3</div>
+            <div class="skill-item"><i class="fa-brands fa-js"></i> JavaScript</div>
+            <div class="skill-item"><i class="fa-brands fa-git-alt"></i> Git</div>
+        </div>
+    </section>
+
+    <section class="card">
+        <div class="project-header">
+            <h2 class="section-label">Featured Project</h2>
+            <h3 class="project-title">Student Academic Management System</h3>
+            <p class="field-name" style="font-size: 14px; margin-bottom: 15px;">Python • Data Structures • CLI</p>
+            <p>
+                A comprehensive tool designed for high school students to track grades...
+            </p>
+            <a href="https://github.com/BarryS27/Student-Academic-Management-System" class="button" target="_blank">
+                <i class="fa-brands fa-github"></i> View on Github
+            </a>
+        </div>
+        <div>
+            <img class="project-image" src="/static/images/project-preview.jpg" alt="System Interface Preview" onerror="this.style.display='none'"/>
+        </div>
+    </section>
+{% endblock %}
