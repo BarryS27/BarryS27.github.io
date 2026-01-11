@@ -462,33 +462,64 @@ body {
 
 
 /* =========================================
-   6. Responsive Design (Mobile)
+   6. Responsive Design
    ========================================= */
 
 @media (max-width: 768px) {
-    .container { padding-bottom: 120px; }
+    .container { padding-bottom: 140px; }
     
     .island {
-        top: auto; bottom: 30px;
-        left: 50%; transform: translateX(-50%);
-        flex-direction: column-reverse;
-        align-items: center;
-    }
-    
-    .menu {
-        transform: translateY(10px);
+        top: auto; 
+        bottom: 25px;
+        left: 50%; 
+        transform: translateX(-50%);
+        
         flex-direction: row;
-        padding: 10px 20px;
+        align-items: flex-end;
+        padding: 0; margin: 0;
+        width: auto;
     }
-    
-    .links { flex-direction: row; gap: 20px; }
+
+    .pill { display: none; }
     .pin { display: none; }
     
-    .island:active .menu,
-    .island:focus-within .menu {
-        opacity: 1; transform: translateY(0); pointer-events: auto;
+    // Dock
+    .menu {
+        opacity: 1 !important;
+        transform: none !important;
+        pointer-events: auto !important;
+        
+        flex-direction: row;
+        padding: 18px 30px;
+        gap: 0;
+        
+        border-radius: 35px;
+        background: rgba(20, 20, 20, 0.75) !important;
+        backdrop-filter: blur(25px) !important;
+        -webkit-backdrop-filter: blur(25px) !important;
+        border: 1px solid rgba(255, 255, 255, 0.12) !important;
+        
+        box-shadow: 0 15px 40px rgba(0,0,0,0.5);
     }
     
+    .links {
+        flex-direction: row;
+        gap: 32px;
+        align-items: center;
+        
+        a {
+            font-size: 22px;
+            color: rgba(255, 255, 255, 0.6);
+            width: auto; height: auto;
+            background: none !important;
+            
+            &:active {
+                color: #fff;
+                transform: scale(1.2);
+            }
+        }
+    }
+
     .hero-content { flex-direction: column; text-align: center; }
     .hero-actions { justify-content: center; }
     .profile-pic { width: 150px; height: 150px; margin-bottom: 15px; }
