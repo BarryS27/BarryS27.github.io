@@ -31,36 +31,38 @@ $font-serif: 'Playfair Display', serif;
 
 
 /* =========================================
-   2. Mixins (Physics-Based Rendering)
+   2. Mixins (Physics-Based Rendering - Top-Right Light)
    ========================================= */
 
-// --- Material A: Ultra-Thin ---
+// --- Material A: Ultra-Thin (Standard/Container) ---
 @mixin glass-standard($blur: 50px) {
     background: rgba(255, 255, 255, 0.015) !important;
-    
     backdrop-filter: blur($blur) saturate(100%) !important;
     -webkit-backdrop-filter: blur($blur) saturate(100%) !important;
     border: 1px solid rgba(255, 255, 255, 0.06) !important;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1) !important;
 }
 
-// --- Material B: Liquid Glass ---
+// --- Material B: Liquid Glass (Interactive/Convex) ---
 @mixin glass-liquid {
-    background: radial-gradient(
-        circle at 50% 0%, 
-        rgba(255, 255, 255, 0.15) 0%, 
-        rgba(255, 255, 255, 0.02) 100%
+    background: linear-gradient(
+        225deg,
+        rgba(255, 255, 255, 0.25) 0%,
+        rgba(255, 255, 255, 0.05) 40%, 
+        rgba(255, 255, 255, 0.01) 100%
     ) !important;
     
-    backdrop-filter: blur(20px) saturate(160%) brightness(1.1) !important;
-    -webkit-backdrop-filter: blur(20px) saturate(160%) brightness(1.1) !important;
+    backdrop-filter: blur(25px) saturate(160%) brightness(1.1) !important;
+    -webkit-backdrop-filter: blur(25px) saturate(160%) brightness(1.1) !important;
     
-    border: 1px solid rgba(255, 255, 255, 0.25) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-top-color: rgba(255, 255, 255, 0.4) !important;
+    border-right-color: rgba(255, 255, 255, 0.4) !important;
     
     box-shadow: 
-        0 20px 40px rgba(0, 0, 0, 0.3),
-        inset 0 1px 0 0 rgba(255, 255, 255, 0.6), 
-        inset 0 0 20px 0 rgba(255, 255, 255, 0.1) !important;
+        -5px 10px 30px rgba(0, 0, 0, 0.2),
+        inset -2px 2px 0 0 rgba(255, 255, 255, 0.5), 
+        inset -10px 10px 30px rgba(255, 255, 255, 0.1) !important;
 }
 
 // --- Utilities ---
@@ -253,7 +255,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: 10px;
+    gap: 12px;
     padding-bottom: 20px; 
     margin-bottom: -20px; 
 
@@ -263,124 +265,99 @@ body {
         transform: translateY(0);
         pointer-events: auto;
     }
-    
-    &:hover .pill {
-        filter: brightness(1.1);
-        transform: scale(1.02);
-    }
 }
 
-// 2. Status Pill (Permanent Liquid Glass)
+// 2. Status Pill (Interactive Toggle)
 .pill {
-    @include glass-liquid; 
+    @include glass-liquid;
     
-    background: radial-gradient(
-        circle at 50% 0%, 
-        rgba(255, 255, 255, 0.2) 0%, 
-        rgba(255, 255, 255, 0.05) 100%
-    ) !important;
-
     border-radius: 100px;
-    padding: 10px 20px;
-    
+    padding: 12px 24px;
     display: flex; align-items: center; gap: 12px;
     cursor: pointer;
+    
     transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
     
-    box-shadow: 
-        0 20px 40px rgba(0, 0, 0, 0.2),
-        inset 0 1px 0 0 rgba(255, 255, 255, 0.6),
-        inset 0 0 15px rgba(255, 255, 255, 0.1) !important;
+    &:hover {
+        filter: brightness(1.15);
+        transform: scale(1.03);
+    }
+    
+    &:active {
+        transform: scale(0.97);
+    }
+
+    // --- Pinned State ---
+    .island.pinned & {
+        // 边框变紫
+        border-color: rgba($color-interactive, 0.4) !important;
+        border-top-color: rgba($color-interactive, 0.6) !important;
+        border-right-color: rgba($color-interactive, 0.6) !important;
+
+        box-shadow: 
+            -5px 15px 40px rgba(0, 0, 0, 0.3),
+            inset -2px 2px 0 0 rgba(255, 255, 255, 0.7),
+            inset -10px 10px 40px rgba($color-interactive, 0.25) !important;
+    }
     
     .dot {
-        width: 6px; height: 6px;
+        width: 7px; height: 7px;
         background-color: $color-status-live;
         border-radius: 50%;
         position: relative;
         box-shadow: 0 0 10px rgba($color-status-live, 0.8);
-        
         &::after {
             content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             border-radius: 50%; background-color: $color-status-live;
             animation: pulse 2s infinite ease-in-out;
         }
     }
-    
     .text {
-        font-size: 11px; font-weight: 700; letter-spacing: 1.5px;
-        color: rgba(255, 255, 255, 0.9);
-        text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+        font-size: 12px; font-weight: 700; letter-spacing: 1.5px;
+        color: rgba(255, 255, 255, 0.95);
+        text-shadow: 0 2px 5px rgba(0,0,0,0.2);
     }
 }
 
-// 3. Menu (Standard Glass - Ultra Thin)
 .menu {
-    @include glass-standard(40px); 
-    border-radius: 20px;
-    padding: 16px;
+    @include glass-standard(60px);
+    border-radius: 24px;
+    padding: 18px;
     
-    display: flex; flex-direction: column; align-items: center; gap: 16px;
+    display: flex; flex-direction: column; align-items: center; gap: 18px;
     
     opacity: 0;
-    transform: translateY(-10px) scale(0.95);
+    transform: translateY(-15px) scale(0.98);
     pointer-events: none;
-    transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
-    box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+    transition: all 0.5s cubic-bezier(0.2, 0.9, 0.2, 1);
+    box-shadow: 0 30px 60px rgba(0,0,0,0.2);
 }
 
 .links {
     display: flex; flex-direction: column; gap: 15px;
-    
     a {
-        color: $color-text-muted; 
-        font-size: 18px; 
-        transition: 0.3s;
-        width: 36px; height: 36px;
+        color: $color-text-muted; font-size: 20px; transition: 0.3s;
+        width: 40px; height: 40px;
         display: flex; justify-content: center; align-items: center;
         border-radius: 50%;
-        
         &:hover {
             color: #fff;
-            background: radial-gradient(circle at 50% 0%, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0.01) 100%);
-            box-shadow: inset 0 1px 0 0 rgba(255,255,255,0.4);
+            background: linear-gradient(225deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.01) 100%);
+            box-shadow: inset -1px 1px 0 0 rgba(255,255,255,0.5);
             transform: scale(1.1);
         }
     }
-}
-
-// Pin Button (Semi-Liquid)
-.pin {
-    margin-top: 5px; padding-top: 12px;
-    border-top: 1px solid rgba(255, 255, 255, 0.08);
-    width: 100%; display: flex; justify-content: center;
-    
-    i {
-        font-size: 13px; 
-        color: rgba(255, 255, 255, 0.4);
-        padding: 8px;
-        border-radius: 50%;
-        cursor: pointer; 
-        transition: 0.3s;
-        
-        &:hover { 
-            color: #fff; 
-            background: rgba(255,255,255,0.1);
-        }
-    }
-}
-
-// Pinned State
-.island.pinned .pin i {
-    color: $color-interactive;
-    transform: rotate(45deg);
-    background: rgba($color-interactive, 0.15);
-    box-shadow: 0 0 10px rgba($color-interactive, 0.2);
 }
 
 @keyframes pulse {
     0% { transform: scale(1); opacity: 0.8; }
     70% { transform: scale(2.5); opacity: 0; }
     100% { transform: scale(1); opacity: 0; }
+}
+
+@media (max-width: 768px) {
+    .pill { display: none; }
+    .menu { opacity: 1 !important; transform: none !important; pointer-events: auto !important; }
 }
 
 
