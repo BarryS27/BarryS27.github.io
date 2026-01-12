@@ -31,52 +31,44 @@ $font-serif: 'Playfair Display', serif;
 
 
 /* =========================================
-   2. Mixins (Refined Materials)
+   2. Mixins
    ========================================= */
 
-// --- Material A: Quiet Air Glass (Container) ---
-// Minimalist, barely there, defined by blur and light borders
+// --- Material A: Quiet Air ---
 @mixin glass-standard($blur: 50px, $opacity: 0.01) {
-    // Gradient: Fades from barely visible to invisible
     background: linear-gradient(
         180deg, 
-        rgba(255, 255, 255, $opacity + 0.03) 0%, 
+        rgba(255, 255, 255, $opacity + 0.02) 0%, 
         rgba(255, 255, 255, 0) 100%
     ) !important;
-    
-    // Heavy blur + Slight brightness boost for legibility
     backdrop-filter: blur($blur) saturate(100%) brightness(1.02) !important;
     -webkit-backdrop-filter: blur($blur) saturate(100%) brightness(1.02) !important;
-    
-    // The "Bonjourr" Border: Ultra-thin, crisp, almost invisible
     border: 1px solid rgba(255, 255, 255, 0.08) !important;
-    border-top: 1px solid rgba(255, 255, 255, 0.12) !important; 
-    
-    // Diffused Ambient Shadow
+    border-top: 1px solid rgba(255, 255, 255, 0.15) !important; 
     box-shadow: 
         0 30px 60px rgba(0, 0, 0, 0.15),
         inset 0 0 0 1px rgba(255, 255, 255, 0.02) !important; 
 }
 
-// --- Material B: Liquid Light (Interactive) ---
-// Used for Buttons/Hover. Luminous instead of oily.
-@mixin glass-liquid($opacity: 0.1) {
+// --- Material B: Soft Liquid ---
+@mixin glass-liquid($opacity: 0.08) {
     background: linear-gradient(
         135deg, 
-        rgba(255, 255, 255, $opacity + 0.08) 0%, 
+        rgba(255, 255, 255, $opacity + 0.05) 0%, 
         rgba(255, 255, 255, $opacity) 100%
     ) !important;
     
-    // Higher saturation for "active" feel
-    backdrop-filter: blur(25px) saturate(120%) brightness(1.1) !important;
-    -webkit-backdrop-filter: blur(25px) saturate(120%) brightness(1.1) !important;
+    backdrop-filter: blur(25px) saturate(120%) brightness(1.08) !important;
+    -webkit-backdrop-filter: blur(25px) saturate(120%) brightness(1.08) !important;
     
-    border: 1px solid rgba(255, 255, 255, 0.2) !important;
-    border-top: 1px solid rgba(255, 255, 255, 0.4) !important;
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.3) !important;
+    border-left: 1px solid rgba(255, 255, 255, 0.2) !important;
     
     box-shadow: 
-        0 15px 35px rgba(0, 0, 0, 0.25),
-        inset 0 0 0 1px rgba(255, 255, 255, 0.1) !important;
+        0 15px 40px rgba(0, 0, 0, 0.2),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.1),
+        inset 0 0 30px rgba(255, 255, 255, 0.05) !important;
 }
 
 // --- Utilities ---
@@ -178,44 +170,49 @@ body {
     position: relative;
     overflow: hidden;
     transform: none !important;
-    transition: background-color 0.3s ease;
+   
+    transition: border-color 0.5s ease;
 
-    // Typography tweaks for content
     p { opacity: 0.9; font-weight: 300; }
+
+    @media (hover: hover) {
+        &:hover {
+            border-color: rgba(255, 255, 255, 0.15) !important;
+            border-top-color: rgba(255, 255, 255, 0.2) !important;
+        }
+    }
 }
 
 // --- Interactive Card ---
 .interactive-card {
     cursor: pointer;
-    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
     
     @media (hover: hover) {
         &:hover {
-            // Hover: Brighten the glass instead of coloring it
-            background: linear-gradient(180deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.01) 100%) !important;
-            backdrop-filter: blur(30px) saturate(120%) brightness(1.1) !important;
-            
-            // Border highlights
-            border-color: rgba($color-interactive, 0.3) !important;
-            border-top-color: rgba($color-interactive, 0.5) !important;
+            @include glass-liquid(0.08); 
             
             box-shadow: 
-                0 30px 80px rgba(0,0,0,0.3),
-                inset 0 0 20px rgba(255,255,255,0.05) !important;
+                0 25px 50px rgba(0, 0, 0, 0.25), 
+                inset 0 0 0 1px rgba(255, 255, 255, 0.15), 
+                inset 0 0 40px rgba($color-interactive, 0.08) !important; 
+            
+            border-color: rgba($color-interactive, 0.25) !important;
+            border-top-color: rgba($color-interactive, 0.4) !important;
             
             transform: translateY(-2px) !important;
         }
     }
 
     &:active {
-        transform: scale(0.98) translateY(0) !important;
+        transform: scale(0.99) translateY(0) !important;
     }
 }
 
 // --- Buttons ---
 .button {
     @include flex-box(row, center, center, 10px);
-    @include glass-liquid(0.12);
+    @include glass-liquid(0.1);
     
     display: inline-flex;
     color: #fff !important;
@@ -226,22 +223,24 @@ body {
     font-weight: 500;
     margin-top: 25px;
     
-    transition: all 0.3s ease;
-    i { transition: transform 0.3s ease; }
+    transition: all 0.4s ease;
+    i { transition: transform 0.4s ease; }
 
     @media (hover: hover) {
         &:hover {
-            background: rgba($color-interactive, 0.25) !important;
+            background: linear-gradient(135deg, rgba($color-interactive, 0.2) 0%, rgba($color-interactive, 0.05) 100%) !important;
             border-color: rgba($color-interactive, 0.4) !important;
-            box-shadow: 0 0 25px rgba($color-interactive, 0.25) !important;
             
-            i { transform: translateX(3px); }
+            box-shadow: 
+                0 10px 25px rgba($color-interactive, 0.2),
+                inset 0 0 0 1px rgba(255,255,255,0.2) !important;
+            
+            i { transform: translateX(2px); }
         }
     }
 
     &:active {
-        transform: scale(0.96);
-        background: rgba(255, 255, 255, 0.3) !important;
+        transform: scale(0.97);
     }
 }
 
