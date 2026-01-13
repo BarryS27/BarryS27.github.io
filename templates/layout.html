@@ -6,6 +6,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="description" content="Bairu Song - High school student passionate about data-driven decision making and software development." />
         <meta name="author" content="Bairu Song" />
+
+        <!-- CSP -->
+        <meta http-equiv="Content-Security-Policy" content=" default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; ">
         
         <!-- Open Graph / Social Media -->
         <meta property="og:type" content="website" />
@@ -31,6 +34,21 @@
         
         <title>{% block page_title %}Barry S{% endblock %}</title>
         {% block extra_head %}{% endblock %}
+
+        <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "Person",
+            "name": "Bairu Song",
+            "alternateName": "Barry S",
+            "description": "High school student passionate about data-driven decision making",
+            "url": "https://barrys27.github.io",
+            "sameAs": [
+                "https://github.com/BarryS27",
+                "https://medium.com/@BarryS27"
+            ]
+        }
+        </script>
     </head>
     <body>
         <!-- Dynamic Island Navigation -->
@@ -53,6 +71,10 @@
                             <span class="sr-only">Work</span>
                         </a>
                     {% endif %}
+
+                    <button class="back-to-top" id="backToTop" aria-label="Back to top">
+                        <i class="fa-solid fa-arrow-up"></i>
+                    </button>
                     
                     <a href="https://github.com/BarryS27" target="_blank" rel="noopener noreferrer" title="GitHub" role="menuitem">
                         <i class="fa-brands fa-github" aria-hidden="true"></i>
