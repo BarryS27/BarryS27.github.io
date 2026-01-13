@@ -3,32 +3,35 @@
    ========================================= */
 
 // --- Base Palette: High Contrast Day ---
-$color-bg: #f5f5f7; // 苹果标准浅灰底
-// [Typography] 苹果标准深灰黑，保证极致阅读对比度
+$color-bg: #f5f5f7; 
 $color-text-main: rgba(29, 29, 31, 0.95); 
 $color-text-muted: rgba(29, 29, 31, 0.65);
 $color-text-sub: rgba(29, 29, 31, 0.45);
 
 // --- Brand Color: Sunrise Gold/Orange ---
-// [Interaction] 呼应日照金山的暖色调
-$color-brand-gold-start: #B45309; // 深金
-$color-brand-gold-mid: #F59E0B;   // 亮橙
-$color-brand-gold-end: #FCD34D;   // 浅金
+$color-brand-gold-start: #B45309; 
+$color-brand-gold-mid: #F59E0B;   
+$color-brand-gold-end: #FCD34D;   
 
-// [Interaction] 辉煌金 (#FB923C)
 $color-interactive: #FB923C; 
-$color-interactive-glow: rgba(251, 146, 60, 0.25); // 暖金漫射
+$color-interactive-glow: rgba(251, 146, 60, 0.25); 
 
-// --- Tag Colors (Darker for readability on light glass) ---
-$color-tag-reading: #15803d; // 深绿
-$color-tag-building: #1d4ed8; // 深蓝
-$color-status-live: #ea580c; // 活力橙
+// --- Tag Colors ---
+$color-tag-reading: #15803d; 
+$color-tag-building: #1d4ed8; 
+$color-status-live: #ea580c; 
 
 // --- Physics Constants ---
 $container-width: 900px;
 $radius-card: 24px;
 $radius-btn: 100px;
-$font-stack: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", "Inter", sans-serif;
+
+// [Font Stack] 纯英文环境，无任何中文强制
+// 1. 正文: Inter -> Segoe UI (Windows英文系统字体) -> sans-serif
+$font-stack: "Inter", "Segoe UI", sans-serif;
+
+// 2. 标题: Newsreader -> Times New Roman -> serif
+$font-serif: "Newsreader", "Times New Roman", serif;
 
 
 /* =========================================
@@ -36,60 +39,47 @@ $font-stack: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue",
    ========================================= */
 
 // --- Material A: "Thin Ice" (Standard Card) ---
-// [Concept] 乳白色半透明，模拟雪地冰层
 @mixin glass-standard($blur: 40px) {
-    background: rgba(255, 255, 255, 0.65) !important; // 高亮乳白
-    backdrop-filter: blur($blur) saturate(180%) !important; // 增加饱和度透出背景色
+    background: rgba(255, 255, 255, 0.65) !important;
+    backdrop-filter: blur($blur) saturate(180%) !important;
     -webkit-backdrop-filter: blur($blur) saturate(180%) !important;
     
-    // [Borders] 深色描边，把卡片从亮背景里“抠”出来
     border: 1px solid rgba(0, 0, 0, 0.06) !important;
-    border-top: 1px solid rgba(255, 255, 255, 0.4) !important; // 顶部保留微弱高光
+    border-top: 1px solid rgba(255, 255, 255, 0.4) !important;
     
-    // [Shadows] 深色且锐利 (rgba(0,0,0,0.15))
     box-shadow: 
         0 4px 20px rgba(0, 0, 0, 0.12),
         0 1px 2px rgba(0, 0, 0, 0.05) !important;
 }
 
 // --- Material B: "Liquid Gold" (Interactive) ---
-// [Concept] 轻盈通透，折射金色光芒
 @mixin glass-liquid {
-    // [Liquid Gradient] 线性光流 225deg
     background: linear-gradient(
         225deg,
-        rgba(255, 255, 255, 0.9) 0%,   // 右上角强光射入
-        rgba(255, 255, 255, 0.4) 40%,  // 中间通透
-        rgba(255, 255, 255, 0.1) 100%  // 左下角完全透明
+        rgba(255, 255, 255, 0.9) 0%,
+        rgba(255, 255, 255, 0.4) 40%,
+        rgba(255, 255, 255, 0.1) 100%
     ) !important;
     
-    // SVG 扭曲滤镜 (HTML中需保留 Plan A 的 SVG)
     backdrop-filter: url(#liquid-distortion) blur(8px) saturate(200%) !important;
     -webkit-backdrop-filter: url(#liquid-distortion) blur(8px) saturate(200%) !important;
     transform: translate3d(0, 0, 0);
 
-    // [Borders] 混合逻辑：白色高光切面 + 深色物理边缘
-    border: 1px solid rgba(255, 255, 255, 0.9) !important; // Rim Light 极致纯白
-    border-bottom-color: rgba(0, 0, 0, 0.1) !important; // 底部加重，增加体积感
+    border: 1px solid rgba(255, 255, 255, 0.9) !important;
+    border-bottom-color: rgba(0, 0, 0, 0.1) !important;
     
-    // [Physics] 投影逻辑 + 内部辉光
     box-shadow: 
-        // 锐利投影
         0 20px 50px -10px rgba(0, 0, 0, 0.25), 
-        // [Inner Glow] 暖金漫射
         inset 0 0 30px rgba(255, 200, 100, 0.25), 
-        // [Rim Light] 顶部锐利反光
         inset 0 1px 0 0 rgba(255, 255, 255, 1) !important; 
 }
 
 // --- Utilities ---
 @mixin text-gradient-gold {
-    // [Gradient Text] 流金质感
     background: linear-gradient(135deg, $color-brand-gold-start 0%, $color-brand-gold-mid 50%, $color-brand-gold-end 100%);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
-    // 配合深色投影，确保白底清晰
     filter: drop-shadow(0 1px 1px rgba(0,0,0,0.1));
 }
 
@@ -107,25 +97,22 @@ body {
     line-height: 1.8;
     overflow-x: hidden;
     font-size: 16px;
-    // [Weight] 加重至 400，抵抗背景高光干扰
     font-weight: 400; 
     min-height: 100vh;
     background-color: $color-bg;
 }
 
-// [Background] 日照金山
 body::before {
     content: "";
     position: fixed;
     top: 0; left: 0; width: 100%; height: 100%;
     
-    // 请替换为你的日照金山图片
-    background-image: url('images/bg-day.jpg'); 
+    // 这里的背景图路径请确保正确
+    background-image: url('images/reg-day.webp'); 
     background-repeat: no-repeat;
     background-position: center center;
     background-size: cover;
     
-    // [Filter] 高透亮，不再压暗
     filter: brightness(1.05) saturate(130%); 
     z-index: -1;
 }
@@ -153,12 +140,11 @@ body::before {
     cursor: pointer;
     transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
     
-    @include glass-standard(30px); // 默认状态是薄冰
+    @include glass-standard(30px);
     background: rgba(255, 255, 255, 0.4) !important;
 
     @media (hover: hover) {
         &:hover {
-            // 激活状态变为 Liquid Gold
             @include glass-liquid; 
             transform: translateY(-5px) scale(1.01) translate3d(0,0,0) !important;
         }
@@ -171,21 +157,20 @@ body::before {
     padding: 14px 36px !important;
     border-radius: $radius-btn !important;
     text-decoration: none !important;
-    font-weight: 600; // 更粗的字体
-    color: #fff !important; // 按钮内文字保持白色
+    font-weight: 600;
+    color: #fff !important;
     
-    // [Buttons] 常驻透镜状态
     @include glass-liquid; 
     
-    // 覆盖默认背景，使用品牌色渐变作为底色，上面覆盖玻璃
     background: 
         linear-gradient(225deg, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0.1) 100%),
         linear-gradient(135deg, $color-brand-gold-start, $color-brand-gold-mid) !important;
     background-blend-mode: overlay, normal;
     
     border: 1px solid rgba(255,255,255,0.6) !important;
+    
     box-shadow: 
-        0 10px 25px rgba(251, 146, 60, 0.4), // 橙色辉光投影
+        0 10px 25px rgba($color-interactive, 0.4), 
         inset 0 1px 0 0 rgba(255,255,255,1) !important;
 
     transition: all 0.3s ease;
@@ -195,7 +180,7 @@ body::before {
     &:hover {
         transform: translateY(-2px);
         box-shadow: 
-            0 15px 35px rgba(251, 146, 60, 0.5),
+            0 15px 35px rgba($color-interactive, 0.5),
             inset 0 1px 0 0 rgba(255,255,255,1) !important;
         i { transform: translateX(3px); }
     }
@@ -203,40 +188,45 @@ body::before {
 
 // --- Typography Details ---
 .special-text {
-    font-family: $font-serif;
-    font-weight: 700;
-    @include text-gradient-gold;
+    font-family: $font-serif; 
+    font-weight: 600;
+    font-style: italic;
+    font-size: 1.1em;
+    letter-spacing: -0.02em;
+
+    color: #78350f; 
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.6); 
+    background: none;
+    -webkit-background-clip: border-box;
+    background-clip: border-box;
 }
 
 .now-item .now-icon i {
-    color: rgba(0,0,0,0.7); // 图标颜色加深
+    color: rgba(0,0,0,0.7);
 }
-// 特殊处理分类文字
+
 .now-category {
     color: $color-text-sub;
-    font-weight: 600; // 加粗
+    font-weight: 600;
 }
 
 
 /* =========================================
    5. Dynamic Island (Frosted Ice)
    ========================================= */
-
-// 日间模式下的灵动岛，采用更高对比度的“磨砂冰”设计
 .island {
     position: fixed; top: 24px; left: 24px; z-index: 9999;
     display: flex; flex-direction: column; gap: 8px;
 }
 
 .pill {
-    // 深色玻璃，形成视觉锚点
     background: rgba(0, 0, 0, 0.75) !important; 
     backdrop-filter: blur(20px) !important;
     border: 1px solid rgba(255, 255, 255, 0.15) !important;
     border-radius: 100px;
     padding: 8px 16px;
     display: flex; align-items: center; gap: 10px;
-    color: #fff; // 岛内文字保持白色
+    color: #fff;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
     transition: all 0.3s ease;
     
@@ -247,7 +237,7 @@ body::before {
 }
 
 .menu {
-    background: rgba(255, 255, 255, 0.8) !important; // 展开菜单用亮色
+    background: rgba(255, 255, 255, 0.8) !important;
     backdrop-filter: blur(30px) !important;
     border: 1px solid rgba(0, 0, 0, 0.05) !important;
     border-radius: 16px;
@@ -261,8 +251,26 @@ body::before {
 
 .island:hover .menu { opacity: 1; transform: translateY(0); pointer-events: auto; }
 
-// 菜单内图标颜色适配
 .links a {
     color: rgba(0, 0, 0, 0.6);
     &:hover { color: #000; background: rgba(0,0,0,0.05); }
+}
+
+@media (max-width: 768px) {
+    .island {
+        top: auto; bottom: 20px; left: 50%; transform: translateX(-50%);
+        align-items: center; gap: 0;
+    }
+    .pill { display: none; }
+    .menu {
+        opacity: 1 !important; transform: none !important; pointer-events: auto !important;
+        flex-direction: row;
+        width: auto;
+        padding: 10px 20px;
+        border-radius: 100px;
+        background: rgba(0, 0, 0, 0.85) !important;
+        color: white;
+    }
+    .links a { color: rgba(255,255,255,0.7); }
+    .links a:hover { color: white; background: rgba(255,255,255,0.1); }
 }
