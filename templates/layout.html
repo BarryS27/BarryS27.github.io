@@ -1,88 +1,100 @@
 <!DOCTYPE html>
-<html lang="en">
 
+<html lang="en">
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta name="description" content="Bairu Song's personal webpage." />
+        <meta name="description" content="Bairu Song - High school student passionate about data-driven decision making and software development." />
+        <meta name="author" content="Bairu Song" />
         
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
-        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@1,600&display=swap" rel="stylesheet">
+        <!-- Open Graph / Social Media -->
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="{% block og_title %}Bairu Song | Portfolio{% endblock %}" />
+        <meta property="og:description" content="High school student passionate about data science and software development." />
         
+        <!-- Preconnect for performance -->
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link rel="preconnect" href="https://cdnjs.cloudflare.com" />
+        
+        <!-- Fonts -->
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Newsreader:ital,wght@1,600&display=swap" rel="stylesheet" />
+        
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        
+        <!-- Stylesheet -->
         <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
-        <link rel="shortcut icon" href="/favicon.ico">
         
-        <title> {% block page_title %}{% endblock %} </title>
+        <!-- Favicon -->
+        <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}" />
+        
+        <title>{% block page_title %}Barry S{% endblock %}</title>
         {% block extra_head %}{% endblock %}
     </head>
-
-
-
     <body>
-
-        <div class="island" id="island">
+        <!-- Dynamic Island Navigation -->
+        <nav class="island" id="island" aria-label="Main navigation">
+            <div class="pill" onclick="togglePin()" role="button" tabindex="0" aria-label="Toggle menu">
+                <div class="dot" aria-hidden="true"></div>
+                <span class="text">LIVE</span>
+            </div>
             
-            <div class="pill" onclick="togglePin()" title="Click to fix/unfix menu">
-		        <div class="dot"></div>
-		        <span class="text">LIVE</span>
-		    </div>
-
-            <nav class="menu">
+            <div class="menu" role="menu">
                 <div class="links">
                     {% if active_page == 'work' %}
-                        <a href="{{ url_for('index') }}" title="Back to Home">
-                            <i class="fa-solid fa-house"></i>
+                        <a href="{{ url_for('index') }}" title="Back to Home" role="menuitem">
+                            <i class="fa-solid fa-house" aria-hidden="true"></i>
+                            <span class="sr-only">Home</span>
                         </a>
                     {% else %}
-                        <a href="{{ url_for('work') }}" title="View My Work">
-                            <i class="fa-solid fa-briefcase"></i>
+                        <a href="{{ url_for('work') }}" title="View My Work" role="menuitem">
+                            <i class="fa-solid fa-briefcase" aria-hidden="true"></i>
+                            <span class="sr-only">Work</span>
                         </a>
                     {% endif %}
-                    <a href="https://github.com/BarryS27" target="_blank" rel="noopener noreferrer">
-					          <i class="fa-brands fa-github"></i>
+                    
+                    <a href="https://github.com/BarryS27" target="_blank" rel="noopener noreferrer" title="GitHub" role="menuitem">
+                        <i class="fa-brands fa-github" aria-hidden="true"></i>
+                        <span class="sr-only">GitHub</span>
                     </a>
-                    <a href="https://medium.com/@BarryS27" target="_blank" rel="noopener noreferrer">
-                                <i class="fa-brands fa-medium"></i>
+                    
+                    <a href="https://medium.com/@BarryS27" target="_blank" rel="noopener noreferrer" title="Medium" role="menuitem">
+                        <i class="fa-brands fa-medium" aria-hidden="true"></i>
+                        <span class="sr-only">Medium</span>
                     </a>
-                    <!-- <a href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer">
-                                <i class="fa-brands fa-linkedin"></i>
-                    </a> -->
-                    <!-- <a href="mailto:songbairu.27@gmail.com">
-                                <i class="fa-solid fa-envelope"></i>
-                    </a> -->
-                    <a href="https://github.com/BarryS27/BarryS27.github.io/issues/new" target="_blank" title="Found a bug? Duck it!">
-                        <i class="fa-solid fa-bug"></i>
+                    
+                    <a href="https://github.com/BarryS27/BarryS27.github.io/issues/new" target="_blank" rel="noopener noreferrer" title="Report a bug" role="menuitem">
+                        <i class="fa-solid fa-bug" aria-hidden="true"></i>
+                        <span class="sr-only">Report Bug</span>
                     </a>
                 </div>
-            </nav>
+            </div>
+        </nav>
 
-        </div>
-        <div class="container {% block container_class %}{% endblock %}">
-
-            {% block content %}
-            {% endblock %}
-
+        <!-- Main Content -->
+        <main class="container {% block container_class %}{% endblock %}">
+            {% block content %}{% endblock %}
+            
             <footer class="footer">
                 <p>Bairu Song</p>
-                <p class="copyright-text">All rights reserved © 2026</p>
+                <p class="copyright-text">All rights reserved © {{ now.year if now else '2026' }}</p>
             </footer>
+        </main>
 
-        </div>
+        <!-- SVG Filters -->
+        <svg style="position: absolute; width: 0; height: 0; overflow: hidden;" aria-hidden="true">
+            <defs>
+                <filter id="liquid-filter" x="-50%" y="-50%" width="200%" height="200%" color-interpolation-filters="sRGB">
+                    <feTurbulence type="fractalNoise" baseFrequency="0.012 0.02" numOctaves="3" seed="5" result="noise" />
+                    <feGaussianBlur in="noise" stdDeviation="6" result="smoothNoise" />
+                    <feDisplacementMap in="SourceGraphic" in2="smoothNoise" scale="80" xChannelSelector="R" yChannelSelector="G" />
+                </filter>
+            </defs>
+        </svg>
 
-		<svg style="position: absolute; width: 0; height: 0; overflow: hidden;">
-		    <defs>
-		        <filter id="liquid-filter" x="-50%" y="-50%" width="200%" height="200%" color-interpolation-filters="sRGB">
-		            <feTurbulence type="fractalNoise" baseFrequency="0.012 0.02" numOctaves="3" seed="5" result="noise" />
-		            <feGaussianBlur in="noise" stdDeviation="6" result="smoothNoise" />
-		            <feDisplacementMap in="SourceGraphic" in2="smoothNoise" scale="80" xChannelSelector="R" yChannelSelector="G" />
-		        </filter>
-		    </defs>
-		</svg>
-
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.3/gsap.min.js"></script>
-
+        <!-- Scripts -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" integrity="sha512-7eHRwcbYkK4d9g/6tD/mhkf++eoTHwpNM9woBxtPUBWm67zeAfFC+HrdoE2GanKeocly/VxeLvIqwvCdk7qScg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         <script src="{{ url_for('static', filename='script.js') }}"></script>
-		
     </body>
-
 </html>

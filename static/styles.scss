@@ -20,12 +20,62 @@ $color-tag-reading: #15803d;
 $color-tag-building: #1d4ed8; 
 $color-status-live: #ea580c; 
 
+// --- Layout & Spacing ---
 $container-width: 900px;
+$spacing-xs: 8px;
+$spacing-sm: 16px;
+$spacing-md: 24px;
+$spacing-lg: 35px;
+$spacing-xl: 50px;
+$spacing-2xl: 80px;
+
 $radius-card: 24px;
 $radius-btn: 100px;
+$radius-menu: 16px;
+$radius-profile: 30px;
 
+// --- Typography ---
 $font-stack: "Inter", "Segoe UI", sans-serif;
 $font-serif: "Newsreader", "Times New Roman", serif;
+
+$font-size-base: 16px;
+$font-size-sm: 0.88em;
+$font-size-md: 0.98em;
+$font-size-lg: 1.15em;
+$font-size-xl: 1.75em;
+$font-size-2xl: 2.8em;
+
+$line-height-base: 1.8;
+$line-height-tight: 1.6;
+$line-height-relaxed: 1.7;
+
+// --- Transitions ---
+$transition-fast: 0.3s ease;
+$transition-smooth: 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+$transition-bounce: 2s cubic-bezier(0.4, 0, 0.6, 1);
+
+// --- Shadows ---
+$shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+$shadow-md: 0 4px 20px rgba(0, 0, 0, 0.12);
+$shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.2);
+$shadow-xl: 0 20px 50px -10px rgba(0, 0, 0, 0.25);
+
+// --- Glass Effects ---
+$glass-blur-standard: 40px;
+$glass-blur-menu: 30px;
+$glass-blur-liquid: 8px;
+$glass-blur-island: 20px;
+
+$glass-bg-standard: rgba(255, 255, 255, 0.65);
+$glass-bg-interactive: rgba(255, 255, 255, 0.4);
+$glass-bg-dark: rgba(0, 0, 0, 0.75);
+$glass-bg-light: rgba(255, 255, 255, 0.8);
+
+// --- Borders ---
+$border-standard: 1px solid rgba(0, 0, 0, 0.06);
+$border-top-highlight: 1px solid rgba(255, 255, 255, 0.4);
+$border-glass-light: 1px solid rgba(255, 255, 255, 0.9);
+$border-divider: 1px solid rgba(0, 0, 0, 0.06);
 
 
 /* =========================================
@@ -33,17 +83,15 @@ $font-serif: "Newsreader", "Times New Roman", serif;
    ========================================= */
 
 // --- Material A: "Thin Ice" (Standard Card) ---
-@mixin glass-standard($blur: 40px) {
-    background: rgba(255, 255, 255, 0.65) !important;
-    backdrop-filter: blur($blur) saturate(180%) !important;
-    -webkit-backdrop-filter: blur($blur) saturate(180%) !important;
+@mixin glass-standard($blur: $glass-blur-standard) {
+    background: $glass-bg-standard;
+    backdrop-filter: blur($blur) saturate(180%);
+    -webkit-backdrop-filter: blur($blur) saturate(180%);
     
-    border: 1px solid rgba(0, 0, 0, 0.06) !important;
-    border-top: 1px solid rgba(255, 255, 255, 0.4) !important;
+    border: $border-standard;
+    border-top: $border-top-highlight;
     
-    box-shadow: 
-        0 4px 20px rgba(0, 0, 0, 0.12),
-        0 1px 2px rgba(0, 0, 0, 0.05) !important;
+    box-shadow: $shadow-md, $shadow-sm;
 }
 
 // --- Material B: "Liquid Gold" (Interactive) ---
@@ -53,28 +101,70 @@ $font-serif: "Newsreader", "Times New Roman", serif;
         rgba(255, 255, 255, 0.9) 0%,
         rgba(255, 255, 255, 0.4) 40%,
         rgba(255, 255, 255, 0.1) 100%
-    ) !important;
+    );
     
-    backdrop-filter: url("#liquid-distortion") blur(8px) saturate(200%) !important;
-    -webkit-backdrop-filter: url("#liquid-distortion") blur(8px) saturate(200%) !important;
+    backdrop-filter: url("#liquid-filter") blur($glass-blur-liquid) saturate(200%);
+    -webkit-backdrop-filter: url("#liquid-filter") blur($glass-blur-liquid) saturate(200%);
     transform: translate3d(0, 0, 0);
 
-    border: 1px solid rgba(255, 255, 255, 0.9) !important;
-    border-bottom-color: rgba(0, 0, 0, 0.1) !important;
+    border: $border-glass-light;
+    border-bottom-color: rgba(0, 0, 0, 0.1);
     
     box-shadow: 
-        0 20px 50px -10px rgba(0, 0, 0, 0.25), 
+        $shadow-xl, 
         inset 0 0 30px rgba(255, 200, 100, 0.25), 
-        inset 0 1px 0 0 rgba(255, 255, 255, 1) !important; 
+        inset 0 1px 0 0 rgba(255, 255, 255, 1); 
+}
+
+// --- Material C: Dark Glass (Island) ---
+@mixin glass-dark {
+    background: $glass-bg-dark;
+    backdrop-filter: blur($glass-blur-island);
+    -webkit-backdrop-filter: blur($glass-blur-island);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: $shadow-lg;
+}
+
+// --- Material D: Light Menu ---
+@mixin glass-light($blur: $glass-blur-menu) {
+    background: $glass-bg-light;
+    backdrop-filter: blur($blur);
+    -webkit-backdrop-filter: blur($blur);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
 }
 
 // --- Utilities ---
 @mixin text-gradient-gold {
-    background: linear-gradient(135deg, $color-brand-gold-start 0%, $color-brand-gold-mid 50%, $color-brand-gold-end 100%);
+    background: linear-gradient(
+        135deg, 
+        $color-brand-gold-start 0%, 
+        $color-brand-gold-mid 50%, 
+        $color-brand-gold-end 100%
+    );
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
-    filter: drop-shadow(0 1px 1px rgba(0,0,0,0.1));
+    filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.1));
+}
+
+@mixin flex-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@mixin flex-column($gap: $spacing-md) {
+    display: flex;
+    flex-direction: column;
+    gap: $gap;
+}
+
+@mixin focus-visible {
+    &:focus-visible {
+        outline: 2px solid $color-brand-gold-mid;
+        outline-offset: 2px;
+    }
 }
 
 
@@ -82,205 +172,786 @@ $font-serif: "Newsreader", "Times New Roman", serif;
    3. Global Implementation
    ========================================= */
 
-html { scroll-behavior: smooth; }
+* {
+    box-sizing: border-box;
+}
+
+html { 
+    scroll-behavior: smooth; 
+}
 
 body {
-    margin: 0; padding: 0;
+    margin: 0; 
+    padding: 0;
     font-family: $font-stack;
     color: $color-text-main;
-    line-height: 1.8;
+    line-height: $line-height-base;
     overflow-x: hidden;
-    font-size: 16px;
+    font-size: $font-size-base;
     font-weight: 400; 
     min-height: 100vh;
     background-color: $color-bg;
-}
 
-body::before {
-    content: "";
-    position: fixed;
-    top: 0; left: 0; width: 100%; height: 100%;
-    
-    // 这里的背景图路径请确保正确
-    background-image: url('images/reg-day.webp'); 
-    background-repeat: no-repeat;
-    background-position: center center;
-    background-size: cover;
-    
-    filter: brightness(1.05) saturate(130%); 
-    z-index: -1;
-}
-
-.container {
-    display: flex; flex-direction: column; gap: 50px;
-    max-width: $container-width; margin: 0 auto; padding: 80px 20px;
+    &::before {
+        content: "";
+        position: fixed;
+        top: 0; 
+        left: 0; 
+        width: 100%; 
+        height: 100%;
+        background-image: url('/static/images/reg-day.webp'); 
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-size: cover;
+        filter: brightness(1.05) saturate(130%); 
+        z-index: -1;
+    }
 }
 
 
 /* =========================================
-   4. Component Styles
+   4. Layout Container
    ========================================= */
 
-// --- Card (Thin Ice) ---
-.card {
-    @include glass-standard(40px);
-    border-radius: $radius-card !important;
-    padding: 45px !important;
-    transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+.container {
+    @include flex-column($spacing-xl);
+    max-width: $container-width; 
+    margin: 0 auto; 
+    padding: $spacing-2xl $spacing-md;
 }
 
-// --- Interactive Card ---
+.error-container {
+    min-height: 80vh;
+    @include flex-center;
+}
+
+
+/* =========================================
+   5. Base Card Component
+   ========================================= */
+
+.card {
+    @include glass-standard;
+    border-radius: $radius-card;
+    padding: $spacing-lg;
+    transition: transform $transition-smooth;
+}
+
 .interactive-card {
+    @extend .card;
     cursor: pointer;
-    transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+    transition: all $transition-smooth;
     
-    @include glass-standard(30px);
-    background: rgba(255, 255, 255, 0.4) !important;
+    @include glass-standard($glass-blur-menu);
+    background: $glass-bg-interactive;
 
     @media (hover: hover) {
         &:hover {
             @include glass-liquid; 
-            transform: translateY(-5px) scale(1.01) translate3d(0,0,0) !important;
+            transform: translateY(-5px) scale(1.01) translate3d(0, 0, 0);
         }
     }
 }
 
-.profile-pic {
-    width: 140px !important;
-    height: 140px !important;
-    border-radius: 30px;
-    object-fit: cover;
-    
-    border: 1px solid rgba(255,255,255,0.2);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-}
 
-.card:has(.profile-pic) {
-    display: flex;
+/* =========================================
+   6. Card Type Definitions (ID-based)
+   ========================================= */
+
+// Hero Card (Home Page)
+#hero {
+    @include flex-column($spacing-lg);
     align-items: center;
-    justify-content: center;
-    padding: 20px !important;
-}
+    text-align: center;
+    padding: $spacing-2xl $spacing-lg;
 
-// --- Button (Permanent Lens) ---
-.button {
-    display: inline-flex; align-items: center; justify-content: center; gap: 10px;
-    padding: 14px 36px !important;
-    border-radius: $radius-btn !important;
-    text-decoration: none !important;
-    font-weight: 600;
-    color: #fff !important;
-    
-    @include glass-liquid; 
-    background: linear-gradient(135deg, rgba($color-brand-gold-start, 0.5), rgba($color-brand-gold-mid, 0.5)) !important;
-    background-blend-mode: overlay !important;
-    
-    border: 1px solid rgba(255,255,255,0.6) !important;
-    
-    box-shadow: 
-        0 10px 25px rgba($color-interactive, 0.25), 
-        inset 0 1px 0 0 rgba(255,255,255,1) !important;
+    .profile-pic {
+        width: 140px;
+        height: 140px;
+        border-radius: $radius-profile;
+        object-fit: cover;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        box-shadow: $shadow-lg;
+        margin-bottom: $spacing-md;
+    }
 
-    transition: all 0.3s ease;
-    i { transition: transform 0.3s ease; }
+    .main-name {
+        font-size: $font-size-2xl;
+        font-weight: 700;
+        margin: 0 0 $spacing-sm 0;
+        letter-spacing: -0.02em;
+        @include text-gradient-gold;
+    }
 
-    &:hover {
-        transform: translateY(-2px);
-        background: linear-gradient(135deg, rgba($color-brand-gold-start, 0.7), rgba($color-brand-gold-mid, 0.7)) !important;
-        background-blend-mode: overlay !important;
-        
-        box-shadow: 
-            0 15px 35px rgba($color-interactive, 0.35),
-            inset 0 1px 0 0 rgba(255,255,255,1) !important;
-        i { transform: translateX(3px); }
+    .field-name {
+        font-size: $font-size-lg;
+        color: $color-text-muted;
+        margin: 0 0 $spacing-md 0;
+        font-weight: 500;
     }
 }
 
-// --- Typography Details ---
+// Portfolio Hero Card (Work Page)
+#portfolio-hero {
+    @include flex-column($spacing-md);
+    align-items: center;
+    text-align: center;
+    padding: $spacing-2xl $spacing-lg;
+
+    .main-name {
+        font-size: $font-size-2xl;
+        font-weight: 700;
+        margin: 0 0 $spacing-sm 0;
+        letter-spacing: -0.02em;
+        @include text-gradient-gold;
+    }
+
+    .field-name {
+        font-size: $font-size-lg;
+        color: $color-text-muted;
+        margin: 0;
+        font-weight: 500;
+    }
+}
+
+// About Card
+#about {
+    .section-label {
+        font-size: $font-size-xl;
+        font-weight: 600;
+        margin: 0 0 $spacing-md 0;
+        color: $color-text-main;
+        letter-spacing: -0.01em;
+    }
+
+    p {
+        line-height: $line-height-base;
+        margin: 0;
+    }
+}
+
+// Now Card
+#now {
+    .section-label {
+        font-size: $font-size-xl;
+        font-weight: 600;
+        margin: 0 0 $spacing-md 0;
+        color: $color-text-main;
+        letter-spacing: -0.01em;
+    }
+
+    .now-subtitle {
+        color: $color-text-muted;
+        margin: -$spacing-xs 0 28px 0;
+        font-size: 0.95em;
+    }
+
+    .now-grid {
+        @include flex-column($spacing-md);
+
+        .now-item {
+            display: flex;
+            gap: $spacing-sm;
+            align-items: flex-start;
+            padding-bottom: 20px;
+            border-bottom: $border-divider;
+
+            .now-icon {
+                font-size: 1.4em;
+                width: 42px;
+                min-width: 42px;
+                @include flex-center;
+
+                i {
+                    color: rgba(0, 0, 0, 0.7);
+                    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
+                }
+            }
+
+            .now-details {
+                flex: 1;
+                line-height: $line-height-relaxed;
+                font-size: $font-size-md;
+
+                .now-category {
+                    color: $color-text-sub;
+                    font-weight: 600;
+                }
+            }
+        }
+
+        .timestamp {
+            margin-top: 12px;
+            padding-top: 20px;
+            border-top: $border-divider;
+            font-size: $font-size-sm;
+            color: $color-text-sub;
+            font-style: italic;
+            text-align: right;
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+    }
+}
+
+// Contact Card
+#contact {
+    .section-label {
+        font-size: $font-size-xl;
+        font-weight: 600;
+        margin: 0 0 $spacing-md 0;
+        color: $color-text-main;
+        letter-spacing: -0.01em;
+    }
+
+    p {
+        line-height: $line-height-base;
+        color: $color-text-muted;
+        margin: 0;
+    }
+}
+
+// Skills Card
+#skills {
+    .section-label {
+        font-size: $font-size-xl;
+        font-weight: 600;
+        margin: 0 0 $spacing-md 0;
+        color: $color-text-main;
+        letter-spacing: -0.01em;
+    }
+
+    .skills-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        gap: $spacing-sm;
+
+        .skill-item {
+            @include flex-column($spacing-xs);
+            align-items: center;
+            padding: $spacing-md;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.3);
+            border: $border-divider;
+            transition: all $transition-fast;
+
+            i {
+                font-size: 2em;
+                color: rgba(0, 0, 0, 0.7);
+                filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
+            }
+
+            span {
+                font-size: 0.9em;
+                font-weight: 500;
+                color: $color-text-main;
+            }
+
+            &:hover {
+                background: rgba(255, 255, 255, 0.5);
+                transform: translateY(-2px);
+                box-shadow: $shadow-sm;
+            }
+        }
+    }
+}
+
+// Featured Project Card
+#featured-project {
+    .section-label {
+        font-size: $font-size-xl;
+        font-weight: 600;
+        margin: 0 0 $spacing-sm 0;
+        color: $color-text-main;
+        letter-spacing: -0.01em;
+    }
+
+    .project-title {
+        font-size: 1.4em;
+        font-weight: 600;
+        margin: 0 0 $spacing-sm 0;
+
+        a {
+            text-decoration: none;
+            color: $color-text-main;
+            display: inline-flex;
+            align-items: center;
+            gap: $spacing-xs;
+            transition: color $transition-fast;
+
+            i {
+                font-size: 0.8em;
+                opacity: 0.7;
+                transition: all $transition-fast;
+            }
+
+            &:hover {
+                color: $color-brand-gold-mid;
+
+                i {
+                    opacity: 1;
+                    transform: translateX(2px);
+                }
+            }
+        }
+    }
+
+    .project-meta {
+        font-size: $font-size-sm;
+        color: $color-text-muted;
+        font-weight: 500;
+        margin: 0 0 $spacing-md 0;
+    }
+
+    .project-description {
+        line-height: $line-height-relaxed;
+        color: $color-text-main;
+        margin: 0;
+    }
+}
+
+// Error Card (404)
+#error {
+    @include flex-column($spacing-md);
+    align-items: center;
+    text-align: center;
+    max-width: 600px;
+    padding: 60px $spacing-lg;
+
+    .error-icon {
+        font-size: 48px;
+        color: rgba(255, 255, 255, 0.3);
+        margin-bottom: $spacing-sm;
+        filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+    }
+
+    .terminal-text {
+        font-family: 'JetBrains Mono', 'Courier New', monospace;
+        font-size: 2em;
+        font-weight: 700;
+        color: #fff;
+        min-height: 40px;
+        line-height: 1.2;
+        @include flex-center;
+
+        .cursor {
+            display: inline-block;
+            width: 2px;
+            height: 1em;
+            margin-left: 2px;
+            background-color: #34c759;
+            box-shadow: 0 0 5px rgba(52, 199, 89, 0.8);
+            animation: blink 2s ease-in-out infinite;
+        }
+    }
+
+    .error-subtitle {
+        font-size: 1em;
+        color: rgba(255, 255, 255, 0.6);
+        margin: $spacing-md 0;
+        opacity: 0;
+        transform: translateY(10px);
+        transition: all 0.8s ease;
+
+        &.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .button {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: all 0.5s ease;
+
+        &.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+}
+
+
+/* =========================================
+   7. Button Component
+   ========================================= */
+
+.button {
+    @include flex-center;
+    gap: 10px;
+    padding: 14px 36px;
+    border-radius: $radius-btn;
+    text-decoration: none;
+    font-weight: 600;
+    color: #fff;
+    
+    @include glass-liquid; 
+    background: linear-gradient(
+        135deg, 
+        rgba($color-brand-gold-start, 0.5), 
+        rgba($color-brand-gold-mid, 0.5)
+    );
+    background-blend-mode: overlay;
+    
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    
+    box-shadow: 
+        0 10px 25px rgba($color-interactive, 0.25), 
+        inset 0 1px 0 0 rgba(255, 255, 255, 1);
+
+    transition: all $transition-fast;
+    @include focus-visible;
+    
+    i { 
+        transition: transform $transition-fast; 
+    }
+
+    &:hover {
+        transform: translateY(-2px);
+        background: linear-gradient(
+            135deg, 
+            rgba($color-brand-gold-start, 0.7), 
+            rgba($color-brand-gold-mid, 0.7)
+        );
+        background-blend-mode: overlay;
+        
+        box-shadow: 
+            0 15px 35px rgba($color-interactive, 0.35),
+            inset 0 1px 0 0 rgba(255, 255, 255, 1);
+        
+        i { 
+            transform: translateX(3px); 
+        }
+    }
+
+    &:active {
+        transform: translateY(0);
+    }
+}
+
+
+/* =========================================
+   8. Footer
+   ========================================= */
+
+.footer {
+    text-align: center;
+    padding: $spacing-xl 0 20px 0;
+    color: $color-text-muted;
+    
+    p {
+        margin: $spacing-xs 0;
+        font-size: 0.95em;
+    }
+
+    .copyright-text {
+        font-size: 0.85em;
+        color: $color-text-sub;
+    }
+}
+
+
+/* =========================================
+   9. Dynamic Island
+   ========================================= */
+
+.island {
+    position: fixed; 
+    top: $spacing-md; 
+    left: $spacing-md; 
+    z-index: 9999;
+    @include flex-column($spacing-xs);
+
+    .pill {
+        @include glass-dark;
+        border-radius: $radius-btn;
+        padding: $spacing-xs $spacing-sm;
+        display: flex; 
+        align-items: center; 
+        gap: 10px;
+        color: #fff;
+        transition: all $transition-fast;
+        cursor: pointer;
+        @include focus-visible;
+
+        .dot {
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            background: $color-status-live;
+            box-shadow: 0 0 8px rgba($color-status-live, 0.6);
+            animation: pulse $transition-bounce infinite;
+        }
+
+        .text {
+            font-size: 0.8em;
+            font-weight: 700;
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
+        }
+        
+        &:hover {
+            background: rgba(0, 0, 0, 0.85);
+            transform: scale(1.02);
+        }
+    }
+
+    .menu {
+        @include glass-light;
+        border-radius: $radius-menu;
+        padding: $spacing-xs;
+        width: 38px;
+        @include flex-column(6px);
+        align-items: center;
+        opacity: 0; 
+        transform: translateY(-8px); 
+        pointer-events: none;
+        transition: all $transition-smooth;
+
+        .links {
+            @include flex-column(6px);
+            align-items: center;
+            
+            a {
+                @include flex-center;
+                width: 32px;
+                height: 32px;
+                border-radius: 8px;
+                color: rgba(0, 0, 0, 0.6);
+                transition: all $transition-fast;
+                text-decoration: none;
+                @include focus-visible;
+                
+                &:hover { 
+                    color: #000; 
+                    background: rgba(0, 0, 0, 0.05); 
+                }
+            }
+        }
+    }
+
+    &:hover .menu { 
+        opacity: 1; 
+        transform: translateY(0); 
+        pointer-events: auto; 
+    }
+}
+
+
+/* =========================================
+   10. Animations
+   ========================================= */
+
+@keyframes pulse {
+    0%, 100% { 
+        opacity: 1; 
+        transform: scale(1); 
+    }
+    50% { 
+        opacity: 0.7; 
+        transform: scale(0.92); 
+    }
+}
+
+@keyframes blink {
+    0%, 100% { 
+        opacity: 1; 
+    }
+    50% { 
+        opacity: 0; 
+    }
+}
+
+
+/* =========================================
+   11. Utility Classes
+   ========================================= */
+
 .special-text {
     font-family: $font-serif; 
     font-weight: 600;
     font-style: italic;
     font-size: 1.1em;
     letter-spacing: -0.02em;
-
     color: #78350f; 
     text-shadow: 0 1px 0 rgba(255, 255, 255, 0.6); 
-    background: none;
-    -webkit-background-clip: border-box;
-    background-clip: border-box;
 }
 
-.now-item .now-icon i {
-    color: rgba(0,0,0,0.7);
-}
-
-.now-category {
-    color: $color-text-sub;
-    font-weight: 600;
+// Accessibility - Screen Reader Only
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
 }
 
 
 /* =========================================
-   5. Dynamic Island (Frosted Ice)
+   12. Responsive Design
    ========================================= */
-.island {
-    position: fixed; top: 24px; left: 24px; z-index: 9999;
-    display: flex; flex-direction: column; gap: 8px;
-}
-
-.pill {
-    background: rgba(0, 0, 0, 0.75) !important; 
-    backdrop-filter: blur(20px) !important;
-    border: 1px solid rgba(255, 255, 255, 0.15) !important;
-    border-radius: 100px;
-    padding: 8px 16px;
-    display: flex; align-items: center; gap: 10px;
-    color: #fff;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-    transition: all 0.3s ease;
-    
-    &:hover {
-        background: rgba(0, 0, 0, 0.85) !important;
-        transform: scale(1.02);
-    }
-}
-
-.menu {
-    background: rgba(255, 255, 255, 0.8) !important;
-    backdrop-filter: blur(30px) !important;
-    border: 1px solid rgba(0, 0, 0, 0.05) !important;
-    border-radius: 16px;
-    padding: 8px;
-    width: 38px;
-    display: flex; flex-direction: column; align-items: center; gap: 6px;
-    opacity: 0; transform: translateY(-8px); pointer-events: none;
-    transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
-    box-shadow: 0 15px 40px rgba(0,0,0,0.15);
-}
-
-.island:hover .menu { opacity: 1; transform: translateY(0); pointer-events: auto; }
-
-.links a {
-    color: rgba(0, 0, 0, 0.6);
-    &:hover { color: #000; background: rgba(0,0,0,0.05); }
-}
 
 @media (max-width: 768px) {
+    .container {
+        padding: 60px $spacing-sm;
+        gap: $spacing-lg;
+    }
+    
+    .card {
+        padding: $spacing-md;
+    }
+
+    #hero,
+    #portfolio-hero {
+        padding: $spacing-xl $spacing-md;
+
+        .profile-pic {
+            width: 120px;
+            height: 120px;
+        }
+
+        .main-name {
+            font-size: 2.2em;
+        }
+    }
+
+    #skills {
+        .skills-grid {
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: $spacing-xs;
+
+            .skill-item {
+                padding: $spacing-sm;
+
+                i {
+                    font-size: 1.6em;
+                }
+
+                span {
+                    font-size: 0.85em;
+                }
+            }
+        }
+    }
+
+    #featured-project {
+        .project-title {
+            font-size: 1.2em;
+        }
+    }
+
+    #now {
+        .now-grid {
+            .now-item {
+                .now-icon {
+                    font-size: 1.2em;
+                    width: 38px;
+                    min-width: 38px;
+                }
+            }
+        }
+    }
+
+    #error {
+        padding: $spacing-lg $spacing-md;
+
+        .error-icon {
+            font-size: 36px;
+        }
+
+        .terminal-text {
+            font-size: 1.5em;
+        }
+
+        .error-subtitle {
+            font-size: 0.9em;
+        }
+    }
+    
+    // Island mobile adjustments
     .island {
-        top: auto; bottom: 20px; left: 50%; transform: translateX(-50%);
-        align-items: center; gap: 0;
+        top: auto; 
+        bottom: 20px; 
+        left: 50%; 
+        transform: translateX(-50%);
+        align-items: center; 
+        gap: 0;
+
+        .pill { 
+            display: none; 
+        }
+        
+        .menu {
+            opacity: 1;
+            transform: none;
+            pointer-events: auto;
+            flex-direction: row;
+            width: auto;
+            padding: 10px 20px;
+            border-radius: $radius-btn;
+            @include glass-dark;
+            color: white;
+
+            .links {
+                flex-direction: row;
+                gap: $spacing-xs;
+                
+                a { 
+                    color: rgba(255, 255, 255, 0.7); 
+                    
+                    &:hover { 
+                        color: white; 
+                        background: rgba(255, 255, 255, 0.1); 
+                    }
+                }
+            }
+        }
     }
-    .pill { display: none; }
-    .menu {
-        opacity: 1 !important; transform: none !important; pointer-events: auto !important;
-        flex-direction: row;
-        width: auto;
-        padding: 10px 20px;
-        border-radius: 100px;
-        background: rgba(0, 0, 0, 0.85) !important;
-        color: white;
+}
+
+@media (max-width: 480px) {
+    #hero,
+    #portfolio-hero {
+        .main-name {
+            font-size: 1.8em;
+        }
     }
-    .links a { color: rgba(255,255,255,0.7); }
-    .links a:hover { color: white; background: rgba(255,255,255,0.1); }
+    
+    .button {
+        padding: 12px 28px;
+        font-size: 0.95em;
+    }
+}
+
+// Reduced motion support
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+// Print styles
+@media print {
+    body::before {
+        display: none;
+    }
+
+    .island,
+    .button {
+        display: none;
+    }
+
+    .card {
+        break-inside: avoid;
+        page-break-inside: avoid;
+    }
 }

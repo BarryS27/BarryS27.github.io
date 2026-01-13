@@ -1,120 +1,49 @@
 {% extends "layout.html" %}
+{% set active_page = "404" %}
+{% block page_title %}404 | Barry S{% endblock %}
 
-{% block page_title %}404 | Not Found{% endblock %}
-
-{% block extra_head %}
-<style>
-    .full-screen-center {
-        min-height: 80vh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 100%;
-    }
-
-    .error-card {
-        text-align: center;
-        max-width: 600px;
-        width: 100%;
-        padding: 60px 40px !important;
-    }
-
-    .terminal-text {
-        font-family: 'JetBrains Mono', monospace;
-        font-size: 32px;
-        font-weight: 700;
-        color: #fff;
-        margin-bottom: 20px;
-        min-height: 40px;
-        line-height: 1.2; 
-    }
-
-    .sub-message {
-        font-size: 16px;
-        color: rgba(255, 255, 255, 0.6);
-        margin-bottom: 40px;
-        opacity: 0;
-        transition: opacity 1s ease;
-    }
-
-    .cursor {
-        display: inline-block;
-        width: 2px;
-        height: 1em;
-        vertical-align: middle; 
-        transform: translateY(-2px); 
-        margin-left: 2px;
-        background-color: rgba(52, 199, 89, 1);
-        box-shadow: 0 0 5px rgba(52, 199, 89, 0.8);
-        animation: blink 2s ease-in-out infinite;
-    }
-
-    @keyframes blink {
-        0%, 100% { opacity: 1; }
-        50% { opacity: 0; }
-    }
-
-    #action-btn {
-        opacity: 0;
-        transform: translateY(20px);
-        transition: all 0.5s ease;
-    }
-        
-    #action-btn.visible {
-        opacity: 1;
-        transform: translateY(0);
-    }
-</style>
-{% endblock %}
-
-{% block container_class %}full-screen-center{% endblock %}
+{% block container_class %}error-container{% endblock %}
 
 {% block content %}
-    <header class="card error-card">
-        <div class="hero-content" style="display: block;">
-            <i class="fa-solid fa-robot" style="font-size: 48px; color: rgba(255,255,255,0.3); margin-bottom: 20px;"></i>
-            
-            <div class="terminal-text">
-                <span id="typewriter"></span><span class="cursor">&nbsp;</span>
-            </div>
-
-            <p class="sub-message" id="sub-msg">
-                Seems like you've ventured into the void. <br>
-                Let's get you back to safety.
-            </p>
-            
-            <div class="hero-actions" id="action-btn">
-                <a href="/" class="button">
-                    <i class="fa-solid fa-house"></i> Return Home
-                </a>
-            </div>
+    <div class="card" id="error">
+        <i class="fa-solid fa-robot error-icon"></i>
+        
+        <div class="terminal-text">
+            <span id="typewriter"></span><span class="cursor"></span>
         </div>
-    </header>
+        
+        <p class="error-subtitle" id="sub-msg">
+            Seems like you've ventured into the void.<br>
+            Let's get you back to safety.
+        </p>
+        
+        <a href="{{ url_for('index') }}" class="button" id="action-btn">
+            <i class="fa-solid fa-house"></i> Return Home
+        </a>
+    </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const textToType = "404: PAGE NOT FOUND";
-            const typeWriterElement = document.getElementById('typewriter');
-            const subMsg = document.getElementById('sub-msg');
-            const actionBtn = document.getElementById('action-btn');
+            const text = "404: PAGE NOT FOUND";
+            const el = document.getElementById('typewriter');
+            const sub = document.getElementById('sub-msg');
+            const btn = document.getElementById('action-btn');
             
             let i = 0;
-            const typingSpeed = 100;
-
-            function typeWriter() {
-                if (i < textToType.length) {
-                    typeWriterElement.innerHTML += textToType.charAt(i);
-                    i++;
-                    setTimeout(typeWriter, typingSpeed);
+            
+            function type() {
+                if (i < text.length) {
+                    el.textContent += text.charAt(i++);
+                    setTimeout(type, 100);
                 } else {
                     setTimeout(() => {
-                        subMsg.style.opacity = '1';
-                        actionBtn.classList.add('visible');
+                        sub.classList.add('visible');
+                        btn.classList.add('visible');
                     }, 500);
                 }
             }
-
-            setTimeout(typeWriter, 500);
+            
+            setTimeout(type, 500);
         });
     </script>
 {% endblock %}
