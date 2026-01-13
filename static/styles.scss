@@ -1,594 +1,268 @@
 /* =========================================
-   1. Variables Configuration (Scheme: Quiet Air)
+   1. Variables: Golden Hour (Day Mode)
    ========================================= */
 
-// --- Base Palette ---
-$color-bg: #0f0f0f;
-$color-text-main: rgba(255, 255, 255, 0.95);
-$color-text-muted: rgba(255, 255, 255, 0.6);
-$color-text-sub: rgba(255, 255, 255, 0.4);
+// --- Base Palette: High Contrast Day ---
+$color-bg: #f5f5f7; // 苹果标准浅灰底
+// [Typography] 苹果标准深灰黑，保证极致阅读对比度
+$color-text-main: rgba(29, 29, 31, 0.95); 
+$color-text-muted: rgba(29, 29, 31, 0.65);
+$color-text-sub: rgba(29, 29, 31, 0.45);
 
-// --- Brand Color: Champagne Gold ---
-$color-brand-gold-start: #F3E5AB;
-$color-brand-gold-mid: #FFF8DC;
-$color-brand-gold-end: #DAC080;
+// --- Brand Color: Sunrise Gold/Orange ---
+// [Interaction] 呼应日照金山的暖色调
+$color-brand-gold-start: #B45309; // 深金
+$color-brand-gold-mid: #F59E0B;   // 亮橙
+$color-brand-gold-end: #FCD34D;   // 浅金
 
-// --- Interactive Color: Pale Lavender ---
-$color-interactive: #C4B5FD; 
-$color-interactive-glow: rgba($color-interactive, 0.12);
+// [Interaction] 辉煌金 (#FB923C)
+$color-interactive: #FB923C; 
+$color-interactive-glow: rgba(251, 146, 60, 0.25); // 暖金漫射
 
-// --- Tag Colors ---
-$color-tag-reading: #86EFAC;
-$color-tag-building: #93C5FD;
-$color-status-live: #34c759;
+// --- Tag Colors (Darker for readability on light glass) ---
+$color-tag-reading: #15803d; // 深绿
+$color-tag-building: #1d4ed8; // 深蓝
+$color-status-live: #ea580c; // 活力橙
 
-// --- Layout & Fonts ---
+// --- Physics Constants ---
 $container-width: 900px;
 $radius-card: 24px;
 $radius-btn: 100px;
 $font-stack: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", "Inter", sans-serif;
-$font-serif: 'Playfair Display', serif;
 
 
 /* =========================================
-   2. Mixins (Physics-Based Rendering - Top-Right Light)
+   2. Mixins: Refactored Physics (Light & Shadow)
    ========================================= */
 
-// --- Material A: Ultra-Thin (Standard/Container) ---
-@mixin glass-standard($blur: 50px) {
-    background: rgba(255, 255, 255, 0.015) !important;
-    backdrop-filter: blur($blur) saturate(100%) !important;
-    -webkit-backdrop-filter: blur($blur) saturate(100%) !important;
-    border: 1px solid rgba(255, 255, 255, 0.06) !important;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1) !important;
+// --- Material A: "Thin Ice" (Standard Card) ---
+// [Concept] 乳白色半透明，模拟雪地冰层
+@mixin glass-standard($blur: 40px) {
+    background: rgba(255, 255, 255, 0.65) !important; // 高亮乳白
+    backdrop-filter: blur($blur) saturate(180%) !important; // 增加饱和度透出背景色
+    -webkit-backdrop-filter: blur($blur) saturate(180%) !important;
+    
+    // [Borders] 深色描边，把卡片从亮背景里“抠”出来
+    border: 1px solid rgba(0, 0, 0, 0.06) !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.4) !important; // 顶部保留微弱高光
+    
+    // [Shadows] 深色且锐利 (rgba(0,0,0,0.15))
+    box-shadow: 
+        0 4px 20px rgba(0, 0, 0, 0.12),
+        0 1px 2px rgba(0, 0, 0, 0.05) !important;
 }
 
-// --- Material B: Liquid Glass (Interactive/Convex) ---
+// --- Material B: "Liquid Gold" (Interactive) ---
+// [Concept] 轻盈通透，折射金色光芒
 @mixin glass-liquid {
+    // [Liquid Gradient] 线性光流 225deg
     background: linear-gradient(
         225deg,
-        rgba(255, 255, 255, 0.25) 0%,
-        rgba(255, 255, 255, 0.05) 40%, 
-        rgba(255, 255, 255, 0.01) 100%
+        rgba(255, 255, 255, 0.9) 0%,   // 右上角强光射入
+        rgba(255, 255, 255, 0.4) 40%,  // 中间通透
+        rgba(255, 255, 255, 0.1) 100%  // 左下角完全透明
     ) !important;
     
-    backdrop-filter: blur(25px) saturate(160%) brightness(1.1) !important;
-    -webkit-backdrop-filter: blur(25px) saturate(160%) brightness(1.1) !important;
+    // SVG 扭曲滤镜 (HTML中需保留 Plan A 的 SVG)
+    backdrop-filter: url(#liquid-distortion) blur(8px) saturate(200%) !important;
+    -webkit-backdrop-filter: url(#liquid-distortion) blur(8px) saturate(200%) !important;
+    transform: translate3d(0, 0, 0);
+
+    // [Borders] 混合逻辑：白色高光切面 + 深色物理边缘
+    border: 1px solid rgba(255, 255, 255, 0.9) !important; // Rim Light 极致纯白
+    border-bottom-color: rgba(0, 0, 0, 0.1) !important; // 底部加重，增加体积感
     
-    border: 1px solid rgba(255, 255, 255, 0.1) !important;
-    border-top-color: rgba(255, 255, 255, 0.4) !important;
-    border-right-color: rgba(255, 255, 255, 0.4) !important;
-    
+    // [Physics] 投影逻辑 + 内部辉光
     box-shadow: 
-        -5px 10px 30px rgba(0, 0, 0, 0.2),
-        inset -2px 2px 0 0 rgba(255, 255, 255, 0.5), 
-        inset -10px 10px 30px rgba(255, 255, 255, 0.1) !important;
+        // 锐利投影
+        0 20px 50px -10px rgba(0, 0, 0, 0.25), 
+        // [Inner Glow] 暖金漫射
+        inset 0 0 30px rgba(255, 200, 100, 0.25), 
+        // [Rim Light] 顶部锐利反光
+        inset 0 1px 0 0 rgba(255, 255, 255, 1) !important; 
 }
 
 // --- Utilities ---
-@mixin flex-box($direction: row, $align: center, $justify: flex-start, $gap: 0) {
-    display: flex;
-    flex-direction: $direction;
-    align-items: $align;
-    justify-content: $justify;
-    gap: $gap;
-}
-
-@mixin text-gradient($start, $mid, $end) {
-    background: linear-gradient(135deg, $start 0%, $mid 50%, $end 100%);
+@mixin text-gradient-gold {
+    // [Gradient Text] 流金质感
+    background: linear-gradient(135deg, $color-brand-gold-start 0%, $color-brand-gold-mid 50%, $color-brand-gold-end 100%);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
-}
-
-@mixin hide-scrollbar {
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-    &::-webkit-scrollbar { display: none; }
+    // 配合深色投影，确保白底清晰
+    filter: drop-shadow(0 1px 1px rgba(0,0,0,0.1));
 }
 
 
 /* =========================================
-   3. Global Styles
+   3. Global Implementation
    ========================================= */
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@1,600&display=swap');
-
-html {
-    scroll-behavior: smooth;
-    @include hide-scrollbar;
-}
+html { scroll-behavior: smooth; }
 
 body {
-    margin: 0;
-    padding: 0;
+    margin: 0; padding: 0;
     font-family: $font-stack;
     color: $color-text-main;
     line-height: 1.8;
     overflow-x: hidden;
     font-size: 16px;
-    font-weight: 300;
-    position: relative;
+    // [Weight] 加重至 400，抵抗背景高光干扰
+    font-weight: 400; 
     min-height: 100vh;
     background-color: $color-bg;
-    -webkit-overflow-scrolling: touch;
+}
 
-    &::selection {
-        background-color: rgba($color-interactive, 0.3);
-        text-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
-    }
-
-    // Background Image
-    &::before {
-        content: "";
-        position: fixed;
-        top: 0; left: 0; width: 100%; height: 100%;
-        background-image: url('images/reg-night.webp');
-        background-repeat: no-repeat;
-        background-position: center center;
-        background-size: cover;
-        
-        // Deep blur for atmosphere
-        filter: blur(30px) saturate(140%) brightness(0.65);
-        transform: scale(1.2); 
-        z-index: -1; 
-    }
+// [Background] 日照金山
+body::before {
+    content: "";
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    
+    // 请替换为你的日照金山图片
+    background-image: url('images/bg-day.jpg'); 
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    
+    // [Filter] 高透亮，不再压暗
+    filter: brightness(1.05) saturate(130%); 
+    z-index: -1;
 }
 
 .container {
-    @include flex-box(column, stretch, flex-start, 50px);
-    max-width: $container-width;
-    margin: 0 auto;
-    padding: 80px 20px;
-}
-
-.timestamp {
-    margin-top: 10px;
-    font-size: 12px;
-    opacity: 0.4;
-    font-style: italic;
-    font-weight: 300;
+    display: flex; flex-direction: column; gap: 50px;
+    max-width: $container-width; margin: 0 auto; padding: 80px 20px;
 }
 
 
 /* =========================================
-   4. Components
+   4. Component Styles
    ========================================= */
 
-// --- 1. Card ---
+// --- Card (Thin Ice) ---
 .card {
-    @include glass-standard(60px);
+    @include glass-standard(40px);
     border-radius: $radius-card !important;
     padding: 45px !important;
-    transform: translateZ(0);
-    
-    transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
-    
-    p { opacity: 0.9; font-weight: 300; }
-
-    @media (hover: hover) {
-        &:hover {
-            border-color: rgba(255, 255, 255, 0.15) !important;
-        }
-    }
+    transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
-// --- 2. Interactive Card ---
+// --- Interactive Card ---
 .interactive-card {
     cursor: pointer;
-    transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+    transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
     
-    @include glass-standard(40px);
-    background: rgba(255, 255, 255, 0.03) !important;
+    @include glass-standard(30px); // 默认状态是薄冰
+    background: rgba(255, 255, 255, 0.4) !important;
 
     @media (hover: hover) {
         &:hover {
-            @include glass-liquid;
-            
-            border-color: rgba($color-interactive, 0.4) !important;
-            box-shadow: 
-                0 25px 50px rgba(0, 0, 0, 0.3),
-                inset 0 1px 0 0 rgba(255, 255, 255, 0.7),
-                inset 0 0 30px rgba($color-interactive, 0.15) !important;
-                transform: translateY(-4px) scale(1.005) !important;
+            // 激活状态变为 Liquid Gold
+            @include glass-liquid; 
+            transform: translateY(-5px) scale(1.01) translate3d(0,0,0) !important;
         }
-    }
-
-    &:active {
-        transform: scale(0.98) !important;
-        box-shadow: inset 0 1px 0 0 rgba(255,255,255,0.3) !important;
     }
 }
 
-// --- 3. Button ---
+// --- Button (Permanent Lens) ---
 .button {
-    @include flex-box(row, center, center, 10px);
-    @include glass-liquid;
-    
-    display: inline-flex;
-    color: #fff !important;
-    text-decoration: none !important;
-    padding: 12px 32px !important;
+    display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+    padding: 14px 36px !important;
     border-radius: $radius-btn !important;
-    font-size: 15px;
-    font-weight: 500;
-    margin-top: 25px;
+    text-decoration: none !important;
+    font-weight: 600; // 更粗的字体
+    color: #fff !important; // 按钮内文字保持白色
     
+    // [Buttons] 常驻透镜状态
+    @include glass-liquid; 
+    
+    // 覆盖默认背景，使用品牌色渐变作为底色，上面覆盖玻璃
+    background: 
+        linear-gradient(225deg, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0.1) 100%),
+        linear-gradient(135deg, $color-brand-gold-start, $color-brand-gold-mid) !important;
+    background-blend-mode: overlay, normal;
+    
+    border: 1px solid rgba(255,255,255,0.6) !important;
+    box-shadow: 
+        0 10px 25px rgba(251, 146, 60, 0.4), // 橙色辉光投影
+        inset 0 1px 0 0 rgba(255,255,255,1) !important;
+
     transition: all 0.3s ease;
+    
     i { transition: transform 0.3s ease; }
 
-    @media (hover: hover) {
-        &:hover {
-            background: radial-gradient(circle at 50% 0%, rgba($color-interactive, 0.25) 0%, rgba($color-interactive, 0.05) 100%) !important;
-            border-color: rgba($color-interactive, 0.5) !important;
-            
-            box-shadow: 
-                0 15px 35px rgba($color-interactive, 0.3),
-                inset 0 1px 0 0 rgba(255, 255, 255, 0.9),
-                inset 0 0 20px rgba($color-interactive, 0.2) !important;
-            
-            i { transform: translateX(3px); }
-        }
+    &:hover {
+        transform: translateY(-2px);
+        box-shadow: 
+            0 15px 35px rgba(251, 146, 60, 0.5),
+            inset 0 1px 0 0 rgba(255,255,255,1) !important;
+        i { transform: translateX(3px); }
     }
 }
 
-// --- Special Text ---
+// --- Typography Details ---
 .special-text {
-    font-family: $font-stack;
-    font-weight: 600;
-    letter-spacing: 0.5px;
-    @include text-gradient($color-brand-gold-start, $color-brand-gold-mid, $color-brand-gold-end);
-    filter: drop-shadow(0 0 10px rgba(243, 229, 171, 0.15));
+    font-family: $font-serif;
+    font-weight: 700;
+    @include text-gradient-gold;
+}
+
+.now-item .now-icon i {
+    color: rgba(0,0,0,0.7); // 图标颜色加深
+}
+// 特殊处理分类文字
+.now-category {
+    color: $color-text-sub;
+    font-weight: 600; // 加粗
 }
 
 
 /* =========================================
-   5. Dynamic Island
+   5. Dynamic Island (Frosted Ice)
    ========================================= */
 
+// 日间模式下的灵动岛，采用更高对比度的“磨砂冰”设计
 .island {
-    position: fixed;
-    top: 24px; left: 24px;
-    z-index: 9999;
-    display: flex; flex-direction: column; align-items: flex-start;
-    gap: 8px;
+    position: fixed; top: 24px; left: 24px; z-index: 9999;
+    display: flex; flex-direction: column; gap: 8px;
 }
 
 .pill {
-    background: rgba(0, 0, 0, 0.4) !important;
-    
+    // 深色玻璃，形成视觉锚点
+    background: rgba(0, 0, 0, 0.75) !important; 
     backdrop-filter: blur(20px) !important;
-    -webkit-backdrop-filter: blur(20px) !important;
-    
-    border: 1px solid rgba(255, 255, 255, 0.1) !important;
-    
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
     border-radius: 100px;
     padding: 8px 16px;
-    
     display: flex; align-items: center; gap: 10px;
-    cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+    color: #fff; // 岛内文字保持白色
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
     
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-
     &:hover {
-        background: rgba(0, 0, 0, 0.6) !important;
-        border-color: rgba(255, 255, 255, 0.2) !important;
-        transform: translateY(-1px);
+        background: rgba(0, 0, 0, 0.85) !important;
+        transform: scale(1.02);
     }
-    
-    .island.pinned & {
-        border-color: rgba(196, 181, 253, 0.4) !important;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4), inset 0 0 15px rgba(196, 181, 253, 0.1);
-    }
-}
-
-.pill .dot {
-    width: 6px; height: 6px;
-    background-color: #4ADE80;
-    border-radius: 50%;
-    position: relative;
-    box-shadow: 0 0 5px rgba(74, 222, 128, 0.5);
-    
-    &::after {
-        content: ""; position: absolute; 
-        top: 50%; left: 50%; 
-        width: 100%; height: 100%;
-        border-radius: 50%; 
-        background-color: inherit;
-        transform: translate(-50%, -50%);
-        animation: signal-pulse 2.5s infinite ease-out;
-    }
-}
-
-.pill .text {
-    font-size: 11px;
-    font-weight: 500;
-    letter-spacing: 1px;
-    color: rgba(255, 255, 255, 0.8);
-    text-transform: uppercase;
 }
 
 .menu {
-    background: rgba(0, 0, 0, 0.4) !important;
-    backdrop-filter: blur(20px) !important;
-    border: 1px solid rgba(255, 255, 255, 0.1) !important;
-    
+    background: rgba(255, 255, 255, 0.8) !important; // 展开菜单用亮色
+    backdrop-filter: blur(30px) !important;
+    border: 1px solid rgba(0, 0, 0, 0.05) !important;
     border-radius: 16px;
     padding: 8px;
     width: 38px;
-    
     display: flex; flex-direction: column; align-items: center; gap: 6px;
-    
-    opacity: 0; transform: translateY(-8px) scale(0.95);
-    pointer-events: none;
+    opacity: 0; transform: translateY(-8px); pointer-events: none;
     transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.15);
 }
 
-.island:hover .menu, 
-.island.pinned .menu {
-    opacity: 1; transform: translateY(0) scale(1); pointer-events: auto;
-}
+.island:hover .menu { opacity: 1; transform: translateY(0); pointer-events: auto; }
 
+// 菜单内图标颜色适配
 .links a {
-    color: rgba(255, 255, 255, 0.5);
-    font-size: 14px;
-    width: 30px; height: 30px;
-    
-    display: flex; justify-content: center; align-items: center;
-    border-radius: 8px;
-    transition: all 0.2s;
-    background: transparent;
-    
-    &:hover {
-        color: #fff;
-        background: rgba(255, 255, 255, 0.1);
-    }
-}
-
-@keyframes signal-pulse {
-    0% { box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.7); opacity: 1; }
-    70% { box-shadow: 0 0 0 6px rgba(74, 222, 128, 0); opacity: 0; }
-    100% { box-shadow: 0 0 0 0 rgba(74, 222, 128, 0); opacity: 0; }
-}
-
-@media (max-width: 768px) {
-    .island {
-        top: auto; bottom: 20px; left: 50%; transform: translateX(-50%);
-        align-items: center; gap: 0;
-    }
-    .pill { display: none; }
-    .menu {
-        opacity: 1 !important; transform: none !important; pointer-events: auto !important;
-        flex-direction: row;
-        width: auto;
-        padding: 10px 20px;
-        border-radius: 100px;
-        background: rgba(0, 0, 0, 0.6) !important;
-    }
-    .links { flex-direction: row; gap: 20px; }
-    .links a { font-size: 18px; width: 40px; height: 40px; }
-}
-
-
-/* =========================================
-   6. Section Styles
-   ========================================= */
-
-// --- Hero Section ---
-.hero-content {
-    @include flex-box(row, center, flex-start, 35px);
-}
-.profile-pic {
-    height: 180px; width: 180px;
-    border-radius: 35px;
-    object-fit: cover;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    flex-shrink: 0;
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
-}
-.main-name { 
-    font-size: 38px; 
-    font-weight: 500;
-    margin: 0; 
-    letter-spacing: -1px; 
-}
-.field-name { 
-    font-size: 18px; 
-    color: $color-text-muted; 
-    margin-top: 8px; 
-    font-weight: 300;
-}
-.hero-actions { margin-top: 25px; }
-
-
-// --- Now Section ---
-.now-subtitle { 
-    font-size: 15px; 
-    opacity: 0.7; 
-    margin-bottom: 30px; 
-    font-weight: 300;
-}
-.now-grid { @include flex-box(column, stretch, flex-start, 25px); }
-
-.now-item {
-    display: grid;
-    grid-template-columns: 30px 1fr;
-    align-items: flex-start;
-    gap: 15px;
-    padding-bottom: 20px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-
-    &:last-child { border-bottom: none; }
-    
-    .now-icon {
-        @include flex-box(row, center, center);
-        margin-top: 2px;
-        i { font-size: 18px; transition: color 0.3s ease; }
-    }
-    
-    .now-category {
-        display: block;
-        font-size: 10px;
-        text-transform: uppercase;
-        letter-spacing: 2px;
-        color: $color-text-sub;
-        margin-bottom: 6px;
-        font-weight: 500;
-    }
-
-    &:nth-child(1) .now-icon i { color: $color-tag-reading; }
-    &:nth-child(2) .now-icon i { color: $color-interactive; }
-    &:nth-child(3) .now-icon i { color: $color-tag-building; }
-}
-
-
-// --- Work Section ---
-
-.skills-grid {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
-    margin-top: 20px;
-}
-
-// Chips
-.skill-item {
-    background: rgba(255, 255, 255, 0.02); 
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 100px;
-    
-    padding: 8px 18px;
-    font-size: 13px;
-    font-weight: 400;
-    color: rgba(255, 255, 255, 0.7);
-    letter-spacing: 0.5px;
-    
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    
-    cursor: default;
-    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-    
-    i { font-size: 14px; opacity: 0.7; }
-
-    &:hover {
-        background: rgba($color-interactive, 0.1);
-        border-color: rgba($color-interactive, 0.3);
-        color: #fff;
-        transform: translateY(-2px);
-        
-        i { opacity: 1; color: $color-interactive; }
-    }
-}
-
-.project-image {
-    width: 100%;
-    border-radius: 20px;
-    margin-top: 20px;
-    opacity: 0.95;
-    border: 1px solid rgba(255,255,255,0.08);
-}
-
-.project-header {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-    
-    .project-title {
-        margin: 5px 0;
-        font-size: 24px;
-        font-weight: 500;
-        
-        a:hover {
-            color: $color-interactive !important;
-            transition: color 0.2s ease;
-        }
-    }
-}
-
-
-// --- Utilities & Footer ---
-.section-label {
-    color: rgba(255, 255, 255, 0.6);
-    font-size: 11px;
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 3px;
-    margin-bottom: 25px;
-}
-
-.footer {
-    text-align: center;
-    padding: 60px 0;
-    opacity: 0.4;
-    font-size: 12px;
-    font-weight: 300;
-}
-
-
-/* =========================================
-   7. Responsive Design (Mobile Dock)
-   ========================================= */
-
-@media (max-width: 768px) {
-    .container { padding-bottom: 140px; }
-    
-    // Dock
-    .island {
-        top: auto; 
-        bottom: 25px;
-        left: 50%; 
-        transform: translateX(-50%);
-        
-        flex-direction: row;
-        align-items: flex-end;
-        padding: 0; margin: 0;
-        width: auto;
-    }
-
-    .pill { display: none; }
-    .pin { display: none; }
-    
-    .menu {
-        opacity: 1 !important;
-        transform: none !important;
-        pointer-events: auto !important;
-        
-        flex-direction: row;
-        padding: 16px 28px;
-        gap: 0;
-        
-        border-radius: 35px;
-        // Deep Dock Background
-        background: rgba(20, 20, 20, 0.8) !important;
-        backdrop-filter: blur(30px) !important;
-        -webkit-backdrop-filter: blur(30px) !important;
-        border: 1px solid rgba(255, 255, 255, 0.1) !important;
-        
-        box-shadow: 0 20px 50px rgba(0,0,0,0.4);
-    }
-    
-    .links {
-        flex-direction: row;
-        gap: 30px;
-        align-items: center;
-        
-        a {
-            font-size: 20px;
-            color: rgba(255, 255, 255, 0.6);
-            width: auto; height: auto;
-            background: none !important;
-            
-            &:active {
-                color: #fff;
-                transform: scale(1.1);
-            }
-        }
-    }
-
-    .hero-content { flex-direction: column; text-align: center; }
-    .hero-actions { justify-content: center; }
-    .profile-pic { width: 140px; height: 140px; margin-bottom: 15px; }
+    color: rgba(0, 0, 0, 0.6);
+    &:hover { color: #000; background: rgba(0,0,0,0.05); }
 }
