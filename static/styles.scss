@@ -243,121 +243,131 @@ body {
 
 
 /* =========================================
-   5. Dynamic Island (Navigation)
+   5. Dynamic Island
    ========================================= */
 
-// 1. Island Container
 .island {
     position: fixed;
     top: 24px; left: 24px;
-    z-index: 1000;
-    
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 12px;
-    padding-bottom: 20px; 
-    margin-bottom: -20px; 
+    z-index: 9999;
+    display: flex; flex-direction: column; align-items: flex-start;
+    gap: 8px;
+}
 
-    &:hover .menu,
-    &.pinned .menu {
-        opacity: 1;
-        transform: translateY(0);
-        pointer-events: auto;
+.pill {
+    background: rgba(0, 0, 0, 0.4) !important;
+    
+    backdrop-filter: blur(20px) !important;
+    -webkit-backdrop-filter: blur(20px) !important;
+    
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    
+    border-radius: 100px;
+    padding: 8px 16px;
+    
+    display: flex; align-items: center; gap: 10px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+    
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+
+    &:hover {
+        background: rgba(0, 0, 0, 0.6) !important;
+        border-color: rgba(255, 255, 255, 0.2) !important;
+        transform: translateY(-1px);
+    }
+    
+    .island.pinned & {
+        border-color: rgba(196, 181, 253, 0.4) !important;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4), inset 0 0 15px rgba(196, 181, 253, 0.1);
     }
 }
 
-// 2. Status Pill (Interactive Toggle)
-.pill {
-    @include glass-liquid;
+.pill .dot {
+    width: 6px; height: 6px;
+    background-color: #4ADE80;
+    border-radius: 50%;
+    position: relative;
+    box-shadow: 0 0 5px rgba(74, 222, 128, 0.5);
     
-    border-radius: 100px;
-    padding: 12px 24px;
-    display: flex; align-items: center; gap: 12px;
-    cursor: pointer;
-    
-    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-    
-    &:hover {
-        filter: brightness(1.15);
-        transform: scale(1.03);
+    &::after {
+        content: ""; position: absolute; 
+        top: 50%; left: 50%; 
+        width: 100%; height: 100%;
+        border-radius: 50%; 
+        background-color: inherit;
+        transform: translate(-50%, -50%);
+        animation: signal-pulse 2.5s infinite ease-out;
     }
-    
-    &:active {
-        transform: scale(0.97);
-    }
+}
 
-    // --- Pinned State ---
-    .island.pinned & {
-        // 边框变紫
-        border-color: rgba($color-interactive, 0.4) !important;
-        border-top-color: rgba($color-interactive, 0.6) !important;
-        border-right-color: rgba($color-interactive, 0.6) !important;
-
-        box-shadow: 
-            -5px 15px 40px rgba(0, 0, 0, 0.3),
-            inset -2px 2px 0 0 rgba(255, 255, 255, 0.7),
-            inset -10px 10px 40px rgba($color-interactive, 0.25) !important;
-    }
-    
-    .dot {
-        width: 7px; height: 7px;
-        background-color: $color-status-live;
-        border-radius: 50%;
-        position: relative;
-        box-shadow: 0 0 10px rgba($color-status-live, 0.8);
-        &::after {
-            content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            border-radius: 50%; background-color: $color-status-live;
-            animation: pulse 2s infinite ease-in-out;
-        }
-    }
-    .text {
-        font-size: 12px; font-weight: 700; letter-spacing: 1.5px;
-        color: rgba(255, 255, 255, 0.95);
-        text-shadow: 0 2px 5px rgba(0,0,0,0.2);
-    }
+.pill .text {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    color: rgba(255, 255, 255, 0.8);
+    text-transform: uppercase;
 }
 
 .menu {
-    @include glass-standard(60px);
-    border-radius: 24px;
-    padding: 18px;
+    background: rgba(0, 0, 0, 0.4) !important;
+    backdrop-filter: blur(20px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
     
-    display: flex; flex-direction: column; align-items: center; gap: 18px;
+    border-radius: 16px;
+    padding: 8px;
+    width: 38px;
     
-    opacity: 0;
-    transform: translateY(-15px) scale(0.98);
+    display: flex; flex-direction: column; align-items: center; gap: 6px;
+    
+    opacity: 0; transform: translateY(-8px) scale(0.95);
     pointer-events: none;
-    transition: all 0.5s cubic-bezier(0.2, 0.9, 0.2, 1);
-    box-shadow: 0 30px 60px rgba(0,0,0,0.2);
+    transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
-.links {
-    display: flex; flex-direction: column; gap: 15px;
-    a {
-        color: $color-text-muted; font-size: 20px; transition: 0.3s;
-        width: 40px; height: 40px;
-        display: flex; justify-content: center; align-items: center;
-        border-radius: 50%;
-        &:hover {
-            color: #fff;
-            background: linear-gradient(225deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.01) 100%);
-            box-shadow: inset -1px 1px 0 0 rgba(255,255,255,0.5);
-            transform: scale(1.1);
-        }
+.island:hover .menu, 
+.island.pinned .menu {
+    opacity: 1; transform: translateY(0) scale(1); pointer-events: auto;
+}
+
+.links a {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 14px;
+    width: 30px; height: 30px;
+    
+    display: flex; justify-content: center; align-items: center;
+    border-radius: 8px;
+    transition: all 0.2s;
+    background: transparent;
+    
+    &:hover {
+        color: #fff;
+        background: rgba(255, 255, 255, 0.1);
     }
 }
 
-@keyframes pulse {
-    0% { transform: scale(1); opacity: 0.8; }
-    70% { transform: scale(2.5); opacity: 0; }
-    100% { transform: scale(1); opacity: 0; }
+@keyframes signal-pulse {
+    0% { box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.7); opacity: 1; }
+    70% { box-shadow: 0 0 0 6px rgba(74, 222, 128, 0); opacity: 0; }
+    100% { box-shadow: 0 0 0 0 rgba(74, 222, 128, 0); opacity: 0; }
 }
 
 @media (max-width: 768px) {
+    .island {
+        top: auto; bottom: 20px; left: 50%; transform: translateX(-50%);
+        align-items: center; gap: 0;
+    }
     .pill { display: none; }
-    .menu { opacity: 1 !important; transform: none !important; pointer-events: auto !important; }
+    .menu {
+        opacity: 1 !important; transform: none !important; pointer-events: auto !important;
+        flex-direction: row;
+        width: auto;
+        padding: 10px 20px;
+        border-radius: 100px;
+        background: rgba(0, 0, 0, 0.6) !important;
+    }
+    .links { flex-direction: row; gap: 20px; }
+    .links a { font-size: 18px; width: 40px; height: 40px; }
 }
 
 
