@@ -16,21 +16,15 @@ $color-brand-gold-end: #FCD34D;
 $color-interactive: #FB923C; 
 $color-interactive-glow: rgba(251, 146, 60, 0.25); 
 
-// --- Tag Colors ---
 $color-tag-reading: #15803d; 
 $color-tag-building: #1d4ed8; 
 $color-status-live: #ea580c; 
 
-// --- Physics Constants ---
 $container-width: 900px;
 $radius-card: 24px;
 $radius-btn: 100px;
 
-// [Font Stack] 纯英文环境，无任何中文强制
-// 1. 正文: Inter -> Segoe UI (Windows英文系统字体) -> sans-serif
 $font-stack: "Inter", "Segoe UI", sans-serif;
-
-// 2. 标题: Newsreader -> Times New Roman -> serif
 $font-serif: "Newsreader", "Times New Roman", serif;
 
 
@@ -61,8 +55,8 @@ $font-serif: "Newsreader", "Times New Roman", serif;
         rgba(255, 255, 255, 0.1) 100%
     ) !important;
     
-    backdrop-filter: url(#liquid-distortion) blur(8px) saturate(200%) !important;
-    -webkit-backdrop-filter: url(#liquid-distortion) blur(8px) saturate(200%) !important;
+    backdrop-filter: url("#liquid-distortion") blur(8px) saturate(200%) !important;
+    -webkit-backdrop-filter: url("#liquid-distortion") blur(8px) saturate(200%) !important;
     transform: translate3d(0, 0, 0);
 
     border: 1px solid rgba(255, 255, 255, 0.9) !important;
