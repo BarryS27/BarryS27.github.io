@@ -22,7 +22,7 @@ def compile_scss():
     """Compile SCSS to CSS with error handling and validation"""
     print("Compiling SCSS...")
     scss_file = os.path.join('static', 'styles.scss')
-    css_file = os.path.join('static', 'style.css')  
+    css_file = os.path.join('static', 'styles.css')  
     
     if not os.path.exists(scss_file):
         print(f"Error: Source file not found: {scss_file}")
