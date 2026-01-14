@@ -10,9 +10,9 @@ def index():
 def work():
     return render_template("work.html")
 
-@app.errorhandler(404)
-def page_not_found(e):
-    return render_template('404.html'), 404
+@app.route('/404.html')
+def render_404_static():
+    return render_template('404.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
