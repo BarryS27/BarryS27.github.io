@@ -2,19 +2,6 @@
 // 1. Variables (Add these new variables)
 // =========================================
 
-// --- Component: iOS Button ---
-$btn-padding-compact: 8px 20px;
-$btn-height-min: 36px;
-$btn-font-size-ios: 0.9rem;
-$btn-font-weight-ios: 500;
-$btn-letter-spacing: -0.01em;
-$btn-radius-pill: 999px;
-
-// --- Button Colors & Glass ---
-$btn-bg-glass: rgba($color-brand-gold-mid, 0.75); 
-$btn-border-glass: 1px solid rgba(255, 255, 255, 0.25);
-$btn-shadow-ios: 0 4px 12px rgba($color-brand-gold-start, 0.2);
-
 // --- Base Palette: High Contrast Day ---
 $color-bg: #f5f5f7; 
 $color-text-main: rgba(29, 29, 31, 0.95); 
@@ -89,6 +76,19 @@ $border-standard: 1px solid rgba(0, 0, 0, 0.06);
 $border-top-highlight: 1px solid rgba(255, 255, 255, 0.4);
 $border-glass-light: 1px solid rgba(255, 255, 255, 0.9);
 $border-divider: 1px solid rgba(0, 0, 0, 0.06);
+
+// --- Component: iOS Button ---
+$btn-padding-compact: 8px 20px;
+$btn-height-min: 36px;
+$btn-font-size-ios: 0.9rem;
+$btn-font-weight-ios: 500;
+$btn-letter-spacing: -0.01em;
+$btn-radius-pill: 999px;
+
+// --- Button Colors & Glass ---
+$btn-bg-glass: rgba($color-brand-gold-mid, 0.75); 
+$btn-border-glass: 1px solid rgba(255, 255, 255, 0.25);
+$btn-shadow-ios: 0 4px 12px rgba($color-brand-gold-start, 0.2);
 
 
 /* =========================================
