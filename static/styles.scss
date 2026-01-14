@@ -253,6 +253,16 @@ body {
     }
 }
 
+.section-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    font-weight: 700;
+    color: rgba(0, 0, 0, 0.45);
+    margin: 0 0 20px 0;
+    display: block;
+}
+
 
 /* =========================================
    6. Card Type Definitions (ID-based)
@@ -321,14 +331,6 @@ body {
 
 // About Card
 #about {
-    .section-label {
-        font-size: $font-size-xl;
-        font-weight: 600;
-        margin: 0 0 $spacing-md 0;
-        color: $color-text-main;
-        letter-spacing: -0.01em;
-    }
-
     p {
         line-height: $line-height-base;
         margin: 0;
@@ -337,14 +339,6 @@ body {
 
 // Now Card
 #now {
-    .section-label {
-        font-size: $font-size-xl;
-        font-weight: 600;
-        margin: 0 0 $spacing-md 0;
-        color: $color-text-main;
-        letter-spacing: -0.01em;
-    }
-
     .now-subtitle {
         color: $color-text-muted;
         margin: -$spacing-xs 0 28px 0;
@@ -401,14 +395,6 @@ body {
 
 // Contact Card
 #contact {
-    .section-label {
-        font-size: $font-size-xl;
-        font-weight: 600;
-        margin: 0 0 $spacing-md 0;
-        color: $color-text-main;
-        letter-spacing: -0.01em;
-    }
-
     p {
         line-height: $line-height-base;
         color: $color-text-muted;
@@ -418,14 +404,6 @@ body {
 
 // Skills Card
 #skills {
-    .section-label {
-        font-size: $font-size-xl;
-        font-weight: 600;
-        margin: 0 0 $spacing-md 0;
-        color: $color-text-main;
-        letter-spacing: -0.01em;
-    }
-
     .skills-grid {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
@@ -463,14 +441,6 @@ body {
 
 // Featured Project Card
 #featured-project {
-    .section-label {
-        font-size: $font-size-xl;
-        font-weight: 600;
-        margin: 0 0 $spacing-sm 0;
-        color: $color-text-main;
-        letter-spacing: -0.01em;
-    }
-
     .project-title {
         font-size: 1.4em;
         font-weight: 600;
