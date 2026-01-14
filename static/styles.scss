@@ -668,44 +668,6 @@ body {
     border-width: 0;
 }
 
-// Back to Top Button
-.back-to-top {
-    position: fixed;
-    bottom: 80px;
-    right: $spacing-md;
-    width: 50px;
-    height: 50px;
-    @include glass-light;
-    @include flex-center;
-    border-radius: 50%;
-    border: none;
-    cursor: pointer;
-    opacity: 0;
-    transform: translateY(20px);
-    transition: all $transition-fast;
-    z-index: 9998;
-    @include focus-visible;
-    
-    &.visible {
-        opacity: 1;
-        transform: translateY(0);
-    }
-    
-    &:hover {
-        transform: translateY(-3px);
-        box-shadow: $shadow-md;
-    }
-    
-    &:active {
-        transform: translateY(-1px);
-    }
-    
-    i {
-        color: $color-text-main;
-        font-size: 1.2em;
-    }
-}
-
 
 /* =========================================
    11. Responsive Design
