@@ -1,11 +1,13 @@
 {% extends "layout.html" %}
-{% set active_page = "work" %}
 {% block page_title %}Barry S | Work{% endblock %}
 
 {% block content %}
     <header class="card" id="portfolio-hero">
         <h1 class="main-name">My Portfolio</h1>
         <p class="field-name">Selected Projects & Technical Skills</p>
+        <a href="{{ url_for('index') }}" class="button">
+            Return Home <i class="fa-solid fa-arrow-right"></i>
+        </a>
     </header>
 
     <section class="card" id="skills">

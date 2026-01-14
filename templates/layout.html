@@ -51,49 +51,6 @@
         </script>
     </head>
     <body>
-        <!-- Dynamic Island Navigation -->
-        <nav class="island" id="island" aria-label="Main navigation">
-            <div class="pill" onclick="togglePin()" role="button" tabindex="0" aria-label="Toggle menu">
-                <div class="dot" aria-hidden="true"></div>
-                <span class="text">LIVE</span>
-            </div>
-            
-            <div class="menu" role="menu">
-                <div class="links">
-                    {% if active_page == 'work' %}
-                        <a href="{{ url_for('index') }}" title="Back to Home" role="menuitem">
-                            <i class="fa-solid fa-house" aria-hidden="true"></i>
-                            <span class="sr-only">Home</span>
-                        </a>
-                    {% else %}
-                        <a href="{{ url_for('work') }}" title="View My Work" role="menuitem">
-                            <i class="fa-solid fa-briefcase" aria-hidden="true"></i>
-                            <span class="sr-only">Work</span>
-                        </a>
-                    {% endif %}
-
-                    <button class="back-to-top" id="backToTop" aria-label="Back to top">
-                        <i class="fa-solid fa-arrow-up"></i>
-                    </button>
-                    
-                    <a href="https://github.com/BarryS27" target="_blank" rel="noopener noreferrer" title="GitHub" role="menuitem">
-                        <i class="fa-brands fa-github" aria-hidden="true"></i>
-                        <span class="sr-only">GitHub</span>
-                    </a>
-                    
-                    <a href="https://medium.com/@BarryS27" target="_blank" rel="noopener noreferrer" title="Medium" role="menuitem">
-                        <i class="fa-brands fa-medium" aria-hidden="true"></i>
-                        <span class="sr-only">Medium</span>
-                    </a>
-                    
-                    <a href="https://github.com/BarryS27/BarryS27.github.io/issues/new" target="_blank" rel="noopener noreferrer" title="Report a bug" role="menuitem">
-                        <i class="fa-solid fa-bug" aria-hidden="true"></i>
-                        <span class="sr-only">Report Bug</span>
-                    </a>
-                </div>
-            </div>
-        </nav>
-
         <!-- Main Content -->
         <main class="container {% block container_class %}{% endblock %}">
             {% block content %}{% endblock %}
