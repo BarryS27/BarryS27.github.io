@@ -260,19 +260,24 @@ body {
 
 // Hero Card (Home Page)
 #hero {
-    @include flex-column($spacing-lg);
+    display: flex;       
+    flex-direction: row;
     align-items: center;
-    text-align: center;
-    padding: $spacing-2xl $spacing-lg;
+    gap: 40px;
+    text-align: left;
+    padding: 40px 50px;
 
     .profile-pic {
-        width: 140px;
-        height: 140px;
-        border-radius: $radius-profile;
-        object-fit: cover;
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        box-shadow: $shadow-lg;
-        margin-bottom: $spacing-md;
+        flex-shrink: 0;
+        width: 130px;
+        height: 130px;
+        margin-bottom: 0;
+    }
+
+    .hero-text {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
     }
 
     .main-name {

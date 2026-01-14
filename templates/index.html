@@ -5,11 +5,13 @@
 {% block content %}
     <header class="card" id="hero">
         <img class="profile-pic" src="/static/images/profile.webp" alt="Bairu Song" loading="lazy" />
-        <h1 class="main-name">Bairu Song ( Barry )</h1>
-        <p class="field-name">High School Student</p>
-        <a href="{{ url_for('work') }}" class="button">
-            View My Work <i class="fa-solid fa-arrow-right"></i>
-        </a>
+        <div class="hero-text"> 
+            <h1 class="main-name">Bairu Song ( Barry )</h1>
+            <p class="field-name">High School Student</p>
+            <a href="{{ url_for('work') }}" class="button">
+                View My Work <i class="fa-solid fa-arrow-right"></i>
+            </a>
+        </div>
     </header>
 
     <section class="card" id="about">
