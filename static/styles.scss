@@ -740,53 +740,11 @@ body {
         .error-icon {
             font-size: 36px;
         }
-
         .terminal-text {
             font-size: 1.5em;
         }
-
         .error-subtitle {
             font-size: 0.9em;
-        }
-    }
-    
-    // Island mobile adjustments
-    .island {
-        top: auto; 
-        bottom: 20px; 
-        left: 50%; 
-        transform: translateX(-50%);
-        align-items: center; 
-        gap: 0;
-
-        .pill { 
-            display: none; 
-        }
-        
-        .menu {
-            opacity: 1;
-            transform: none;
-            pointer-events: auto;
-            flex-direction: row;
-            width: auto;
-            padding: 10px 20px;
-            border-radius: $radius-btn;
-            @include glass-dark;
-            color: white;
-
-            .links {
-                flex-direction: row;
-                gap: $spacing-xs;
-                
-                a { 
-                    color: rgba(255, 255, 255, 0.7); 
-                    
-                    &:hover { 
-                        color: white; 
-                        background: rgba(255, 255, 255, 0.1); 
-                    }
-                }
-            }
         }
     }
 }
@@ -823,7 +781,6 @@ body {
         display: none;
     }
 
-    .island,
     .button {
         display: none;
     }
