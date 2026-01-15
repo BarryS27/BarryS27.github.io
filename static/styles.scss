@@ -538,7 +538,7 @@ body {
 
 
 /* =========================================
-   7. Button Component (Variable Based)
+   7. Button Component
    ========================================= */
 
 .button {
@@ -553,46 +553,27 @@ body {
     text-decoration: none;
     font-size: $btn-font-size-ios;
     font-weight: $btn-font-weight-ios;
-    letter-spacing: $btn-letter-spacing;
     color: #fff;
-    
-    // 3. Material (Glass)
-    background: $btn-bg-glass;
-    border: $btn-border-glass;
-    
-    // Blur Effect
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    
-    // Shadow
-    box-shadow: $btn-shadow-ios;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 
-    // 4. Interaction
-    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-    @include focus-visible;
-    
+    @include glass-liquid-refined;
+
     i { 
         font-size: 0.9em; 
         transition: transform 0.3s ease; 
     }
 
-    // Hover State
     &:hover {
-        background: rgba($color-brand-gold-mid, 0.9); 
-        border-color: rgba(255, 255, 255, 0.4);
-        transform: translateY(-1px);
-        box-shadow: 0 6px 16px rgba($color-brand-gold-start, 0.3);
+        background: rgba(255, 255, 255, 0.25);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
         
-        i { 
-            transform: translateX(2px); 
-        }
+        i { transform: translateX(3px); }
     }
 
-    // Active/Click State
     &:active {
-        transform: scale(0.96);
-        background: rgba($color-brand-gold-mid, 0.95);
-        box-shadow: 0 2px 4px rgba($color-brand-gold-start, 0.2);
+        transform: translateY(-1px) scale(0.97);
+        background: rgba(255, 255, 255, 0.15);
     }
 }
 
