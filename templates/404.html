@@ -1,48 +1,46 @@
 {% extends "layout.html" %}
-{% set active_page = "404" %}
-{% block page_title %}404 | Barry S{% endblock %}
+{% import 'macros.html' as ui %}
 
+{% block page_title %}404 NOT FOUND{% endblock %}
 {% block container_class %}error-container{% endblock %}
 
 {% block content %}
-    <div class="card" id="error">
-        <i class="fa-solid fa-robot error-icon"></i>
+    <div class="card">
+        <i class="fa-solid fa-robot"></i>
         
-        <div class="terminal-text">
+        <div class="terminal">
             <span id="typewriter"></span><span class="cursor"></span>
         </div>
         
-        <p class="error-subtitle" id="sub-msg">
+        <p>
             Seems like you've ventured into the void.<br>
             Let's get you back to safety.
         </p>
         
-        <a href="{{ url_for('index') }}" class="button" id="action-btn">
-            <i class="fa-solid fa-house"></i> Return Home
-        </a>
+        {{ ui.button("Return Home", url=url_for('index'), icon="fa-solid fa-house", id="action-btn") }}
     </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const text = "404: PAGE NOT FOUND";
             const el = document.getElementById('typewriter');
-            const sub = document.getElementById('sub-msg');
+            const sub = document.querySelector('.error-container p');
             const btn = document.getElementById('action-btn');
             
             let i = 0;
-            
             function type() {
                 if (i < text.length) {
                     el.textContent += text.charAt(i++);
                     setTimeout(type, 100);
                 } else {
                     setTimeout(() => {
-                        sub.classList.add('visible');
-                        btn.classList.add('visible');
+                        sub.style.opacity = "1";
+                        sub.style.transform = "translateY(0)";
+                        btn.style.opacity = "1";
+                        btn.style.transform = "translateY(0)";
                     }, 500);
                 }
             }
-            
             setTimeout(type, 500);
         });
     </script>

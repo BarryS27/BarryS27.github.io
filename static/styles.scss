@@ -1,172 +1,28 @@
-// =========================================
-// 1. Variables (Add these new variables)
-// =========================================
-
-// --- Base Palette: High Contrast Day ---
-$color-bg: #f5f5f7; 
-$color-text-main: rgba(29, 29, 31, 0.95); 
-$color-text-muted: rgba(29, 29, 31, 0.65);
-$color-text-sub: rgba(29, 29, 31, 0.45);
-
-// --- Brand Color: Sunrise Gold/Orange ---
-$color-brand-gold-start: #B45309; 
-$color-brand-gold-mid: #F59E0B;   
-$color-brand-gold-end: #FCD34D;   
-
-$color-interactive: #FB923C; 
-$color-interactive-glow: rgba(251, 146, 60, 0.25); 
-
-$color-tag-reading: #15803d; 
-$color-tag-building: #1d4ed8; 
-$color-status-live: #ea580c; 
-
-// --- Layout & Spacing ---
-$container-width: 900px;
-$spacing-xs: 8px;
-$spacing-sm: 16px;
-$spacing-md: 24px;
-$spacing-lg: 35px;
-$spacing-xl: 50px;
-$spacing-2xl: 80px;
-
-$radius-card: 24px;
-$radius-btn: 100px;
-$radius-menu: 16px;
-$radius-profile: 30px;
-
-// --- Typography ---
-$font-stack: "Inter", "Segoe UI", sans-serif;
-$font-serif: "Newsreader", "Times New Roman", serif;
-
-$font-size-base: 16px;
-$font-size-sm: 0.88em;
-$font-size-md: 0.98em;
-$font-size-lg: 1.15em;
-$font-size-xl: 1.75em;
-$font-size-2xl: 2.8em;
-
-$line-height-base: 1.8;
-$line-height-tight: 1.6;
-$line-height-relaxed: 1.7;
-
-// --- Transitions ---
-$transition-fast: 0.3s ease;
-$transition-smooth: 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
-$transition-bounce: 2s cubic-bezier(0.4, 0, 0.6, 1);
-
-// --- Shadows ---
-$shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
-$shadow-md: 0 4px 20px rgba(0, 0, 0, 0.12);
-$shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.2);
-$shadow-xl: 0 20px 50px -10px rgba(0, 0, 0, 0.25);
-
-// --- Glass Effects ---
-$glass-blur-standard: 40px;
-$glass-blur-menu: 30px;
-$glass-blur-liquid: 8px;
-$glass-blur-island: 20px;
-
-$glass-bg-standard: rgba(255, 255, 255, 0.65);
-$glass-bg-interactive: rgba(255, 255, 255, 0.4);
-$glass-bg-dark: rgba(0, 0, 0, 0.75);
-$glass-bg-light: rgba(255, 255, 255, 0.8);
-
-// --- Borders ---
-$border-standard: 1px solid rgba(0, 0, 0, 0.06);
-$border-top-highlight: 1px solid rgba(255, 255, 255, 0.4);
-$border-glass-light: 1px solid rgba(255, 255, 255, 0.9);
-$border-divider: 1px solid rgba(0, 0, 0, 0.06);
-
-// --- Component: iOS Button ---
-$btn-padding-compact: 8px 20px;
-$btn-height-min: 36px;
-$btn-font-size-ios: 0.9rem;
-$btn-font-weight-ios: 500;
-$btn-letter-spacing: -0.01em;
-$btn-radius-pill: 999px;
-
-// --- Button Colors & Glass ---
-$btn-bg-glass: rgba($color-brand-gold-mid, 0.75); 
-$btn-border-glass: 1px solid rgba(255, 255, 255, 0.25);
-$btn-shadow-ios: 0 4px 12px rgba($color-brand-gold-start, 0.2);
-
-
 /* =========================================
-   2. Mixins: Refactored Physics (Light & Shadow)
+   0. Variables
    ========================================= */
 
-// --- Card: Regular ---
-@mixin glass-standard($blur: $glass-blur-standard) {
-    background: $glass-bg-standard;
-    backdrop-filter: blur($blur) saturate(180%);
-    -webkit-backdrop-filter: blur($blur) saturate(180%);
-    
-    border: $border-standard;
-    border-top: $border-top-highlight;
-    
-    box-shadow: $shadow-md, $shadow-sm;
-}
+// Colors
+$text-primary:  rgba(29, 29, 31, 0.95);
+$text-secondary: rgba(29, 29, 31, 0.65);
+$text-tertiary:   rgba(29, 29, 31, 0.45);
+$text-caption:      rgba(0, 0, 0, 0.4);
+$color-brand:     #F59E0B;
 
-// --- Card: liquid-glass ---
-@mixin glass-liquid {
-    background: linear-gradient(
-        135deg,
-        rgba(255, 255, 255, 0.15) 0%, 
-        rgba(255, 255, 255, 0.05) 100%
-    );
-    
-    backdrop-filter: url("#liquid-glass-filter") blur(12px) saturate(120%);
-    -webkit-backdrop-filter: url("#liquid-glass-filter") blur(12px) saturate(120%);
-    
-    transform: translateZ(0);
-    will-change: backdrop-filter;
+// Spacing
+$gap-icon: 8px;
+$gap-list: 16px;
+$gap-layout: 24px;
+$padding-section: 80px;
 
-    border: 1px solid rgba(255, 255, 255, 0.25);
-    border-right-color: rgba(255, 255, 255, 0.1);
-    border-bottom-color: rgba(255, 255, 255, 0.1);
-    
-    box-shadow: 
-        0 8px 32px 0 rgba(0, 0, 0, 0.05),
-        inset 0 0 15px rgba(255, 255, 255, 0.1),
-        inset 0 1px 1px 0 rgba(255, 255, 255, 0.3);
-}
+// Transitions
+$anim-bouncy: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+$anim-simple:   all 0.3s ease;
 
-// --- Utilities ---
-@mixin text-gradient-gold {
-    background: linear-gradient(
-        135deg, 
-        $color-brand-gold-start 0%, 
-        $color-brand-gold-mid 50%, 
-        $color-brand-gold-end 100%
-    );
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.1));
-}
-
-@mixin flex-center {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-@mixin flex-column($gap: $spacing-md) {
-    display: flex;
-    flex-direction: column;
-    gap: $gap;
-}
-
-@mixin focus-visible {
-    &:focus-visible {
-        outline: 2px solid $color-brand-gold-mid;
-        outline-offset: 2px;
-    }
-}
 
 
 /* =========================================
-   3. Global Implementation
+   1. Global Initialization
    ========================================= */
 
 * {
@@ -180,14 +36,14 @@ html {
 body {
     margin: 0; 
     padding: 0;
-    font-family: $font-stack;
-    color: $color-text-main;
-    line-height: $line-height-base;
+    font-family: "Inter", "Segoe UI", sans-serif;
+    color: $text-primary;
+    line-height: 1.8;
     overflow-x: hidden;
-    font-size: $font-size-base;
+    font-size: 16px;
     font-weight: 400; 
     min-height: 100vh;
-    background-color: $color-bg;
+    background-color: #f5f5f7;
 
     &::before {
         content: "";
@@ -205,358 +61,133 @@ body {
     }
 }
 
-
-/* =========================================
-   4. Layout Container
-   ========================================= */
-
 .container {
-    @include flex-column($spacing-xl);
-    max-width: $container-width; 
+    @include flex-column(50px);
+    max-width: 900px; 
     margin: 0 auto; 
-    padding: $spacing-2xl $spacing-md;
+    padding: $padding-section $gap-layout;
 }
 
-.error-container {
-    min-height: 80vh;
-    @include flex-center;
-}
 
 
 /* =========================================
-   5. Base Card Component
+   2. Flex Box
    ========================================= */
 
-.card {
-    @include glass-standard;
-    border-radius: $radius-card;
-    padding: $spacing-lg;
-    transition: transform $transition-smooth;
+@mixin flex-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.interactive-card {
-    @extend .card;
-    cursor: pointer;
-    transition: all $transition-smooth;
-    
-    @include glass-standard($glass-blur-menu);
-    background: $glass-bg-interactive;
+@mixin flex-column($gap: $gap-layout) {
+    display: flex;
+    flex-direction: column;
+    gap: $gap;
+}
 
-    @media (hover: hover) {
-        &:hover {
-            @include glass-liquid; 
-            transform: translateY(-5px) scale(1.01) translate3d(0, 0, 0);
-        }
+// Using TAB Key
+@mixin tab-visible {
+    &:tab-visible {
+        outline: 2px solid $color-brand;
+        outline-offset: 2px;
     }
 }
 
+
+
+/* =========================================
+   3. Materials
+   ========================================= */
+
+@mixin std-thin {
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(30px) saturate(180%);
+    -webkit-backdrop-filter: blur(30px) saturate(180%);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    border-top: 1px solid rgba(255, 255, 255, 0.4);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
+}
+
+@mixin glass {
+    background: linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.15) 0%, 
+        rgba(255, 255, 255, 0.05) 100%
+    );
+    
+    backdrop-filter: url("#glass-filter") blur(12px) saturate(120%);
+    -webkit-backdrop-filter: url("#glass-filter") blur(12px) saturate(120%);
+    
+    transform: translateZ(0);
+    will-change: backdrop-filter;
+
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-right-color: rgba(255, 255, 255, 0.1);
+    border-bottom-color: rgba(255, 255, 255, 0.1);
+    
+    box-shadow: 
+        0 8px 32px 0 rgba(0, 0, 0, 0.05),
+        inset 0 0 15px rgba(255, 255, 255, 0.1),
+        inset 0 1px 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+@mixin card-skin($interactive: false) {
+    border-radius: 24px;
+    padding: 35px;
+    
+    @if $interactive {
+        @include std-thin;
+        background: rgba(255, 255, 255, 0.4);
+        transition: $anim-bouncy;
+        cursor: pointer;
+
+        &:hover {
+            @include glass;
+            transform: translateY(-2px) scale(1.01);
+        }
+    } @else {
+        @include std-thin;
+    }
+}
+
+
+
+/* =========================================
+   4. Universal Elements
+   ========================================= */
+
+.card { @include card-skin($interactive: false); }
+.interactive-card { @include card-skin($interactive: true); }
+
 .section-label {
-    font-size: 0.75rem;
+    font-size: 0.7rem;
     text-transform: uppercase;
-    letter-spacing: 0.15em;
-    font-weight: 700;
-    color: rgba(0, 0, 0, 0.45);
-    margin: 0 0 20px 0;
+    letter-spacing: 0.13em;
+    font-weight: 500;
+    color: $text-caption;
+    margin: 0 0 $gap-list 0;
     display: block;
 }
 
-
-/* =========================================
-   6. Card Type Definitions (ID-based)
-   ========================================= */
-
-// Hero Card (Home Page)
-#hero {
-    display: flex;       
-    flex-direction: row;
-    align-items: center;
-    gap: 40px;
-    text-align: left;
-    padding: 40px 50px;
-
-    .profile-pic {
-        flex-shrink: 0;
-        width: 130px;
-        height: 130px;
-        margin-bottom: 0;
-    }
-
-    .hero-text {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .main-name {
-        font-size: $font-size-2xl;
-        font-weight: 700;
-        margin: 0 0 $spacing-sm 0;
-        letter-spacing: -0.02em;
-        color: $color-text-main; 
-        background: none;
-        -webkit-text-fill-color: initial;
-    }
-
-    .field-name {
-        font-size: $font-size-lg;
-        color: $color-text-muted;
-        margin: 0 0 $spacing-md 0;
-        font-weight: 500;
-    }
-}
-
-// Portfolio Hero Card (Work Page)
-#portfolio-hero {
-    @include flex-column($spacing-md);
-    align-items: center;
-    text-align: center;
-    padding: $spacing-2xl $spacing-lg;
-
-    .main-name {
-        font-size: $font-size-2xl;
-        font-weight: 700;
-        margin: 0 0 $spacing-sm 0;
-        letter-spacing: -0.02em;
-        @include text-gradient-gold;
-    }
-
-    .field-name {
-        font-size: $font-size-lg;
-        color: $color-text-muted;
-        margin: 0;
-        font-weight: 500;
-    }
-}
-
-// About Card
-#about {
-    p {
-        line-height: $line-height-base;
-        margin: 0;
-    }
-}
-
-// Now Card
-#now {
-    .now-subtitle {
-        color: $color-text-muted;
-        margin: -$spacing-xs 0 28px 0;
-        font-size: 0.95em;
-    }
-
-    .now-grid {
-        @include flex-column($spacing-md);
-
-        .now-item {
-            display: flex;
-            gap: $spacing-sm;
-            align-items: flex-start;
-            padding-bottom: 20px;
-            border-bottom: $border-divider;
-
-            .now-icon {
-                font-size: 1.4em;
-                width: 42px;
-                min-width: 42px;
-                @include flex-center;
-
-                i {
-                    color: rgba(0, 0, 0, 0.7);
-                    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
-                }
-            }
-
-            .now-details {
-                flex: 1;
-                line-height: $line-height-relaxed;
-                font-size: $font-size-md;
-
-                .now-category {
-                    color: $color-text-sub;
-                    font-weight: 600;
-                }
-            }
-        }
-
-        .timestamp {
-            margin-top: 12px;
-            padding-top: 20px;
-            border-top: $border-divider;
-            font-size: $font-size-sm;
-            color: $color-text-sub;
-            font-style: italic;
-            text-align: right;
-            border-bottom: none;
-            padding-bottom: 0;
-        }
-    }
-}
-
-// Skills Card
-#skills {
-    .skills-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-        gap: $spacing-sm;
-
-        .skill-item {
-            @include flex-column($spacing-xs);
-            align-items: center;
-            padding: $spacing-md;
-            border-radius: 12px;
-            background: rgba(255, 255, 255, 0.3);
-            border: $border-divider;
-            transition: all $transition-fast;
-
-            i {
-                font-size: 2em;
-                color: rgba(0, 0, 0, 0.7);
-                filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
-            }
-
-            span {
-                font-size: 0.9em;
-                font-weight: 500;
-                color: $color-text-main;
-            }
-
-            &:hover {
-                background: rgba(255, 255, 255, 0.5);
-                transform: translateY(-2px);
-                box-shadow: $shadow-sm;
-            }
-        }
-    }
-}
-
-// Featured Project Card
-#featured-project {
-    .project-title {
-        font-size: 1.4em;
-        font-weight: 600;
-        margin: 0 0 $spacing-sm 0;
-
-        a {
-            text-decoration: none;
-            color: $color-text-main;
-            display: inline-flex;
-            align-items: center;
-            gap: $spacing-xs;
-            transition: color $transition-fast;
-
-            i {
-                font-size: 0.8em;
-                opacity: 0.7;
-                transition: all $transition-fast;
-            }
-
-            &:hover {
-                color: $color-brand-gold-mid;
-
-                i {
-                    opacity: 1;
-                    transform: translateX(2px);
-                }
-            }
-        }
-    }
-
-    .project-meta {
-        font-size: $font-size-sm;
-        color: $color-text-muted;
-        font-weight: 500;
-        margin: 0 0 $spacing-md 0;
-    }
-
-    .project-description {
-        line-height: $line-height-relaxed;
-        color: $color-text-main;
-        margin: 0;
-    }
-}
-
-// Error Card (404)
-#error {
-    @include flex-column($spacing-md);
-    align-items: center;
-    text-align: center;
-    max-width: 600px;
-    padding: 60px $spacing-lg;
-
-    .error-icon {
-        font-size: 48px;
-        color: rgba(255, 255, 255, 0.3);
-        margin-bottom: $spacing-sm;
-        filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
-    }
-
-    .terminal-text {
-        font-family: 'JetBrains Mono', 'Courier New', monospace;
-        font-size: 2em;
-        font-weight: 700;
-        color: #fff;
-        min-height: 40px;
-        line-height: 1.2;
-        @include flex-center;
-
-        .cursor {
-            display: inline-block;
-            width: 2px;
-            height: 1em;
-            margin-left: 2px;
-            background-color: #34c759;
-            box-shadow: 0 0 5px rgba(52, 199, 89, 0.8);
-            animation: blink 2s ease-in-out infinite;
-        }
-    }
-
-    .error-subtitle {
-        font-size: 1em;
-        color: rgba(255, 255, 255, 0.6);
-        margin: $spacing-md 0;
-        opacity: 0;
-        transform: translateY(10px);
-        transition: all 0.8s ease;
-
-        &.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
-
-    .button {
-        opacity: 0;
-        transform: translateY(20px);
-        transition: all 0.5s ease;
-
-        &.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
-}
-
-
-/* =========================================
-   7. Button Component
-   ========================================= */
-
 .button {
-    // 1. Layout & Shape
+    @include tab-visible;
     @include flex-center;
     gap: 6px; 
-    padding: $btn-padding-compact;
-    min-height: $btn-height-min;
-    border-radius: $btn-radius-pill;
-    
-    // 2. Typography
+    padding: $gap-icon 20px;
+    min-height: 36px;
+    border-radius: 50vh;
+    cursor: pointer;
+    border: none;
+
+    @include glass; 
     text-decoration: none;
-    font-size: $btn-font-size-ios;
-    font-weight: $btn-font-weight-ios;
+    font-size: 0.9rem;
+    font-weight: 500;
     color: #fff;
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-
-    @include glass-liquid;
+    
+    transition: $anim-bouncy;
 
     i { 
         font-size: 0.9em; 
@@ -572,10 +203,142 @@ body {
     }
 
     &:active {
-        transform: translateY(-1px) scale(0.97);
+        transform: translateY(-1px) scale(0.98);
         background: rgba(255, 255, 255, 0.15);
+        transition: transform 0.1s;
     }
 }
+
+
+
+/* =========================================
+   5. Hero
+   ========================================= */
+
+.hero {
+    @include flex-column($gap-layout);
+    align-items: center;
+    text-align: center;
+    padding: $padding-section $gap-layout;
+
+    img {
+        width: 130px;
+        height: 130px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 2px solid rgba(255, 255, 255, 0.8);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    }
+
+    h1 {
+        font-size: 2.8em;
+        font-weight: 700;
+        margin: 0;
+        color: $text-primary;
+        letter-spacing: -0.02em;
+    }
+
+    p {
+        font-size: 1.15em;
+        color: $text-secondary;
+        margin: $gap-icon 0 0 0;
+        font-weight: 500;
+    }
+}
+
+
+
+/* =========================================
+   6. What I'm focusing on:
+   ========================================= */
+
+.now {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    li {
+        display: flex;
+        gap: $gap-list;
+        padding: $gap-list 0;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+
+        &:last-child { border-bottom: none; }
+
+        i {
+            font-size: 1.2rem;
+            opacity: 0.7;
+            width: $gap-layout;
+            text-align: center;
+        }
+
+        span {
+            display: block;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            color: $text-caption;
+        }
+
+        p {
+            margin: 4px 0 0 0;
+            font-size: 0.95rem;
+        }
+    }
+}
+
+
+
+/* =========================================
+   7. Featured Projects
+   ========================================= */
+
+.project {
+    h3 {
+        font-size: 1.4em;
+        font-weight: 600;
+        margin: 0 0 $gap-icon 0;
+
+        a {
+            @include tab-visible;
+            text-decoration: none;
+            color: $text-primary;
+            display: inline-flex;
+            align-items: center;
+            gap: $gap-icon;
+            transition: color 0.3s ease;
+
+            i {
+                font-size: 0.8em;
+                opacity: 0.7;
+                transition: $anim-simple;
+            }
+
+            &:hover {
+                color: $color-brand;
+                i {
+                    opacity: 1;
+                    transform: translate(2px, -2px);
+                }
+            }
+        }
+    }
+
+    small {
+        display: block;
+        font-size: 0.88em;
+        color: $text-secondary;
+        font-weight: 500;
+        margin-bottom: $gap-layout;
+    }
+
+    p {
+        line-height: 1.7;
+        color: $text-primary;
+        margin: 0;
+    }
+}
+
 
 
 /* =========================================
@@ -583,62 +346,94 @@ body {
    ========================================= */
 
 .footer {
-    text-align: center;
-    padding: $spacing-xl 0 20px 0;
-    color: $color-text-muted;
+    @include flex-column($gap-list);
+    align-items: center; 
+    padding: $padding-section $gap-layout 40px; 
+    color: $text-secondary;
     
     p {
-        margin: $spacing-xs 0;
+        margin: 0;
         font-size: 0.95em;
     }
 
-    .copyright-text {
+    div {
+        @include flex-center;
+        gap: 20px;
+
+        a {
+            @include tab-visible;
+            color: $text-tertiary;
+            font-size: 1.2rem;
+            transition: $anim-simple;
+
+            &:hover {
+                color: $color-brand;
+                transform: translateY(-2px);
+            }
+        }
+    }
+
+    small {
         font-size: 0.85em;
-        color: $color-text-sub;
+        color: $text-tertiary;
     }
 }
+
 
 
 /* =========================================
-   9. Animations
+   9. Responsive Design
    ========================================= */
 
-@keyframes pulse {
-    0%, 100% { 
-        opacity: 1; 
-        transform: scale(1); 
+/* (<768px) */
+@media (max-width: 768px) {
+    .container {
+        padding: 40px 20px;
+        @include flex-column(32px); 
     }
-    50% { 
-        opacity: 0.7; 
-        transform: scale(0.92); 
+
+    .hero {
+        padding: 40px 20px;
+        
+        img {
+            width: 110px;
+            height: 110px;
+        }
+
+        h1 { font-size: 2.2em; }
+        p { font-size: 1.05em; }
+    }
+
+    .card {
+        padding: $gap-layout;
+        border-radius: 20px;
+    }
+
+    .project {
+        h3 { font-size: 1.25em; }
+        small { margin-bottom: $gap-list; }
     }
 }
 
-@keyframes blink {
-    0%, 100% { 
-        opacity: 1; 
+/* (<480px) */
+@media (max-width: 480px) {
+    .hero { h1 { font-size: 1.8em; } }
+
+    .button {
+        width: 100%;
+        padding: 12px 20px;
     }
-    50% { 
-        opacity: 0; 
-    }
+
+    .footer { padding: 60px 20px 30px; }
 }
+
 
 
 /* =========================================
-   10. Utility Classes
+   10. Helpful Design
    ========================================= */
 
-.special-text {
-    font-family: $font-serif; 
-    font-weight: 600;
-    font-style: italic;
-    font-size: 1.1em;
-    letter-spacing: -0.02em;
-    color: #78350f; 
-    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.6); 
-}
-
-// Accessibility - Screen Reader Only
+// Screen Reader Only
 .sr-only {
     position: absolute;
     width: 1px;
@@ -649,101 +444,6 @@ body {
     clip: rect(0, 0, 0, 0);
     white-space: nowrap;
     border-width: 0;
-}
-
-
-/* =========================================
-   11. Responsive Design
-   ========================================= */
-
-@media (max-width: 768px) {
-    .container {
-        padding: 60px $spacing-sm;
-        gap: $spacing-lg;
-    }
-    
-    .card {
-        padding: $spacing-md;
-    }
-
-    #hero,
-    #portfolio-hero {
-        padding: $spacing-xl $spacing-md;
-
-        .profile-pic {
-            width: 120px;
-            height: 120px;
-        }
-
-        .main-name {
-            font-size: 2.2em;
-        }
-    }
-
-    #skills {
-        .skills-grid {
-            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-            gap: $spacing-xs;
-
-            .skill-item {
-                padding: $spacing-sm;
-
-                i {
-                    font-size: 1.6em;
-                }
-
-                span {
-                    font-size: 0.85em;
-                }
-            }
-        }
-    }
-
-    #featured-project {
-        .project-title {
-            font-size: 1.2em;
-        }
-    }
-
-    #now {
-        .now-grid {
-            .now-item {
-                .now-icon {
-                    font-size: 1.2em;
-                    width: 38px;
-                    min-width: 38px;
-                }
-            }
-        }
-    }
-
-    #error {
-        padding: $spacing-lg $spacing-md;
-
-        .error-icon {
-            font-size: 36px;
-        }
-        .terminal-text {
-            font-size: 1.5em;
-        }
-        .error-subtitle {
-            font-size: 0.9em;
-        }
-    }
-}
-
-@media (max-width: 480px) {
-    #hero,
-    #portfolio-hero {
-        .main-name {
-            font-size: 1.8em;
-        }
-    }
-    
-    .button {
-        padding: 12px 28px;
-        font-size: 0.95em;
-    }
 }
 
 // Reduced motion support
@@ -760,16 +460,60 @@ body {
 
 // Print styles
 @media print {
-    body::before {
-        display: none;
-    }
+    body::before { display: none; }
 
-    .button {
-        display: none;
-    }
+    .button { display: none; }
 
     .card {
         break-inside: avoid;
         page-break-inside: avoid;
+    }
+}
+
+
+
+/* =========================================
+   11. 404 NOT FOUND
+   ========================================= */
+
+.error-container {
+    @include flex-center;
+    min-height: 80vh;
+
+    .card {
+        @include flex-column($gap-layout);
+        align-items: center;
+        text-align: center;
+        max-width: 500px;
+
+        i {
+            font-size: 3.5rem;
+            color: $brand-gold;
+        }
+
+        .terminal {
+            font-family: monospace;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: $text-primary;
+
+            .cursor {
+                display: inline-block;
+                width: 10px;
+                height: 1.5rem;
+                background: $brand-gold;
+                margin-left: 5px;
+                animation: blink 1s step-end infinite;
+            }
+        }
+
+        p, .button {
+            opacity: 0;
+            transform: translateY(10px);
+            transition: $anim-bouncy;
+            margin: 0;
+        }
+
+        p { color: $text-secondary; }
     }
 }
