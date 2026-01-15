@@ -22,7 +22,33 @@ $anim-simple:   all 0.3s ease;
 
 
 /* =========================================
-   1. Global Initialization
+   1. Flex Box
+   ========================================= */
+
+@mixin flex-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@mixin flex-column($gap: $gap-layout) {
+    display: flex;
+    flex-direction: column;
+    gap: $gap;
+}
+
+// Using TAB Key
+@mixin tab-visible {
+    &:tab-visible {
+        outline: 2px solid $color-brand;
+        outline-offset: 2px;
+    }
+}
+
+
+
+/* =========================================
+   2. Global Initialization
    ========================================= */
 
 * {
@@ -66,32 +92,6 @@ body {
     max-width: 900px; 
     margin: 0 auto; 
     padding: $padding-section $gap-layout;
-}
-
-
-
-/* =========================================
-   2. Flex Box
-   ========================================= */
-
-@mixin flex-center {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-@mixin flex-column($gap: $gap-layout) {
-    display: flex;
-    flex-direction: column;
-    gap: $gap;
-}
-
-// Using TAB Key
-@mixin tab-visible {
-    &:tab-visible {
-        outline: 2px solid $color-brand;
-        outline-offset: 2px;
-    }
 }
 
 
