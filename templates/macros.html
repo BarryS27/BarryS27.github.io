@@ -1,0 +1,65 @@
+{% macro card(title, id=none, interactive=False, href=none) %}
+    {% set tag = 'a' if href else 'section' %}
+    
+    <{{ tag }} {% if id %}id="{{ id }}"{% endif %} 
+               {% if href %}href="{{ href }}"{% endif %}
+               class="{{ 'interactive-card' if interactive else 'card' }} block no-underline">
+        
+        <span class="section-label">{{ title }}</span>
+        {{ caller() }}
+        
+    </{{ tag }}>
+{% endmacro %}
+
+
+{% macro hero(name, subtitle, img_url=none) %}
+<header class="hero">
+    {% if img_url %}<img src="{{ img_url }}" alt="">{% endif %}
+    
+    <h1>{{ name }}</h1>
+    <p>{{ subtitle }}</p>
+</header>
+{% endmacro %}
+
+{% macro now-item(icon, category, content) %}
+<li>
+    <i class="{{ icon }}"></i>
+    <div>
+        <span>{{ category }}</span>
+        <p>{{ content }}</p>
+    </div>
+</li>
+{% endmacro %}
+
+{% macro project(title, meta, desc, link="#") %}
+<div class="project">
+    <h3>
+        <a href="{{ link }}">
+            {{ title }}
+            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+        </a>
+    </h3>
+    <small>{{ meta }}</small>
+    <p>{{ desc }}</p>
+</div>
+{% endmacro %}
+
+{% macro button(text, url=none, icon=none, type="button") %}
+    {% set tag = 'a' if url else 'button' %}
+    
+    <{{ tag }} {% if url %}href="{{ url }}"{% else %}type="{{ type }}"{% endif %} class="button">
+        <span>{{ text }}</span>
+        {% if icon %}
+            <i class="{{ icon }}"></i>
+        {% endif %}
+    </{{ tag }}>
+{% endmacro %}
+
+{% macro footer() %}
+<footer class="footer">
+    <div class="social-links">
+        <a href="https://github.com/BarryS27" target="_blank"><i class="fa-brands fa-github"></i></a>
+    </div>
+    <small>© 2026 Bairu Song. All rights reserved.</small>
+</footer>
+{% endmacro %}
