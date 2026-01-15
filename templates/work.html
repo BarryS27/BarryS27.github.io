@@ -1,63 +1,21 @@
 {% extends "layout.html" %}
-{% block page_title %}Barry S | Work{% endblock %}
+{% import 'macros.html' as ui %}
+
+{% block page_title %}Barry | Portfolio{% endblock %}
 
 {% block content %}
-    <header class="card" id="portfolio-hero">
+    {% call ui.card(id="portfolio-hero") %}
         <h1 class="main-name">My Portfolio</h1>
         <p class="field-name">Selected Projects & Technical Skills</p>
-        <a href="{{ url_for('index') }}" class="button">
-            Return Home <i class="fa-solid fa-arrow-right"></i>
-        </a>
-    </header>
+        {{ ui.button("Return Home", url=url_for('index'), icon="fa-solid fa-arrow-right") }}
+    {% endcall %}
 
-    <section class="card" id="skills">
-        <h2 class="section-label">Technical Stack</h2>
-        <div class="skills-grid">
-            <div class="skill-item">
-                <i class="fa-brands fa-python"></i>
-                <span>Python</span>
-            </div>
-            <div class="skill-item">
-                <i class="fa-brands fa-c"></i>
-                <span>C</span>
-            </div>
-            <div class="skill-item">
-                <i class="fa-solid fa-database"></i>
-                <span>SQL</span>
-            </div>
-            <div class="skill-item">
-                <i class="fa-brands fa-html5"></i>
-                <span>HTML5</span>
-            </div>
-            <div class="skill-item">
-                <i class="fa-brands fa-css3-alt"></i>
-                <span>CSS3</span>
-            </div>
-            <div class="skill-item">
-                <i class="fa-brands fa-js"></i>
-                <span>JavaScript</span>
-            </div>
-            <div class="skill-item">
-                <i class="fa-brands fa-git-alt"></i>
-                <span>Git</span>
-            </div>
-        </div>
-    </section>
-
-    <article class="card interactive-card" id="featured-project">
-        <h2 class="section-label">Featured Project</h2>
-        
-        <h3 class="project-title">
-            <a href="https://github.com/BarryS27/Student-Academic-Management-System" target="_blank" rel="noopener noreferrer">
-                Student Academic Management System
-                <i class="fa-brands fa-github"></i>
-            </a>
-        </h3>
-        
-        <p class="project-meta">Python • Data Structures • CLI</p>
-        
-        <p class="project-description">
-            A comprehensive tool designed for high school students to track grades, calculate GPA, and manage academic schedules. Features a robust CLI interface and data persistence.
-        </p>
-    </article>
+    {% call ui.card(title="Featured Project", id="featured-project", interactive=True) %}
+        {{ ui.project(
+            title="Student Academic Management System",
+            meta="Python • Data Structures • CLI",
+            desc="A comprehensive tool designed for high school students to track grades, calculate GPA, and manage academic schedules. Features a robust CLI interface and data persistence.",
+            link="https://github.com/BarryS27/Student-Academic-Management-System"
+        ) }}
+    {% endcall %}
 {% endblock %}

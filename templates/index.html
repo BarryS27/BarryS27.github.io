@@ -1,57 +1,34 @@
 {% extends "layout.html" %}
-{% block page_title %}Barry S | Home{% endblock %}
+{% import 'macros.html' as ui %}
+
+{% block page_title %}Barry | Now{% endblock %}
 
 {% block content %}
-    <header class="card" id="hero">
+    {% call ui.card(id="hero") %}
         <img class="profile-pic" src="/static/images/profile.webp" alt="Bairu Song" loading="lazy" />
         <div class="hero-text"> 
-            <h1 class="main-name">Bairu Song ( Barry )</h1>
-            <p class="field-name">High School Student</p>
-            <a href="{{ url_for('work') }}" class="button">
-                View My Work <i class="fa-solid fa-arrow-right"></i>
-            </a>
+            <h1 class="main-name">Bairu Song</h1>
+            <p class="field-name">Data Enthusiast</p>
+            {{ ui.button("View My Work", url=url_for('work'), icon="fa-solid fa-arrow-right") }}
         </div>
-    </header>
+    {% endcall %}
 
-    <section class="card" id="about">
-        <h2 class="section-label">About</h2>
+    {% call ui.card(title="About", id="about") %}
         <p>
             I am a high school student passionate about data-driven decision making. 
-            Currently focused on leveraging Python and SQL to derive business insights.
+            Currently focused on leveraging Python and SQLmodern web technologies to solve real-world problems.
         </p>
-    </section>
+    {% endcall %}
 
-    <section class="card" id="now">
-        <h2 class="section-label">Now</h2>
+    {% call ui.card(title="Now", id="now") %}
         <p class="now-subtitle">What I'm focused on at this moment:</p>
         
-        <div class="now-grid">
-            <div class="now-item">
-                <div class="now-icon"><i class="fa-solid fa-book-open"></i></div>
-                <div class="now-details">
-                    <span class="now-category">Reading:</span>
-                    "Bad Blood"
-                </div>
-            </div>
+        <ul class="now-grid">
+            {{ ui.now_item("fa-solid fa-book-open", "Reading:", '"Bad Blood"') }}
             
-            <div class="now-item">
-                <div class="now-icon"><i class="fa-solid fa-graduation-cap"></i></div>
-                <div class="now-details">
-                    <span class="now-category">Learning:</span>
-                    • Intermediate HTML & CSS<br>
-                    • Basic Javascript
-                </div>
-            </div>
-            
-            <div class="now-item">
-                <div class="now-icon"><i class="fa-solid fa-code"></i></div>
-                <div class="now-details">
-                    <span class="now-category">Building:</span>
-                    Student Academics Management System v1.2.2
-                </div>
-            </div>
-            
-            <p class="timestamp">Updated: Jan 4th, 2026</p>
-        </div>
-    </section>
+            {{ ui.now_item("fa-solid fa-graduation-cap", "Learning:", "Web Development (Flask & SCSS)") }}
+
+            {{ ui.now_item("fa-solid fa-terminal", "Building:", "My Portfolio Webpage") }}
+        </ul>
+    {% endcall %}
 {% endblock %}

@@ -1,10 +1,11 @@
 <!DOCTYPE html>
+{% import 'macros.html' as ui %}
 
 <html lang="en">
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta name="description" content="Bairu Song - High school student passionate about data-driven decision making and software development." />
+        <meta name="description" content="Bairu Song - High school student passionate about data-driven decision making and modern web development." />
         <meta name="author" content="Bairu Song" />
 
         <!-- CSP -->
@@ -13,7 +14,7 @@
         <!-- Open Graph / Social Media -->
         <meta property="og:type" content="website" />
         <meta property="og:title" content="{% block og_title %}Bairu Song | Portfolio{% endblock %}" />
-        <meta property="og:description" content="High school student passionate about data science and software development." />
+        <meta property="og:description" content="High school student passionate about data science and modern web development." />
         
         <!-- Preconnect for performance -->
         <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -41,7 +42,7 @@
             "@type": "Person",
             "name": "Bairu Song",
             "alternateName": "Barry S",
-            "description": "High school student passionate about data-driven decision making",
+            "description": "High school student passionate about data-driven decision making and web development",
             "url": "https://barrys27.github.io",
             "sameAs": [
                 "https://github.com/BarryS27",
@@ -55,10 +56,7 @@
         <main class="container {% block container_class %}{% endblock %}">
             {% block content %}{% endblock %}
             
-            <footer class="footer">
-                <p>Bairu Song</p>
-                <p class="copyright-text">All rights reserved © {{ now.year if now else '2026' }}</p>
-            </footer>
+            {{ ui.footer() }}
         </main>
 
         <!-- SVG Filters -->
