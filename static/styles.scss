@@ -108,7 +108,7 @@ $btn-shadow-ios: 0 4px 12px rgba($color-brand-gold-start, 0.2);
 }
 
 // --- Card: liquid-glass ---
-@mixin liquid-glass {
+@mixin glass-liquid {
     background: linear-gradient(
         135deg,
         rgba(255, 255, 255, 0.15) 0%, 
