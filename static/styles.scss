@@ -196,7 +196,7 @@ body {
 
     &:hover {
         background: rgba(255, 255, 255, 0.25);
-        transform: translateY(-2px);
+        transform: scale(1.05);
         box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
         
         i { transform: translateX(3px); }
@@ -222,12 +222,12 @@ body {
     padding: $padding-section $gap-layout;
 
     img {
-        width: 130px;
-        height: 130px;
-        border-radius: 50%;
+        width: 90px;
+        height: 90px;
+        border-radius: 22%;
         object-fit: cover;
-        border: 2px solid rgba(255, 255, 255, 0.8);
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        border: 2px solid rgba(255, 255, 255, 0.5);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
     }
 
     h1 {
@@ -420,7 +420,7 @@ body {
     .hero { h1 { font-size: 1.8em; } }
 
     .button {
-        width: 100%;
+        width: auto;
         padding: 12px 20px;
     }
 
