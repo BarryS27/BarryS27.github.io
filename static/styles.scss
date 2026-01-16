@@ -135,6 +135,7 @@ body {
 @mixin card-skin($interactive: false) {
     border-radius: 24px;
     padding: 35px;
+    overflow: hidden;
     
     @if $interactive {
         @include std-thin;
@@ -173,6 +174,7 @@ body {
 .button {
     @include tab-visible;
     @include flex-center;
+    display: inline-flex;
     gap: 6px; 
     padding: $gap-icon 20px;
     min-height: 36px;
@@ -235,7 +237,7 @@ body {
         font-weight: 700;
         margin: 0;
         color: $text-primary;
-        letter-spacing: -0.02em;
+        letter-spacing: -0.035em;
     }
 
     p {
