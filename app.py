@@ -1,11 +1,11 @@
 from flask import Flask, render_template
-from datetime import datetime
+from datetime import datetime, timezone
 
 app = Flask(__name__, static_folder='static', template_folder='templates')
 
 @app.context_processor
 def inject_now():
-    return {'now': datetime.utcnow()}
+    return {'now': datetime.now(timezone.utc)}
 
 @app.route("/")
 def index():
