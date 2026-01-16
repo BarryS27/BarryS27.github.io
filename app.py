@@ -19,5 +19,9 @@ def work():
 def page_not_found(e):
     return render_template('404.html'), 404
 
+@app.route('/404.html')
+def render_404():
+    return render_template('404.html')
+
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5000)
