@@ -1,15 +1,9 @@
-function togglePin() {
-    const island = document.getElementById('island');
-    island.classList.toggle('pinned');
-    
-    const isPinned = island.classList.contains('pinned');
-    localStorage.setItem('navPinned', isPinned);
-}
+// Contact Modal
+const modal = document.querySelector('div[role="dialog"]');
+const trigger = document.querySelector('#contact-trigger');
+const closeBtn = modal.querySelector('button[type="button"]');
 
-document.addEventListener('DOMContentLoaded', () => {
-    const island = document.getElementById('island');
-    const isPinned = localStorage.getItem('navPinned') === 'true';
-    if (isPinned) {
-        island.classList.add('pinned');
-    }
-});
+trigger.onclick = () => { modal.style.display = 'flex'; };
+closeBtn.onclick = () => { modal.style.display = 'none'; };
+
+window.onclick = (e) => { if (e.target == modal) modal.style.display = 'none'; };

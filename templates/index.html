@@ -1,34 +1,11 @@
 {% extends "layout.html" %}
-{% import 'macros.html' as ui %}
-
-{% block page_title %}Barry | Now{% endblock %}
+{% import "macros.html" as m %}
 
 {% block content %}
-    {% call ui.card(id="hero") %}
-        <img class="profile-pic" src="/static/images/profile.webp" alt="Bairu Song" loading="lazy" />
-        <div class="hero-text"> 
-            <h1 class="main-name">Bairu Song</h1>
-            <p class="field-name">Data Enthusiast</p>
-            {{ ui.button("View My Work", url=url_for('work'), icon="fa-solid fa-arrow-right") }}
-        </div>
-    {% endcall %}
+    <section>
+        <h1>Hello, I'm Barry</h1>
+        <h3>High School Student · Data Enthusiast</h3>
+    </section>
 
-    {% call ui.card(title="About", id="about") %}
-        <p>
-            I am a high school student passionate about data-driven decision making. 
-            Currently focused on leveraging Python and SQLmodern web technologies to solve real-world problems.
-        </p>
-    {% endcall %}
-
-    {% call ui.card(title="Now", id="now") %}
-        <p class="now-subtitle">What I'm focused on at this moment:</p>
-        
-        <ul class="now-grid">
-            {{ ui.now_item("fa-solid fa-book-open", "Reading:", '"Bad Blood"') }}
-            
-            {{ ui.now_item("fa-solid fa-graduation-cap", "Learning:", "Web Development (Flask & SCSS)") }}
-
-            {{ ui.now_item("fa-solid fa-terminal", "Building:", "My Portfolio Webpage") }}
-        </ul>
-    {% endcall %}
+    {{ m.ed("High School", "Lexington High School", "", "2025 - Present") }}
 {% endblock %}

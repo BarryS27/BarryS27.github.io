@@ -1,30 +1,21 @@
 /* =========================================
-   0. Variables
+    Variables
    ========================================= */
-
-// Colors
-$text-primary:  rgba(29, 29, 31, 0.95);
+$text-primary:   rgba(29, 29, 31, 0.95);
 $text-secondary: rgba(29, 29, 31, 0.65);
-$text-tertiary:   rgba(29, 29, 31, 0.45);
-$text-caption:      rgba(0, 0, 0, 0.4);
-$color-brand:     #F59E0B;
+$text-tertiary:  rgba(29, 29, 31, 0.45);
+$text-caption:   rgba(0, 0, 0, 0.4);
+$color-brand:    #F59E0B;
 
-// Spacing
-$gap-icon: 8px;
-$gap-list: 16px;
-$gap-layout: 24px;
+$gap-layout:     24px;
 $padding-section: 80px;
 
-// Transitions
-$anim-bouncy: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
-$anim-simple:   all 0.3s ease;
-
-
+$anim-bouncy:    all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+$anim-simple:    all 0.3s ease;
 
 /* =========================================
-   1. Flex Box
+    Mixins
    ========================================= */
-
 @mixin flex-center {
     display: flex;
     align-items: center;
@@ -37,69 +28,6 @@ $anim-simple:   all 0.3s ease;
     gap: $gap;
 }
 
-// Using TAB Key
-@mixin tab-visible {
-    &:tab-visible {
-        outline: 2px solid $color-brand;
-        outline-offset: 2px;
-    }
-}
-
-
-
-/* =========================================
-   2. Global Initialization
-   ========================================= */
-
-* {
-    box-sizing: border-box;
-}
-
-html { 
-    scroll-behavior: smooth; 
-}
-
-body {
-    margin: 0; 
-    padding: 0;
-    font-family: "Inter", "Segoe UI", sans-serif;
-    color: $text-primary;
-    line-height: 1.8;
-    overflow-x: hidden;
-    font-size: 16px;
-    font-weight: 400; 
-    min-height: 100vh;
-    background-color: #f5f5f7;
-
-    &::before {
-        content: "";
-        position: fixed;
-        top: 0; 
-        left: 0; 
-        width: 100%; 
-        height: 100%;
-        background-image: url('/static/images/goldenhr.webp'); 
-        background-repeat: no-repeat;
-        background-position: center center;
-        background-size: cover;
-        filter: brightness(1.05) saturate(130%); 
-        z-index: -1;
-    }
-}
-
-.container {
-    @include flex-column(50px);
-    max-width: 900px; 
-    margin: 0 auto; 
-    padding: $padding-section $gap-layout;
-}
-
-
-
-/* =========================================
-   3. Materials
-   ========================================= */
-
 @mixin std-thin {
     background: rgba(255, 255, 255, 0.6);
     backdrop-filter: blur(30px) saturate(180%);
@@ -110,412 +38,204 @@ body {
 }
 
 @mixin glass {
-    background: linear-gradient(
-        135deg,
-        rgba(255, 255, 255, 0.15) 0%, 
-        rgba(255, 255, 255, 0.05) 100%
-    );
-    
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.05) 100%);
     backdrop-filter: url("#glass-filter") blur(12px) saturate(120%);
     -webkit-backdrop-filter: url("#glass-filter") blur(12px) saturate(120%);
-    
-    transform: translateZ(0);
-    will-change: backdrop-filter;
-
     border: 1px solid rgba(255, 255, 255, 0.25);
-    border-right-color: rgba(255, 255, 255, 0.1);
-    border-bottom-color: rgba(255, 255, 255, 0.1);
-    
-    box-shadow: 
-        0 8px 32px 0 rgba(0, 0, 0, 0.05),
-        inset 0 0 15px rgba(255, 255, 255, 0.1),
-        inset 0 1px 1px 0 rgba(255, 255, 255, 0.3);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.05);
+    will-change: backdrop-filter;
 }
 
-@mixin card-skin($interactive: false) {
-    border-radius: 24px;
+/* =========================================
+    Global Initialization
+   ========================================= */
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+    margin: 0; padding: 0;
+    font-family: "Inter", "Segoe UI", sans-serif;
+    color: $text-primary;
+    line-height: 1.8;
+    background-color: #f5f5f7;
+
+    &::before {
+        content: "";
+        position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+        background: url('/static/images/background.webp') no-repeat center center / cover;
+        filter: brightness(1.05) saturate(130%);
+        z-index: -1;
+    }
+}
+
+.container {
+    @include flex-column(24px);
+    max-width: 900px;
+    margin: 0 auto;
+    padding: $padding-section 24px;
+}
+
+/* =========================================
+    Universal Elements
+   ========================================= */
+
+// Card
+section {
+    @include std-thin;
     padding: 35px;
-    overflow: hidden;
-    
-    @if $interactive {
-        @include std-thin;
-        background: rgba(255, 255, 255, 0.4);
-        transition: $anim-bouncy;
-        cursor: pointer;
+    border-radius: 24px;
+    margin-bottom: 24px;
+
+    // Section Label
+    span:first-of-type {
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        color: $text-caption;
+        margin-bottom: 8px;
+        display: block;
+    }
+
+    h1 { font-size: 2.2rem; margin: 0; letter-spacing: -0.02em; }
+    h3 { font-size: 1.25rem; margin: 0; font-weight: 600; line-height: 1.3; }
+    p { margin: 4px 0 0 0; font-size: 0.95rem; color: $text-secondary; }
+
+    // Project Link
+    a {
+        display: inline-block;
+        margin-top: 15px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        color: $color-brand;
+        text-decoration: none;
+        transition: $anim-simple;
 
         &:hover {
-            @include glass;
-            transform: translateY(-2px) scale(1.01);
+            opacity: 0.8;
+            transform: translateX(3px);
         }
-    } @else {
-        @include std-thin;
     }
 }
 
-
-
-/* =========================================
-   4. Universal Elements
-   ========================================= */
-
-.card { @include card-skin($interactive: false); }
-.interactive-card { @include card-skin($interactive: true); }
-
-.section-label {
-    font-size: 0.7rem;
-    text-transform: uppercase;
-    letter-spacing: 0.13em;
-    font-weight: 500;
-    color: $text-caption;
-    margin: 0 0 $gap-list 0;
-    display: block;
-}
-
-.button {
-    @include tab-visible;
-    @include flex-center;
-    display: inline-flex;
-    gap: 6px; 
-    padding: $gap-icon 20px;
-    min-height: 36px;
-    border-radius: 50vh;
-    cursor: pointer;
+// Button
+button {
+    @include glass;
+    padding: 8px 20px;
+    border-radius: 12px;
     border: none;
-
-    @include glass; 
-    text-decoration: none;
-    font-size: 0.9rem;
-    font-weight: 500;
     color: #fff;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-    
+    font-size: 0.9rem;
+    cursor: pointer;
     transition: $anim-bouncy;
 
-    i { 
-        font-size: 0.9em; 
-        transition: transform 0.3s ease; 
-    }
-
-    &:hover {
-        background: rgba(255, 255, 255, 0.25);
-        transform: scale(1.05);
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
-        
-        i { transform: translateX(3px); }
-    }
-
-    &:active {
-        transform: translateY(-1px) scale(0.98);
-        background: rgba(255, 255, 255, 0.15);
-        transition: transform 0.1s;
-    }
+    &:hover { transform: scale(1.02); }
+    &:focus { outline: 2px solid $color-brand; outline-offset: 2px; }
 }
 
-
-
 /* =========================================
-   5. Hero
+    Specialized
    ========================================= */
 
-.hero {
-    @include flex-column($gap-layout);
-    align-items: center;
-    text-align: center;
-    padding: $padding-section $gap-layout;
+header nav {
+    position: fixed; top: 24px; left: 24px; z-index: 1000;
 
-    img {
-        width: 90px;
-        height: 90px;
-        border-radius: 22%;
-        object-fit: cover;
-        border: 2px solid rgba(255, 255, 255, 0.5);
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    ul {
+        display: flex; gap: 12px;
+        list-style: none; padding: 0; margin: 0;
     }
 
-    h1 {
-        font-size: 2.8em;
-        font-weight: 700;
-        margin: 0;
-        color: $text-primary;
-        letter-spacing: -0.035em;
-    }
-
-    p {
-        font-size: 1.15em;
-        color: $text-secondary;
-        margin: $gap-icon 0 0 0;
-        font-weight: 500;
-    }
-}
-
-
-
-/* =========================================
-   6. What I'm focusing on:
-   ========================================= */
-
-.now {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-
-    li {
-        display: flex;
-        gap: $gap-list;
-        padding: $gap-list 0;
-        border-bottom: 1px solid rgba(0, 0, 0, 0.06);
-
-        &:last-child { border-bottom: none; }
-
-        i {
-            font-size: 1.2rem;
-            opacity: 0.7;
-            width: $gap-layout;
-            text-align: center;
-        }
-
-        span {
-            display: block;
-            font-size: 0.7rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            color: $text-caption;
-        }
-
-        p {
-            margin: 4px 0 0 0;
-            font-size: 0.95rem;
-        }
-    }
-}
-
-
-
-/* =========================================
-   7. Featured Projects
-   ========================================= */
-
-.project {
-    h3 {
-        font-size: 1.4em;
-        font-weight: 600;
-        margin: 0 0 $gap-icon 0;
-
-        a {
-            @include tab-visible;
-            text-decoration: none;
-            color: $text-primary;
-            display: inline-flex;
-            align-items: center;
-            gap: $gap-icon;
-            transition: color 0.3s ease;
-
-            i {
-                font-size: 0.8em;
-                opacity: 0.7;
-                transition: $anim-simple;
-            }
-
-            &:hover {
-                color: $color-brand;
-                i {
-                    opacity: 1;
-                    transform: translate(2px, -2px);
-                }
-            }
-        }
-    }
-
-    small {
-        display: block;
-        font-size: 0.88em;
-        color: $text-secondary;
-        font-weight: 500;
-        margin-bottom: $gap-layout;
-    }
-
-    p {
-        line-height: 1.7;
-        color: $text-primary;
-        margin: 0;
-    }
-}
-
-
-
-/* =========================================
-   8. Footer
-   ========================================= */
-
-.footer {
-    @include flex-column($gap-list);
-    align-items: center; 
-    padding: $padding-section $gap-layout 40px; 
-    color: $text-secondary;
-    
-    p {
-        margin: 0;
-        font-size: 0.95em;
-    }
-
-    div {
+    a, button {
+        @include glass;
         @include flex-center;
-        gap: 20px;
+        width: 44px; height: 44px;
+        border-radius: 50%;
+        color: $text-secondary;
+        transition: $anim-bouncy;
 
-        a {
-            @include tab-visible;
-            color: $text-tertiary;
-            font-size: 1.2rem;
-            transition: $anim-simple;
-
-            &:hover {
-                color: $color-brand;
-                transform: translateY(-2px);
-            }
-        }
-    }
-
-    small {
-        font-size: 0.85em;
-        color: $text-tertiary;
-    }
-}
-
-
-
-/* =========================================
-   9. Responsive Design
-   ========================================= */
-
-/* (<768px) */
-@media (max-width: 768px) {
-    .container {
-        padding: 40px 20px;
-        @include flex-column(32px); 
-    }
-
-    .hero {
-        padding: 40px 20px;
-        
-        img {
-            width: 110px;
-            height: 110px;
-        }
-
-        h1 { font-size: 2.2em; }
-        p { font-size: 1.05em; }
-    }
-
-    .card {
-        padding: $gap-layout;
-        border-radius: 20px;
-    }
-
-    .project {
-        h3 { font-size: 1.25em; }
-        small { margin-bottom: $gap-list; }
-    }
-}
-
-/* (<480px) */
-@media (max-width: 480px) {
-    .hero { h1 { font-size: 1.8em; } }
-
-    .button {
-        width: auto;
-        padding: 12px 20px;
-    }
-
-    .footer { padding: 60px 20px 30px; }
-}
-
-
-
-/* =========================================
-   10. Helpful Design
-   ========================================= */
-
-// Screen Reader Only
-.sr-only {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border-width: 0;
-}
-
-// Reduced motion support
-@media (prefers-reduced-motion: reduce) {
-    *,
-    *::before,
-    *::after {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
-        scroll-behavior: auto !important;
-    }
-}
-
-// Print styles
-@media print {
-    body::before { display: none; }
-
-    .button { display: none; }
-
-    .card {
-        break-inside: avoid;
-        page-break-inside: avoid;
-    }
-}
-
-
-
-/* =========================================
-   11. 404 NOT FOUND
-   ========================================= */
-
-.error-container {
-    @include flex-center;
-    min-height: 80vh;
-
-    .card {
-        @include flex-column($gap-layout);
-        align-items: center;
-        text-align: center;
-        max-width: 500px;
-
-        i {
-            font-size: 3.5rem;
+        &:hover {
+            transform: scale(1.1);
             color: $color-brand;
         }
+    }
+}
 
-        .terminal {
-            font-family: monospace;
-            font-size: 1.5rem;
-            font-weight: 700;
+// Contact Modal
+div[role="dialog"] {
+    @include std-thin;
+    position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+    width: 90%; max-width: 450px; padding: 40px; border-radius: 28px; z-index: 2000;
+
+    h3 { margin-top: 0; }
+
+    > button[type="button"] {
+        position: absolute; top: 20px; right: 20px;
+        width: 32px; height: 32px; border-radius: 50%;
+        background: rgba(255, 255, 255, 0.1);
+        
+        &:hover {
+            transform: scale(1.1) rotate(90deg);
+            color: $color-brand;
+        }
+    }
+
+    form {
+        @include flex-column(20px);
+        
+        textarea {
+            width: 100%; height: 120px; padding: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
             color: $text-primary;
-
-            .cursor {
-                display: inline-block;
-                width: 10px;
-                height: 1.5rem;
-                background: $color-brand;
-                margin-left: 5px;
-                animation: blink 1s step-end infinite;
-            }
+            resize: none;
         }
 
-        p, .button {
-            opacity: 0;
-            transform: translateY(10px);
-            transition: $anim-bouncy;
-            margin: 0;
+        button[type="submit"] {
+            align-self: flex-end;
+            min-width: 120px;
         }
+    }
+}
 
-        p { color: $text-secondary; }
+/* =========================================
+    Footer & Helpers
+   ========================================= */
+footer {
+    @include flex-column(16px);
+    align-items: center;
+    padding: $padding-section 24px 40px;
+    color: $text-secondary;
+
+    div { @include flex-center; gap: 20px; }
+    a { color: $text-tertiary; transition: $anim-simple; &:hover { color: $color-brand; } }
+    small { font-size: 0.85em; color: $text-tertiary; }
+}
+
+// Helpers
+.sr-only {
+    position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+    overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border-width: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before { animation: none !important; transition: none !important; }
+}
+
+
+
+/* =========================================
+    Responsive Design
+   ========================================= */
+
+@media (max-width: 768px) {
+    .container { 
+        padding: 40px 20px; 
+        gap: 16px; 
+    }
+    
+    section { 
+        padding: 20px;
+        h1 { font-size: 1.8rem; }
+        h3 { font-size: 1.1rem; }
     }
 }

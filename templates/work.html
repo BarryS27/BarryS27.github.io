@@ -1,21 +1,13 @@
 {% extends "layout.html" %}
-{% import 'macros.html' as ui %}
-
-{% block page_title %}Barry | Portfolio{% endblock %}
+{% import "macros.html" as m %}
 
 {% block content %}
-    {% call ui.card(id="portfolio-hero") %}
-        <h1 class="main-name">My Portfolio</h1>
-        <p class="field-name">Selected Projects & Technical Skills</p>
-        {{ ui.button("Return Home", url=url_for('index'), icon="fa-solid fa-arrow-right") }}
-    {% endcall %}
+    <h1>Technical Skills & Featured Projects</h1>
 
-    {% call ui.card(title="Featured Project", id="featured-project", interactive=True) %}
-        {{ ui.project(
-            title="Student Academic Management System",
-            meta="Python • Data Structures • CLI",
-            desc="A comprehensive tool designed for high school students to track grades, calculate GPA, and manage academic schedules. Features a robust CLI interface and data persistence.",
-            link="https://github.com/BarryS27/Student-Academic-Management-System"
-        ) }}
-    {% endcall %}
+    {{ m.skill("Data Science", "Python (Pandas, NumPy, Matplotlib, Seaborn), SQL, Jupyter Notebook.") }}
+    {{ m.skill("Development", "HTML5, Modern CSS (Flexbox, Grid), SCSS, Flask, Google Apps Script.") }}
+    {{ m.skill("Engineering", "Git & GitHub Workflow, VS Code, Markdown, $Macros$ Automation.") }}
+    {{ m.skill("Business", "Inbound Marketing") }}
+
+    {{ m.pj("My Project", "Tech", "Description", "#", "button name") }}
 {% endblock %}

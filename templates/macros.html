@@ -1,65 +1,31 @@
-{% macro card(title, id=none, interactive=False, href=none) %}
-    {% set tag = 'a' if href else 'section' %}
+{% macro ed(category, school, major=none, date=none) %}
+<section>
+    <span>{{ category }}</span>
+    <h3>{{ school }}</h3>
+
+    {% if major and major != "" %}
+        <p>{{ major }}</p>
+    {% endif %}
     
-    <{{ tag }} {% if id %}id="{{ id }}"{% endif %} 
-               {% if href %}href="{{ href }}"{% endif %}
-               class="{{ 'interactive-card' if interactive else 'card' }} block no-underline">
-        
-        <span class="section-label">{{ title }}</span>
-        {{ caller() }}
-        
-    </{{ tag }}>
+    {% if date %}
+        <p>{{ date }}</p>
+    {% endif %}
 {% endmacro %}
 
-
-{% macro hero(name, subtitle, img_url=none) %}
-<header class="hero">
-    {% if img_url %}<img src="{{ img_url }}" alt="">{% endif %}
-    
-    <h1>{{ name }}</h1>
-    <p>{{ subtitle }}</p>
-</header>
+{% macro skill(category, detail) %}
+<section>
+    <span>{{ category }}</span>
+    <p>{{ detail }}</p>
+</section>
 {% endmacro %}
 
-{% macro now_item(icon, category, content) %}
-<li>
-    <i class="{{ icon }}"></i>
-    <div>
-        <span>{{ category }}</span>
-        <p>{{ content }}</p>
-    </div>
-</li>
-{% endmacro %}
-
-{% macro project(title, meta, desc, link="#") %}
-<div class="project">
-    <h3>
-        <a href="{{ link }}">
-            {{ title }}
-            <i class="fa-solid fa-arrow-up-right-from-square"></i>
-        </a>
-    </h3>
-    <small>{{ meta }}</small>
+{% macro pj(title, tech, desc, link, btn_name) %}
+<section>
+    <span>{{ tech }}</span>
+    <h3>{{ title }}</h3>
     <p>{{ desc }}</p>
-</div>
-{% endmacro %}
-
-{% macro button(text, url=none, icon=none, type="button") %}
-    {% set tag = 'a' if url else 'button' %}
-    
-    <{{ tag }} {% if url %}href="{{ url }}"{% else %}type="{{ type }}"{% endif %} class="button">
-        <span>{{ text }}</span>
-        {% if icon %}
-            <i class="{{ icon }}"></i>
-        {% endif %}
-    </{{ tag }}>
-{% endmacro %}
-
-{% macro footer() %}
-<footer class="footer">
-    <div class="social-links">
-        <a href="https://github.com/BarryS27" target="_blank"><i class="fa-brands fa-github"></i></a>
-    </div>
-    <small>© {{ now.year }} Bairu Song</small>
-</footer>
+    {% if link and link != "#" and link != "" %}
+        <a href="{{ link }}" target="_blank">{{ btn_name }}</a>
+    {% endif %}
+</section>
 {% endmacro %}
