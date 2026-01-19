@@ -1,6 +1,8 @@
 {% macro ed(category, school, major=none, date=none) %}
 <section>
-    <span>{{ category }}</span>
+    {% if category %}
+        <span class="section-label">{{ category }}</span>
+    {% endif %}
     <h3>{{ school }}</h3>
 
     {% if major and major != "" %}
