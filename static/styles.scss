@@ -162,24 +162,47 @@ header nav {
 // Contact Modal
 div[role="dialog"] {
     @include std-thin;
+    @include flex-column(12px);
     position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
     width: 90%; max-width: 450px; padding: 40px; border-radius: 28px; z-index: 2000;
 
-    h3 { margin-top: 0; }
+    span:first-of-type {
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        color: $text-caption;
+        margin-bottom: 8px;
+        display: block;
+    }
 
     > button[type="button"] {
-        position: absolute; top: 20px; right: 20px;
-        width: 32px; height: 32px; border-radius: 50%;
-        background: rgba(255, 255, 255, 0.1);
+        position: absolute; 
+        top: 20px; 
+        right: 20px;
         
+        width: 32px; 
+        height: 32px; 
+        padding: 0; 
+        border-radius: 50%; 
+        
+        background: rgba(0, 0, 0, 0.05);
+        border: 1px solid rgba(0, 0, 0, 0.05);
+        @include flex-center;
+        
+        color: $text-secondary;
+        font-size: 0.8rem;
+        transition: $anim-simple;
+
         &:hover {
-            transform: scale(1.1) rotate(90deg);
-            color: $color-brand;
+            background: rgba(255, 69, 58, 0.12); 
+            color: rgba(255, 69, 58, 0.8);
+            border-color: rgba(255, 69, 58, 0.1);
         }
     }
 
     form {
         @include flex-column(20px);
+        width: 100%;
         
         textarea {
             width: 100%; height: 120px; padding: 15px;
