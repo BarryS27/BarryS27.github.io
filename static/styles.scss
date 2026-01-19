@@ -180,11 +180,11 @@ div[role="dialog"] {
     margin: auto;
     z-index: 100;
     
-    width: min(90%, calc($gap-layout * 20)); 
+    width: width: min(90%, #{$gap-layout * 20});
     height: fit-content;
     
     @include flex-column($gap-layout);
-    padding: calc($gap-layout * 2);
+    padding: #{$gap-layout * 2};
     border-radius: $gap-layout;
     
     display: none;
