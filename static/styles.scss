@@ -180,7 +180,7 @@ div[role="dialog"] {
     margin: auto;
     z-index: 100;
     
-    width: width: min(90%, #{$gap-layout * 20});
+    width: unquote("min(90%, #{$gap-layout * 20})");
     height: fit-content;
     
     @include flex-column($gap-layout);
