@@ -73,6 +73,12 @@ body {
     max-width: 900px;
     margin: 0 auto;
     padding: $padding-section 24px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: $gap-layout;
+    > h1, > h3, > footer { grid-column: 1 / -1; }
+    section:nth-of-type(n+5) { grid-column: 1 / -1; }
+    @media (max-width: 768px) { grid-template-columns: 1fr; }
 }
 
 /* =========================================
@@ -81,20 +87,22 @@ body {
 
 // Section Label
 .section-label {
-    font-size: 0.7rem;
+    margin: 0 0 calc($gap-layout / 3) 0;
     text-transform: uppercase;
-    letter-spacing: 0.12em;
-    color: $text-caption;
-    margin-bottom: 8px;
+    letter-spacing: 0.15em;
+    font-size: 0.65rem;
+    font-weight: 400;
+    color: $text-tertiary;
     display: block;
+    line-height: 1;
 }
 
 // Card
 section {
     @include std-thin;
-    padding: 35px;
-    border-radius: 24px;
-    margin-bottom: 24px;
+    padding: calc($gap-layout * 1.5);
+    border-radius: $gap-layout;
+    margin-bottom: $gap-layout;
 
     h1 { font-size: 2.2rem; margin: 0; letter-spacing: -0.02em; }
     h3 { font-size: 1.25rem; margin: 0; font-weight: 600; line-height: 1.3; }
@@ -137,7 +145,7 @@ button {
    ========================================= */
 
 header nav {
-    position: fixed; top: 24px; left: 24px; z-index: 1000;
+    position: fixed; top: $gap-layout; left: $gap-layout; z-index: 90;
 
     ul {
         display: flex; gap: 12px;
@@ -172,7 +180,7 @@ div[role="dialog"] {
     margin: auto;
     z-index: 100;
     
-    width: min(90%, 480px); 
+    width: min(90%, calc($gap-layout * 20)); 
     height: fit-content;
     
     @include flex-column($gap-layout);
@@ -256,11 +264,6 @@ footer {
    ========================================= */
 
 @media (max-width: 768px) {
-    .container { 
-        padding: 40px 20px; 
-        gap: 16px; 
-    }
-    
     section { 
         padding: 20px;
         h1 { font-size: 1.8rem; }
