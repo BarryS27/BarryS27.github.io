@@ -163,8 +163,19 @@ header nav {
 div[role="dialog"] {
     @include std-thin;
     @include flex-column(12px);
-    position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
-    width: 90%; max-width: 450px; padding: 40px; border-radius: 28px; z-index: 2000;
+    box-shadow: 
+        0 0 0 100vmax rgba(0, 0, 0, 0.4),
+        0 30px 60px rgba(0, 0, 0, 0.2);
+    
+    position: fixed; 
+    top: 50%; left: 50%; 
+    transform: translate(-50%, -50%);
+    
+    width: 90%; max-width: 450px; 
+    padding: 40px; 
+    border-radius: 28px; 
+    z-index: 2000;
+    border: 1px solid rgba(255, 255, 255, 0.5);
 
     > button[type="button"] {
         position: absolute; 
