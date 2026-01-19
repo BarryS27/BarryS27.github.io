@@ -7,7 +7,13 @@
         <meta name="description" content="Bairu Song - High school student passionate about data-driven decision making." />
         <meta name="author" content="Bairu Song" />
 
-        <meta http-equiv="Content-Security-Policy" content=" default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; ">
+        <meta http-equiv="Content-Security-Policy" content="
+            default-src 'self'; 
+            script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; 
+            style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; 
+            font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com; 
+            img-src 'self' data:;
+        ">
 
         <meta property="og:type" content="website" />
         <meta property="og:title" content="Bairu Song | Portfolio" />
@@ -50,7 +56,7 @@
                     <li><a href="now.html" aria-label="Now"><i class="fa-solid fa-bolt"></i></a></li>
                     <li><a href="work.html" aria-label="Work"><i class="fa-solid fa-briefcase"></i></a></li>
                     <li><a href="assets/resume.pdf" download aria-label="Resume"><i class="fa-solid fa-file-pdf"></i></a></li>
-                    <li><button id="contact-trigger" aria-label="Contact"><i class="fa-solid fa-envelope"></i></li>
+                    <li><button id="contact-trigger" aria-label="Contact"><i class="fa-solid fa-envelope"></i></button></li>
                 </ul>
             </nav>
         </header>
@@ -64,7 +70,7 @@
                     <i class="fa-solid fa-xmark"></i>
                 </button>
 
-                <h3>Get in Touch</h3>
+                <span>Get in Touch</span>
                 
                 <form>
                     <textarea placeholder="Feel free to reach out ..."></textarea>
