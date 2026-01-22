@@ -1,4 +1,10 @@
 {% extends "layout.html" %}
+{{% import 'macros.html' as m %}}
+
+{{% block hero %}}
+{{ m.hero("Now","What I'm focusing on:") }}
+
+{{% endblock %}}
 
 {% block content %}
 {% endblock %}
