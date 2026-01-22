@@ -1,11 +1,17 @@
-{% extends "layout.html" %}
-{% import "macros.html" as m %}
+{{% extends layout.html %}}
+{{% import 'macros.html' as m %}}
 
-{% block content %}
-    <section>
-        <h1>Hello, I'm Barry</h1>
-        <h3>High School Student · Data Enthusiast</h3>
-    </section>
+{{% block hero %}}  
+{{ m.hero("Hello, I'm Barry","High School Student · Data Enthusiast") }}
 
-    {{ m.ed("High School", "Lexington High School", "", "2025 - Present") }}
-{% endblock %}
+
+{{% endblock %}}
+
+{{% block content %}}
+<section>
+    <h2>Academic Journey</h2>
+
+    {{ m.card("High School","Lexington High School","2025 - Present","Grade 9") }}
+
+</section>
+{{% endblock %}}

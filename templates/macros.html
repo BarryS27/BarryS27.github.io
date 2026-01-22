@@ -1,33 +1,32 @@
-{% macro ed(category, school, major=none, date=none) %}
-<section>
-    {% if category %}
-        <span class="section-label">{{ category }}</span>
-    {% endif %}
-    <h3>{{ school }}</h3>
-
-    {% if major and major != "" %}
-        <p>{{ major }}</p>
-    {% endif %}
-    
-    {% if date %}
-        <p>{{ date }}</p>
-    {% endif %}
+{% macro hero(title, subtitle) %}
+<header class="hero">
+    <h1>{{ title }}</h1>
+    <p>{{ subtitle }}</p>
+</header>
 {% endmacro %}
 
-{% macro skill(category, detail) %}
-<section>
-    <span>{{ category }}</span>
-    <p>{{ detail }}</p>
-</section>
-{% endmacro %}
 
-{% macro pj(title, tech, desc, link, btn_name) %}
-<section>
-    <span>{{ tech }}</span>
+{% macro card(label, title, meta, description, btn_name=null, link=null) %}
+<article class="card">
+    <span class="label">{{ label }}</span>
     <h3>{{ title }}</h3>
-    <p>{{ desc }}</p>
-    {% if link and link != "#" and link != "" %}
-        <a href="{{ link }}" target="_blank">{{ btn_name }}</a>
+    <p class="meta-mono">{{ meta }}</p>
+    <p>{{ description }}</p>
+    
+    {% if link %}
+    <a href="{{ link }}" class="button">{{ btn_name }}</a>
     {% endif %}
-</section>
+</article>
+{% endmacro %}
+
+
+{% macro skills(label, items) %}
+<article class="card">
+    <span class="label">{{ label }}</span>
+    <ul>
+        {% for item in items %}
+        <li>{{ item }}</li>
+        {% endfor %}
+    </ul>
+</article>
 {% endmacro %}

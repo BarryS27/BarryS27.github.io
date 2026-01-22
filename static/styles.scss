@@ -1,272 +1,315 @@
-/* =========================================
-    Variables
-   ========================================= */
-$text-primary:   rgba(29, 29, 31, 0.95);
-$text-secondary: rgba(29, 29, 31, 0.65);
-$text-tertiary:  rgba(29, 29, 31, 0.45);
-$text-caption:   rgba(0, 0, 0, 0.4);
-$color-brand:    #F59E0B;
+/* =========================================================
+   1. DESIGN TOKENS
+   ========================================================= */
 
-$gap-layout:     24px;
-$padding-section: 80px;
+// Typography
+$font-stack: 'Inter', sans-serif;
 
-$anim-bouncy:    all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
-$anim-simple:    all 0.3s ease;
+$color-text-main: #1c1c1e;
+$color-text-sub:  #3a3a3c;
+$color-text-mute: #8e8e93;
+$color-action:    #007aff;
 
-/* =========================================
-    Mixins
-   ========================================= */
-@mixin flex-center {
+// Surfaces
+$bg-body:    #ffffff;
+$bg-surface: #f2f2f7;
+
+// Layout scale
+$spacing-base: 1rem;
+$radius-surface: 20px;
+$radius-sheet:   40px;
+
+// Z-layers
+$z-layer-hero:    0;
+$z-layer-content: 10;
+$z-layer-nav:     100;
+
+
+
+/* =========================================================
+   2. MATERIAL SYSTEM (Strict Usage)
+   ========================================================= */
+
+@mixin hide-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+// Passive / Read-only surfaces
+@mixin std-thin {
+  background-color: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+// Interactive glass (buttons, nav)
+@mixin liquid-glass {
+  background-color: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(30px) saturate(180%);
+  -webkit-backdrop-filter: blur(30px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 0 8px 32px rgba(31, 38, 135, 0.15);
+
+  transition: transform 0.2s ease, background-color 0.2s ease;
+
+  &:active {
+    transform: scale(0.96);
+    background-color: rgba(255, 255, 255, 0.6);
+  }
+}
+
+
+
+/* =========================================================
+   3. GLOBAL RESET & BASE
+   ========================================================= */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: $font-stack;
+  color: $color-text-main;
+  background-color: $bg-body;
+  -webkit-font-smoothing: antialiased;
+
+  position: relative;
+  min-height: 100vh;
+
+  &::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+
+    background: url('static/images/background.webp') center / cover no-repeat;
+    filter: blur(30px);
+    transform: scale(1.1);
+  }
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+
+
+/* =========================================================
+   4. LAYOUT
+   ========================================================= */
+
+// Sticky hero layer
+.hero {
+  position: sticky;
+  top: 0;
+  z-index: $z-layer-hero;
+
+  height: 100vh;
+  padding: $spacing-base * 2;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+
+  h1 {
+    font-size: 3.5rem;
+    font-weight: 700;
+    margin-bottom: $spacing-base * 0.5;
+  }
+
+  p {
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: $color-text-sub;
+  }
+}
+
+// Scrollable content sheet
+main {
+  position: relative;
+  z-index: $z-layer-content;
+
+  min-height: 100vh;
+  padding: $spacing-base * 4 $spacing-base;
+
+  background-color: $bg-surface;
+  border-top-left-radius:  $radius-sheet;
+  border-top-right-radius: $radius-sheet;
+  box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.05);
+
+  overflow-y: auto;
+  @include hide-scrollbar;
+
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
+
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-base * 2;
+  }
+}
+
+
+
+/* =========================================================
+   5. NAVIGATION
+   ========================================================= */
+
+nav {
+  position: fixed;
+  top: 1.5rem;
+  left: $spacing-base;
+  z-index: $z-layer-nav;
+
+  display: flex;
+  align-items: center;
+  gap: $spacing-base * 0.75;
+
+  a {
+    @include liquid-glass;
+
+    width:  $spacing-base * 3;
+    height: $spacing-base * 3;
+    border-radius: 50%;
+
     display: flex;
     align-items: center;
     justify-content: center;
-}
 
-@mixin flex-column($gap: $gap-layout) {
-    display: flex;
-    flex-direction: column;
-    gap: $gap;
-}
-
-@mixin std-thin {
-    background: rgba(255, 255, 255, 0.6);
-    backdrop-filter: blur(30px) saturate(180%);
-    -webkit-backdrop-filter: blur(30px) saturate(180%);
-    border: 1px solid rgba(0, 0, 0, 0.06);
-    border-top: 1px solid rgba(255, 255, 255, 0.4);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
-}
-
-@mixin glass {
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.05) 100%);
-    backdrop-filter: url("#glass-filter") blur(12px) saturate(120%);
-    -webkit-backdrop-filter: url("#glass-filter") blur(12px) saturate(120%);
-    border: 1px solid rgba(255, 255, 255, 0.25);
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.05);
-    will-change: backdrop-filter;
-}
-
-/* =========================================
-    Global Initialization
-   ========================================= */
-* { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
-
-body {
-    margin: 0; padding: 0;
-    font-family: "Inter", "Segoe UI", sans-serif;
-    color: $text-primary;
-    line-height: 1.8;
-    background-color: #f5f5f7;
-
-    &::before {
-        content: "";
-        position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-        background: url('/static/images/background.webp') no-repeat center center / cover;
-        filter: brightness(1.05) saturate(130%);
-        z-index: -1;
-    }
-}
-
-.container {
-    @include flex-column(24px);
-    max-width: 900px;
-    margin: 0 auto;
-    padding: $padding-section 24px;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: $gap-layout;
-    > h1, > h3, > footer { grid-column: 1 / -1; }
-    section:nth-of-type(n+5) { grid-column: 1 / -1; }
-    @media (max-width: 768px) { grid-template-columns: 1fr; }
-}
-
-/* =========================================
-    Universal Elements
-   ========================================= */
-
-// Section Label
-.section-label {
-    margin: 0 0 calc($gap-layout / 3) 0;
-    text-transform: uppercase;
-    letter-spacing: 0.15em;
-    font-size: 0.65rem;
-    font-weight: 400;
-    color: $text-tertiary;
-    display: block;
-    line-height: 1;
-}
-
-// Card
-section {
-    @include std-thin;
-    padding: calc($gap-layout * 1.5);
-    border-radius: $gap-layout;
-    margin-bottom: $gap-layout;
-
-    h1 { font-size: 2.2rem; margin: 0; letter-spacing: -0.02em; }
-    h3 { font-size: 1.25rem; margin: 0; font-weight: 600; line-height: 1.3; }
-    p { margin: 4px 0 0 0; font-size: 0.95rem; color: $text-secondary; }
-
-    // Project Link
-    a {
-        display: inline-block;
-        margin-top: 15px;
-        font-size: 0.85rem;
-        font-weight: 600;
-        color: $color-brand;
-        text-decoration: none;
-        transition: $anim-simple;
-
-        &:hover {
-            opacity: 0.8;
-            transform: translateX(3px);
-        }
-    }
-}
-
-// Button
-button {
-    @include glass;
-    padding: 8px 20px;
-    border-radius: 12px;
-    border: none;
-    color: #fff;
-    font-size: 0.9rem;
+    color: $color-action;
     cursor: pointer;
-    transition: $anim-bouncy;
 
-    &:hover { transform: scale(1.02); }
-    &:focus { outline: 2px solid $color-brand; outline-offset: 2px; }
+    &:active {
+      transform: scale(0.92);
+    }
+  }
 }
 
-/* =========================================
-    Specialized
-   ========================================= */
 
-header nav {
-    position: fixed; top: $gap-layout; left: $gap-layout; z-index: 90;
 
-    ul {
-        display: flex; gap: 12px;
-        list-style: none; padding: 0; margin: 0;
-    }
+/* =========================================================
+   6. COMPONENTS
+   ========================================================= */
 
-    a, button {
-        @include glass;
-        @include flex-center;
-        width: 44px; height: 44px;
-        border-radius: 50%;
-        color: $text-secondary;
-        transition: $anim-bouncy;
+.label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 
-        &:hover {
-            transform: scale(1.1);
-            color: $color-brand;
-        }
-    }
+  color: $color-text-mute;
+  margin-bottom: $spacing-base * 0.5;
 }
 
-// Contact Modal
-div[role="dialog"] {
-    @include std-thin;
-    @include flex-column(12px);
-    box-shadow: 
-        0 0 0 100vmax rgba(0, 0, 0, 0.4),
-        0 30px 60px rgba(0, 0, 0, 0.2);
-    
-    position: fixed;
-    inset: 0;
-    margin: auto;
-    z-index: 100;
-    
-    width: unquote("min(90%, #{$gap-layout * 20})");
-    height: fit-content;
-    
-    @include flex-column($gap-layout);
-    padding: #{$gap-layout * 2};
-    border-radius: $gap-layout;
-    
-    display: none;
-
-    > button[type="button"] {
-        position: absolute; 
-        top: 20px; 
-        right: 20px;
-        
-        width: 32px; 
-        height: 32px; 
-        padding: 0; 
-        border-radius: 50%; 
-        
-        background: rgba(0, 0, 0, 0.05);
-        border: 1px solid rgba(0, 0, 0, 0.05);
-        @include flex-center;
-        
-        color: $text-secondary;
-        font-size: 0.8rem;
-        transition: $anim-simple;
-
-        &:hover {
-            background: rgba(255, 69, 58, 0.12); 
-            color: rgba(255, 69, 58, 0.8);
-            border-color: rgba(255, 69, 58, 0.1);
-        }
-    }
-
-    form {
-        @include flex-column($gap-layout);
-        width: 100%;
-        
-        textarea {
-            width: 100%;
-            aspect-ratio: 16 / 9;
-            padding: calc($gap-layout / 2);
-            background: rgba(255, 255, 255, 0.3);
-            border: 1px solid rgba(0, 0, 0, 0.05);
-            border-radius: calc($gap-layout / 2);
-            outline: none;
-            &:focus { border-color: $color-brand; }
-        }
-
-        button[type="submit"] { padding: calc($gap-layout / 2); }
-    }
+h2 {
+  font-size: 1.8rem;
+  margin-bottom: $spacing-base * 2;
 }
 
-/* =========================================
-    Footer & Helpers
-   ========================================= */
+.meta-mono {
+  font-family: monospace;
+  font-size: 0.85rem;
+  color: $color-text-mute;
+  margin-bottom: $spacing-base * 0.5;
+}
+
+.card {
+  @include std-thin;
+
+  padding: $spacing-base * 2;
+  border-radius: $radius-surface;
+
+  h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: $spacing-base * 0.5;
+  }
+
+  p {
+    font-size: 1rem;
+    line-height: 1.5;
+    color: $color-text-sub;
+    margin-bottom: $spacing-base * 2;
+  }
+
+  ul {
+    list-style: none;
+    margin-top: $spacing-base;
+
+    li {
+      display: inline-block;
+      margin: 0 8px 8px 0;
+      padding: 4px 12px;
+
+      font-size: 0.9rem;
+      color: $color-text-sub;
+
+      background: rgba(0, 0, 0, 0.05);
+      border-radius: 8px;
+    }
+  }
+}
+
+.button {
+  @include liquid-glass;
+
+  display: block;
+  padding: 12px;
+  border-radius: 12px;
+
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: $color-action;
+  text-align: center;
+  cursor: pointer;
+}
+
+
+
+/* =========================================================
+   7. FOOTER
+   ========================================================= */
+
 footer {
-    @include flex-column(16px);
-    align-items: center;
-    padding: $padding-section 24px 40px;
-    color: $text-secondary;
+  position: sticky;
+  bottom: 0;
+  z-index: $z-layer-hero;
 
-    div { @include flex-center; gap: 20px; }
-    a { color: $text-tertiary; transition: $anim-simple; &:hover { color: $color-brand; } }
-    small { font-size: 0.85em; color: $text-tertiary; }
-}
+  padding: $spacing-base * 5 $spacing-base * 1.5 $spacing-base * 2.5;
 
-// Helpers
-.sr-only {
-    position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
-    overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border-width: 0;
-}
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $spacing-base;
 
-@media (prefers-reduced-motion: reduce) {
-    *, *::before { animation: none !important; transition: none !important; }
-}
+  color: $color-text-sub;
 
+  div {
+    display: flex;
+    gap: $spacing-base * 1.25;
+  }
 
+  a {
+    color: $color-text-mute;
+    transition: color 0.3s ease;
 
-/* =========================================
-    Responsive Design
-   ========================================= */
+    &:hover { color: $color-action; }
+  }
 
-@media (max-width: 768px) {
-    section { 
-        padding: 20px;
-        h1 { font-size: 1.8rem; }
-        h3 { font-size: 1.1rem; }
-    }
+  small {
+    font-size: 0.85em;
+    color: $color-text-mute;
+  }
 }

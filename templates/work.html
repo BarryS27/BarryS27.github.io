@@ -1,13 +1,27 @@
-{% extends "layout.html" %}
-{% import "macros.html" as m %}
+{{% extends layout.html %}}
+{{% import 'macros.html' as m %}}
 
-{% block content %}
-    <h1>Technical Skills & Featured Projects</h1>
+{{% block hero %}}
+{{ m.hero("My Portfolio","View my skills & projects") }}
 
-    {{ m.skill("Data Science", "Python (Pandas, NumPy, Matplotlib, Seaborn), SQL, Jupyter Notebook.") }}
-    {{ m.skill("Development", "HTML5, Modern CSS (Flexbox, Grid), SCSS, Flask, Google Apps Script.") }}
-    {{ m.skill("Engineering", "Git & GitHub Workflow, VS Code, Markdown, $Macros$ Automation.") }}
-    {{ m.skill("Business", "Inbound Marketing") }}
+{{% endblock %}}
 
-    {{ m.pj("My Project", "Tech", "Description", "#", "button name") }}
-{% endblock %}
+{{% block content %}}
+<section>
+    <h2>Technical Skills</h2>
+
+    {{ m.skills("Data Science","Python SQL Jupyter Notebook") }}
+    {{ m.skills("Development","HTML5 CSS3 SCSS Flask Jinja2") }}
+
+</section>
+
+<section>
+    <h2>Featured Projects</h2>
+
+    {{ m.card("Project","Student Academic Management System","CLI · Python",
+        "A Python based CLI tools for high school students to manage their GPA and self-study projects individually.",
+        "View on Github","https://github.com/BarryS27/student-academic-management-system"
+    ) }}
+
+</section>
+{{% endblock %}}
