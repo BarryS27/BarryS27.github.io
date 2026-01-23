@@ -1,12 +1,12 @@
-{{% extends layout.html %}}
-{{% import 'macros.html' as m %}}
+{% extends layout.html %}
+{% import 'macros.html' as m %}
 
-{{% block hero %}}
+{% block hero %}
 {{ m.hero("My Portfolio","View my skills & projects") }}
 
-{{% endblock %}}
+{% endblock %}
 
-{{% block content %}}
+{% block content %}
 <section>
     <h2>Technical Skills</h2>
 
@@ -24,4 +24,4 @@
     ) }}
 
 </section>
-{{% endblock %}}
+{% endblock %}

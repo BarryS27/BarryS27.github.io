@@ -4,56 +4,103 @@
 ![License](https://img.shields.io/github/license/barrys27/barrys27.github.io)
 ![Top Language](https://img.shields.io/github/languages/top/barrys27/barrys27.github.io)
 
-Welcome to the repository of my personal portfolio website. This site serves as a central hub to showcase my academic projects and technical skills. It is designed with a modern **Glassmorphism** aesthetic and hosted on **GitHub Pages**.
+This repository contains the source code for my personal portfolio website.  
+I built this project to organize my work, practice frontend development, and explore how design and code can work together.
 
-🔗 **Live Demo:** [https://barrys27.github.io/](https://barrys27.github.io/)
+🔗 **Live Site:** https://barrys27.github.io/
 
 ---
 
-## 🎨 Design Philosophy: Glassmorphism
+## 🎯 Project Goals
 
-The visual identity is built around a modern **Glassmorphism** (frosted glass) aesthetic, focusing on clarity, depth, and a high-end digital feel.
+This project started as a simple personal website, but gradually turned into a learning project focused on:
 
-* **Materials:** Multi-layered `backdrop-filter: blur()` effects combined with thin, translucent borders to mimic physical glass.
-* **Typography:** **Inter** for primary UI readability; **Newsreader** for a refined, serif touch in specific contexts.
-* **Responsiveness:** A mobile-first system utilizing a custom **Design Token**-based grid to ensure seamless adaptation across all devices.
+- Writing cleaner and more reusable HTML and CSS
+- Avoiding repeated code by using components
+- Making layouts easier to adjust and maintain
+- Understanding how visual design choices affect usability
 
-## 🛠️ Technical Stack
+---
 
-This project balances backend logic with professional frontend engineering.
+## 🎨 Visual Style
 
-### Core technical stack
-* **Python (Flask):** Handles the backend routing and dynamic data management.
-* **Jinja2 Macros:** Utilized for a **Component-based Architecture**, allowing for reusable, clean, and DRY HTML structures.
-* **SCSS (Sass):** A fully modular styling system using **Mixins** and **Nested Rules** for high maintainability.
-* **Flask-Freeze:** Used to compile the dynamic Flask app into an optimized static site for GitHub Pages deployment.
+The website uses a **glass-style (Glassmorphism)** visual theme.
 
-## ✨ Key Features
+I was interested in how blur, transparency, and layering could create depth without making the interface distracting.
 
-* **Glass-Material Engine:** Custom SCSS mixins for consistent frosted-glass effects throughout the UI.
-* **Componentized UI:** Navigation, cards, and buttons are all managed via Jinja2 macros.
-* **Accessibility First:** Integrated `focus-visible` logic for keyboard navigation and `sr-only` support for screen readers.
-* **Dynamic Metadata:** Automated year injection and professional copyright management.
-* **Terminal-Style 404:** A custom error experience featuring a JS-powered typewriter animation.
+Some design choices include:
+
+- Translucent surfaces with background blur
+- Soft shadows to separate layers
+- Rounded corners for a consistent visual language
+- Simple motion feedback for interactive elements
+
+---
+
+## 🧱 Layout & Structure
+
+The page is organized into three main visual layers:
+
+1. **Hero section** at the top of the page
+2. **Scrollable content area** with a rounded top edge
+3. **Floating navigation buttons** that stay visible while scrolling
+
+This structure helped me experiment with positioning, stacking contexts, and layout flow.
+
+---
+
+## 🧩 Reusable Components
+
+To keep the code organized, I used **Jinja2 macros** to create reusable components.
+
+Examples include:
+
+- Navigation buttons
+- Cards for projects and education
+- Repeating content sections
+
+Each component keeps the same layout and styling, while the content can be changed easily.  
+This reduced duplication and made the site easier to update.
+
+---
+
+## 🛠️ Tools & Technologies
+
+- **Python (Flask)** – routing and template rendering
+- **Jinja2** – reusable HTML components (macros)
+- **SCSS (Sass)** – organized and nested styling
+- **Flask-Freeze** – generating a static site for GitHub Pages
+
+---
+
+## ✨ Features
+
+- Reusable navigation and UI components
+- Glass-style buttons and cards
+- Keyboard-accessible navigation
+- Automatically updated footer year
+- Custom 404 page with a typing animation
+
+---
 
 ## 📂 Project Structure
 
 ```text
 /
-/
 ├── app.py
 ├── freeze.py
 ├── templates/
-    ├── layout.html
-    ├── macros.html
-    ├── index.html
-    ├── 404.html
-    └── work.html
+│   ├── layout.html
+│   ├── macros.html
+│   ├── index.html
+│   ├── work.html
+│   └── 404.html
 └── static/
     ├── styles.scss
     ├── styles.css
     ├── script.js
     └── images/
+
 ```
 
 ## 👏 Credits

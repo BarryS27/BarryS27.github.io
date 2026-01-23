@@ -1,16 +1,16 @@
-{{% extends layout.html %}}
-{{% import 'macros.html' as m %}}
+{% extends layout.html %}
+{% import 'macros.html' as m %}
 
-{{% block hero %}}  
+{% block hero %}
 {{ m.hero("Hello, I'm Barry","High School Student · Data Enthusiast") }}
 
-{{% endblock %}}
+{% endblock %}
 
-{{% block content %}}
+{% block content %}
 <section>
     <h2>Academic Journey</h2>
 
     {{ m.card("High School","Lexington High School","2025 - Present","Grade 9") }}
 
 </section>
-{{% endblock %}}
+{% endblock %}
