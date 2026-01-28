@@ -17,7 +17,7 @@ def compile_scss():
     print("Compiling SCSS...")
     
     # Define paths based on your structure
-    scss_file = os.path.join('static', 'styles.scss')
+    scss_file = os.path.join('static', 'css', 'styles.scss')
     css_out_dir = os.path.join('static', 'css')
     css_file = os.path.join(css_out_dir, 'styles.css')
     
