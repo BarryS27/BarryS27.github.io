@@ -19,10 +19,11 @@ jobs:
         with:
           fetch-depth: 0
       
+      # Using 3.12 for better binary compatibility with libsass
       - name: Set up Python 🐍
         uses: actions/setup-python@v5
         with:
-          python-version: '3.13'
+          python-version: '3.12'
           cache: 'pip'
       
       - name: Cache Dependencies 📦
@@ -48,6 +49,10 @@ jobs:
             echo "❌ Build verification failed: index.html not found"
             exit 1
           fi
+          if [ ! -f "build/static/css/styles.css" ]; then
+            echo "❌ Build verification failed: styles.css not found"
+            exit 1
+          fi
           echo "✅ Build verification passed"
       
       - name: Deploy to GitHub Pages 🚀
@@ -56,7 +61,4 @@ jobs:
           branch: gh-pages
           folder: build
           clean: true
-          clean-exclude: |
-            .nojekyll
-            CNAME
           single-commit: true

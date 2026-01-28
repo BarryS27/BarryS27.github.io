@@ -1,32 +1,30 @@
-{% macro hero(title, subtitle) %}
-<header class="hero">
-    <h1>{{ title }}</h1>
-    <p>{{ subtitle }}</p>
-</header>
+{% macro badge(text, icon=None, color='blue') %}
+    <span class="badge theme-{{ color }}">
+        {% if icon %}
+            <i data-lucide="{{ icon }}"></i>
+        {% endif %}
+        {{ text }}
+    </span>
 {% endmacro %}
 
 
-{% macro card(label, title, meta, description, btn_name=null, link=null) %}
-<article class="card">
-    <span class="label">{{ label }}</span>
-    <h3>{{ title }}</h3>
-    <p class="meta-mono">{{ meta }}</p>
-    <p>{{ description }}</p>
-    
-    {% if link %}
-    <a href="{{ link }}" class="button">{{ btn_name }}</a>
-    {% endif %}
-</article>
-{% endmacro %}
-
-
-{% macro skills(label, items) %}
-<article class="card">
-    <span class="label">{{ label }}</span>
-    <ul>
-        {% for item in items %}
-        <li>{{ item }}</li>
-        {% endfor %}
-    </ul>
-</article>
+{% macro project(title, description, tags, image, link, color='blue') %}
+    <a href="{{ link }}" class="card">
+        <img src="{{ image }}" alt="{{ title }}">
+        
+        <div>
+            <div>
+                <h3>{{ title }}</h3>
+                <i data-lucide="chevron-right"></i>
+            </div>
+            
+            <p>{{ description }}</p>
+            
+            <div>
+                {% for tag in tags %}
+                    {{ badge(tag, color=color) }}
+                {% endfor %}
+            </div>
+        </div>
+    </a>
 {% endmacro %}

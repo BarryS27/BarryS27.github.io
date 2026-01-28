@@ -12,21 +12,22 @@ app.config['FREEZER_REMOVE_EXTRA_FILES'] = True
 
 freezer = Freezer(app)
 
-# --- Fix 1: Explicitly tell Freezer to generate the 404 page ---
-@freezer.register_generator
-def error_handlers():
-    # Yield the URL for the 404 page so Freezer knows to visit it
-    yield '/404.html'
-
 def compile_scss():
-    """Compile SCSS to CSS with error handling and validation"""
+    """Compile SCSS to CSS with proper directory handling"""
     print("Compiling SCSS...")
-    scss_file = os.path.join('static', 'styles.scss')
-    css_file = os.path.join('static', 'styles.css')  
     
+    # Define paths based on your structure
+    scss_file = os.path.join('static', 'styles.scss')
+    css_out_dir = os.path.join('static', 'css')
+    css_file = os.path.join(css_out_dir, 'styles.css')
+    
+    # Check if source exists
     if not os.path.exists(scss_file):
         print(f"Error: Source file not found: {scss_file}")
         return False
+    
+    # Create static/css directory if it doesn't exist
+    os.makedirs(css_out_dir, exist_ok=True)
     
     try:
         compiled_css = sass.compile(
@@ -38,20 +39,14 @@ def compile_scss():
         with open(css_file, 'w', encoding='utf-8') as f:
             f.write(compiled_css)
         
-        # Verify output
-        if os.path.exists(css_file):
-            print(f"SCSS compiled successfully: {css_file}")
-            return True
-        else:
-            print("Error: CSS file could not be written")
-            return False
+        print(f"✅ SCSS compiled successfully: {css_file}")
+        return True
             
     except sass.CompileError as e:
-        # --- Fix 2: Print specific SCSS syntax errors ---
-        print(f"SCSS Compilation Error:\n{e}")
+        print(f"❌ SCSS Compilation Error:\n{e}")
         return False
     except Exception as e:
-        print(f"SCSS Unknown Error: {e}")
+        print(f"❌ SCSS Unknown Error: {e}")
         return False
 
 def clean_build_dir():
@@ -67,25 +62,27 @@ def verify_build():
     build_dir = app.config['FREEZER_DESTINATION']
     
     if not os.path.exists(build_dir):
-        print("Error: Build directory does not exist")
+        print("❌ Error: Build directory does not exist")
         return False
     
-    # Check for essential files
-    essential_files = ['index.html', 'work.html', '404.html']
+    # Only verify files that strictly exist in your project
+    essential_files = [
+        'index.html',
+        os.path.join('static', 'css', 'styles.css') # Verify CSS was built and copied
+    ]
+    
     missing_files = []
     
-    for file in essential_files:
-        target = os.path.join(build_dir, file)
+    for file_path in essential_files:
+        target = os.path.join(build_dir, file_path)
         if not os.path.exists(target):
-            missing_files.append(file)
+            missing_files.append(file_path)
     
     if missing_files:
-        print(f"Error: Missing essential files: {missing_files}")
-        if '404.html' in missing_files:
-            print("Hint: Missing 404.html usually means no links point to it. Ensure @freezer.register_generator is used.")
+        print(f"❌ Error: Missing essential files in build: {missing_files}")
         return False
     
-    print("Verification passed! Build complete.")
+    print("✅ Verification passed! Build complete.")
     return True
 
 if __name__ == '__main__':
@@ -102,11 +99,10 @@ if __name__ == '__main__':
     try:
         freezer.freeze()
     except Exception as e:
-        # --- Fix 3: Print Flask/Freezer runtime errors ---
-        print(f"Critical error during freezing:\n{e}")
+        print(f"❌ Critical error during freezing:\n{e}")
         exit(1)
     
     # Step 4: Verify build
     if not verify_build():
         print("Build verification failed")
-        exit(1)
+        exit(1)# Final success message

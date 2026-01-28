@@ -1,16 +1,185 @@
-{% extends "layout.html" %}
-{% import 'macros.html' as m %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+        <title>Barry's Portfolio</title>
+        
+        <meta name="description" content="Bairu Song - High school student at Lexington High School passionate about data-driven decision making and modern web development." />
+        <meta name="author" content="Bairu Song" />
+        <link rel="canonical" href="https://barrys27.github.io" />
 
-{% block hero %}
-{{ m.hero("Hello, I'm Barry","High School Student · Data Enthusiast") }}
+        <meta http-equiv="Content-Security-Policy" content="
+            default-src 'self'; 
+            script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://unpkg.com; 
+            style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; 
+            font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com; 
+            img-src 'self' data: https:;
+            manifest-src 'self';
+        ">
 
-{% endblock %}
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://barrys27.github.io/" />
+        <meta property="og:title" content="Bairu Song | High School Student · Data Enthusiast" />
+        <meta property="og:description" content="Student at Lexington High passionate about data-driven decision making, Python development, and minimalist iOS design principles." />
+        <meta property="og:image" content="{{ url_for('static', filename='images/og-card.png') }}" />
 
-{% block content %}
-<section>
-    <h2>Academic Journey</h2>
+        <meta property="twitter:card" content="summary_large_image" />
+        <meta property="twitter:url" content="https://barrys27.github.io/" />
+        <meta property="twitter:title" content="Bairu Song | High School Student · Data Enthusiast" />
+        <meta property="twitter:description" content="Student at Lexington High passionate about data-driven decision making, Python development, and minimalist iOS design principles." />
+        <meta property="twitter:image" content="{{ url_for('static', filename='images/og-card.png') }}" />
 
-    {{ m.card("High School","Lexington High School","2025 - Present","Grade 9") }}
+        <meta name="theme-color" content="#F2F2F7" />
+        <meta name="apple-mobile-web-app-title" content="Barry's Portfolio" />
 
-</section>
-{% endblock %}
+        <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/favicon-96x96.png') }}" sizes="96x96" />
+        <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='images/favicon.svg') }}" />
+        <link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.ico') }}" />
+        <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='images/apple-touch-icon.png') }}" />
+        <link rel="manifest" href="{{ url_for('static', filename='images/site.webmanifest') }}" />
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}" />
+
+        <script src="https://unpkg.com/lucide@latest"></script>
+
+        <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "Person",
+            "name": "Bairu Song",
+            "alternateName": "Barry",
+            "affiliation": {
+                "@type": "Organization",
+                "name": "Lexington High School"
+            },
+            "description": "High school student passionate about data-driven decision making and web development",
+            "url": "https://barrys27.github.io",
+            "sameAs": [
+                "https://github.com/BarryS27",
+                "https://medium.com/@BarryS27"
+            ]
+        }
+        </script>
+    </head>
+    <body>
+
+        {% from "macros.html" import badge, project %}
+
+        <nav>
+            <a href="#hero"><i data-lucide="home"></i></a>
+            <a href="#about"><i data-lucide="user"></i></a>
+            <a href="#skills"><i data-lucide="zap"></i></a>
+            <a href="#projects"><i data-lucide="folder"></i></a>
+        </nav>
+
+        <section id="hero">
+            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face">
+            <h1>Hello, I'm Barry 👋</h1>
+            <p>High School Student · Data Enthusiast</p>
+            <small><i data-lucide="map-pin"></i>Lexington, MA</small>
+            
+            <div>
+                <a href="#projects">
+                    <i data-lucide="arrow-right"></i>
+                    <span>View My Work</span>
+                </a>
+                
+                <a href="https://forms.google.com" target="_blank">
+                    <span>Get in Touch</span>
+                </a>
+            </div>
+        </section>
+
+        <section id="about">
+            <header>
+                <small>About Me</small>
+                <h2>My Journey</h2>
+            </header>
+
+            <article>
+                <div>
+                    <div>
+                        <p>
+                            I'm a high school student passionate about data-driven decision making.
+                            My journey started with customizing my Tumblr blog,
+                            and now I'm diving deep into data analyzation and visualization.
+                        </p>
+                        <p>
+                            Currently exploring the intersection of technology and liberal arts.
+                        </p>
+                    </div>
+                    <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=600&h=800&fit=crop">
+                </div>
+
+                <div>
+                    <small>Interests</small>
+                    <div>
+                        {{ badge('Coding', icon='code', color='blue') }}
+                        {{ badge('Music', icon='music', color='orange') }}
+                        {{ badge('Soccer', icon='trophy', color='purple') }}
+                        {{ badge('Learning', icon='book', color='green') }}
+                    </div>
+                </div>
+            </article>
+        </section>
+
+        <section id="skills">
+            <header>
+                <small>Capabilities</small>
+                <h2>Tech Stack</h2>
+            </header>
+
+            <div>
+                {{ badge('Python', color='blue') }}
+                {{ badge('Flask', color='gray') }}
+                {{ badge('Swift', color='orange') }}
+                {{ badge('SwiftUI', color='orange') }}
+                {{ badge('HTML/CSS', color='blue') }}
+                {{ badge('Pandas', color='purple') }}
+                {{ badge('SQL', color='green') }}
+                {{ badge('Git', color='gray') }}
+            </div>
+        </section>
+
+        <section id="projects">
+            <header>
+                <small>Portfolio</small>
+                <h2>Featured Work</h2>
+            </header>
+
+            <div class="projects-grid">
+                {{ project(
+                    title="Urban Scaling",
+                    description="A data analysis project exploring the relationship between city size and various urban metrics.",
+                    tags=['Python', 'Pandas', 'Stats'], 
+                    image="https://images.unsplash.com/photo-1480714378408-67cf0d13bc1b?w=800&h=600&fit=crop",
+                    link='#',
+                    color='blue'
+                ) }}
+
+                {{ project(
+                    title="Academic Manager",
+                    description="A comprehensive web application for managing student records, grades, and academic schedules.",
+                    tags=['Flask', 'SQL', 'Web'],
+                    image="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&h=600&fit=crop",
+                    link='#',
+                    color='green'
+                ) }}
+            </div>
+        </section>
+
+        <footer>
+            <p>© 2026 Bairu Song. All Rights Reserved.  Made with <i data-lucide="heart"></i> in Lexington</p>
+        </footer>
+
+        <script>
+            lucide.createIcons();
+        </script>
+    </body>
+</html>
