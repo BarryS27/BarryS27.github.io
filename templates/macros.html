@@ -1,7 +1,7 @@
 {% macro badge(text, icon=None, color='blue') %}
     <span class="badge theme-{{ color }}">
         {% if icon %}
-            <i class="ph-light {{ icon }}"></i>
+            <i class="fa-solid {{ icon }}"></i>
         {% endif %}
         {{ text }}
     </span>
@@ -15,7 +15,7 @@
         <div>
             <div>
                 <h3>{{ title }}</h3>
-                <i class="ph-light ph-chevron-right"></i>
+                <i class="fa-solid fa-arrow-right"></i>
             </div>
             
             <p>{{ description }}</p>
