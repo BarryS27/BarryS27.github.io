@@ -67,7 +67,7 @@ a, button { &:focus-visible { border-radius: 8px; } }
     align-items: center;
     gap: 6px;
     padding: 6px 12px;
-    border-radius: 13px;
+    border-radius: 2em;
     font-size: 13px;
     font-weight: 600;
     user-select: none;
@@ -91,15 +91,7 @@ a, button { &:focus-visible { border-radius: 8px; } }
     position: relative;
     border: 1px solid rgba(0,0,0,0.04);
     
-    transition: transform 0.4s $ease-spring, box-shadow 0.4s ease;
     &:focus-visible { border-radius: 24px; }
-
-    &:hover {
-        transform: translateY(-6px);
-        box-shadow: 0 20px 40px -10px rgba(0,0,0,0.1);
-    }
-  
-    &:active { transform: scale(0.98); }
 
     > img {
         height: 220px;
@@ -146,6 +138,19 @@ a, button { &:focus-visible { border-radius: 8px; } }
       }
     }
   }
+}
+
+a.card {
+    transition: transform 0.4s $ease-spring, box-shadow 0.4s ease;
+
+    &:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 20px 40px -10px rgba(0,0,0,0.1);
+    }
+
+    &:active { transform: scale(0.98); }
+
+    @media (hover: hover) { &:hover > div > div:first-child { h3, i { color: map-get($ios-colors, 'blue'); } } }
 }
 
 /* =========================================
@@ -291,7 +296,7 @@ section {
 }
 
 #about {
-    article {
+    article.card {
         padding: 0 !important; 
     
         > div:first-child {
@@ -338,7 +343,7 @@ section {
 }
 
 #skills {
-    > div {
+    article.card > div {
         display: flex; 
         flex-wrap: wrap; 
         gap: 12px;
