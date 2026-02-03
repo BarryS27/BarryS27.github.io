@@ -1,7 +1,7 @@
 {% macro badge(text, icon=None, color='blue') %}
     <span class="badge theme-{{ color }}">
         {% if icon %}
-            <i class="fa-solid {{ icon }}"></i>
+            <i class="{{ icon if ' ' in icon or 'fa-' in icon else 'fa-solid fa-' + icon }}"></i>
         {% endif %}
         {{ text }}
     </span>
