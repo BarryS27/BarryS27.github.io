@@ -46,7 +46,7 @@
 
         <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}" />
 
-        <script src="https://unpkg.com/@phosphor-icons/web@2.1.1"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 
         <script type="application/ld+json">
         {
@@ -72,21 +72,21 @@
         {% from "macros.html" import badge, project %}
 
         <nav>
-            <a href="#hero"><i class="ph-light ph-house"></i></a>
-            <a href="#about"><i class="ph-light ph-user"></i></a>
-            <a href="#skills"><i class="ph-light ph-lightning"></i></a>
-            <a href="#projects"><i class="ph-light ph-folder"></i></a>
+            <a href="#hero"><i class="house"></i></a>
+            <a href="#about"><i class="user"></i></a>
+            <a href="#skills"><i class="bolt"></i></a>
+            <a href="#projects"><i class="folder"></i></a>
         </nav>
 
         <section id="hero">
             <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face">
             <h1>Hello, I'm Barry 👋</h1>
             <p>High School Student · Data Enthusiast</p>
-            <small><i class="ph-light ph-map-pin"></i>Lexington, MA</small>
+            <small><i class="location-dot"></i>Lexington, MA</small>
             
             <div>
                 <a href="#projects">
-                    <i class="ph-light ph-arrow-right"></i>
+                    <i class="arrow-right"></i>
                     <span>View My Work</span>
                 </a>
                 
@@ -107,7 +107,7 @@
                     <div>
                         <p>
                             I'm a high school student passionate about data-driven decision making.
-                            My journey started with customizing my Tumblr blog,
+                            My journey started with building a self-used academic manager CLI tool,
                             and now I'm diving deep into data analyzation and visualization.
                         </p>
                         <p>
@@ -120,10 +120,10 @@
                 <div>
                     <small>Interests</small>
                     <div>
-                        {{ badge('Coding', icon='ph-code', color='blue') }}
-                        {{ badge('Music', icon='ph-music-note', color='orange') }}
-                        {{ badge('Soccer', icon='ph-trophy', color='purple') }}
-                        {{ badge('Learning', icon='ph-book', color='green') }}
+                        {{ badge('Coding', icon='code', color='blue') }}
+                        {{ badge('Music', icon='music', color='orange') }}
+                        {{ badge('Learning', icon='book', color='green') }}
+                        {{ badge('Soccer', icon='futbol', color='purple') }}
                     </div>
                 </div>
             </article>
@@ -135,16 +135,19 @@
                 <h2>Tech Stack</h2>
             </header>
 
-            <div>
-                {{ badge('Python', color='blue') }}
-                {{ badge('Flask', color='gray') }}
-                {{ badge('Swift', color='orange') }}
-                {{ badge('SwiftUI', color='orange') }}
-                {{ badge('HTML/CSS', color='blue') }}
-                {{ badge('Pandas', color='purple') }}
-                {{ badge('SQL', color='green') }}
-                {{ badge('Git', color='gray') }}
-            </div>
+            <article class="card">
+                <div>
+                    {{ badge('Python', icon='fa-brands fa-python', color='blue') }}
+                    {{ badge('Pandas', icon='table', color='purple') }}
+                    {{ badge('NumPy', icon='calculator', color='orange') }}
+                    {{ badge('Seaborn', icon='chart-line', color='orange') }}
+                    {{ badge('SQL', icon='database', color='green') }}
+                    {{ badge('Flask', icon='flask', color='gray') }}
+                    {{ badge('C', icon='c', color='blue') }}
+                    {{ badge('HTML/CSS', icon='code', color='blue') }}
+                    {{ badge('Git', icon='fa-brands fa-git', color='gray') }}
+                </div>
+            </article>
         </section>
 
         <section id="projects">
@@ -175,7 +178,7 @@
         </section>
 
         <footer>
-            <p>© 2026 Bairu Song. All Rights Reserved.  Made with <i class="ph-light ph-heart"></i> in Lexington</p>
+            <p>© 2026 Bairu Song. All Rights Reserved.  Made with <i class="fa-solid fa-heart"></i> in Lexington</p>
         </footer>
 
     </body>
