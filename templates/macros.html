@@ -7,9 +7,8 @@
     </span>
 {% endmacro %}
 
-
 {% macro project(title, description, tags, image, link, color='blue') %}
-    <a href="{{ link }}" class="card">
+    <a href="{{ link }}" class="card project">
         <img src="{{ image }}" alt="{{ title }}">
         
         <div>
@@ -20,7 +19,7 @@
             
             <p>{{ description }}</p>
             
-            <div>
+            <div style="display: flex; flex-wrap: wrap; gap: 8px;">
                 {% for tag in tags %}
                     {{ badge(tag, color=color) }}
                 {% endfor %}
