@@ -42,8 +42,8 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+        
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-
         <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}" />
 
         <script type="application/ld+json">
@@ -77,14 +77,14 @@
         </nav>
 
         <section id="hero">
-            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face">
+            <img src="{{ url_for('static', filename='images/profile.webp') }}" alt="Barry's Profile Picture">
             <h1>Hello, I'm Barry 👋</h1>
             <p>High School Student · Data Enthusiast</p>
             <small><i class="fa-solid fa-location-dot"></i>Lexington, MA</small>
             
             <div>
                 <a href="#projects">
-                    <i class="arrow-right"></i>
+                    <i class="fa-solid fa-arrow-right"></i>
                     <span>View My Work</span>
                 </a>
                 
@@ -176,7 +176,7 @@
         </section>
 
         <footer>
-            <p>© 2026 Bairu Song. All Rights Reserved.  Made with <i class="fa-solid fa-heart"></i> in Lexington</p>
+            <p>© 2026 Bairu Song.        Made with <i class="fa-solid fa-heart"></i> in Lexington</p>
         </footer>
 
     </body>
