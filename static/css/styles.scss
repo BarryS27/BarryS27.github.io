@@ -72,13 +72,13 @@ a, button { &:focus-visible { border-radius: 8px; } }
     font-weight: 600;
     user-select: none;
 
-@each $name, $hex in $ios-colors {
-    &.theme-#{$name} {
-        background-color: color-mix(in srgb, $hex, transparent 90%);
-        color: $hex;
-        border: 1px solid color-mix(in srgb, $hex, transparent 85%);
+    @each $name, $hex in $ios-colors {
+        &.theme-#{$name} {
+            background-color: color-mix(in srgb, $hex, transparent 90%);
+            color: $hex;
+            border: 1px solid color-mix(in srgb, $hex, transparent 85%);
+        }
     }
-}
     i { width: 14px; height: 14px; }
 }
 
@@ -103,26 +103,6 @@ a, button { &:focus-visible { border-radius: 8px; } }
     > div {
         padding: 24px;
         
-        > div:first-child {
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center;
-            margin-bottom: 8px;
-    
-            h3 { 
-                margin: 0; 
-                font-size: 20px; 
-                color: map-get($ios-colors, 'text-primary');
-                transition: color 0.2s ease;
-            }
-          
-            i { 
-                color: map-get($ios-colors, 'text-tert'); 
-                width: 20px; height: 20px; 
-                transition: color 0.2s ease;
-            }
-        }
-    
         p { 
             margin: 0 0 20px 0; 
             font-size: 15px; 
@@ -131,13 +111,32 @@ a, button { &:focus-visible { border-radius: 8px; } }
         }
     }
 
-  @media (hover: hover) {
-    &:hover > div > div:first-child {
-      h3, i {
-        color: map-get($ios-colors, 'blue');
-      }
+    // --- 平衡点：只有带有 .project 类的卡片才会应用横向标题布局 ---
+    &.project > div > div:first-child {
+        display: flex; 
+        justify-content: space-between; 
+        align-items: center;
+        margin-bottom: 8px;
+
+        h3 { 
+            margin: 0; 
+            font-size: 20px; 
+            color: map-get($ios-colors, 'text-primary');
+            transition: color 0.2s ease;
+        }
+      
+        i { 
+            color: map-get($ios-colors, 'text-tert'); 
+            width: 20px; height: 20px; 
+            transition: color 0.2s ease;
+        }
     }
-  }
+
+    @media (hover: hover) {
+        &.project:hover > div > div:first-child {
+            h3, i { color: map-get($ios-colors, 'blue'); }
+        }
+    }
 }
 
 a.card {
@@ -149,8 +148,6 @@ a.card {
     }
 
     &:active { transform: scale(0.98); }
-
-    @media (hover: hover) { &:hover > div > div:first-child { h3, i { color: map-get($ios-colors, 'blue'); } } }
 }
 
 /* =========================================
@@ -164,7 +161,7 @@ nav {
     z-index: 100;
     display: flex; gap: 10px;
 
-    @media (max-width: 768px) { display: none; }
+    @media { display: none; }
 
     a {
         width: 36px; height: 36px;
@@ -182,15 +179,12 @@ nav {
     }
 }
 
-// --- Sections Logic ---
 section {
     padding: 100px 24px;
     max-width: 900px;
     margin: 0 auto;
     
-    @media (max-width: 768px) {
-        padding: 60px 20px;
-    }
+    @media (max-width: 768px) { padding: 60px 20px; }
 
     header {
         text-align: center;
@@ -224,50 +218,42 @@ section {
     align-items: center;
     justify-content: center;
     text-align: center;
+    gap: 16px;
     
     img {
         width: 120px; height: 120px;
         border-radius: 50%;
         border: 4px solid #fff;
         box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        margin-bottom: 32px;
+        margin-bottom: 16px;
     }
 
     h1 {
         font-size: 48px;
         font-weight: 800;
-        margin: 0 0 16px 0;
+        margin: 0;
         letter-spacing: -1px;
-        
         @media (max-width: 768px) { font-size: 36px; }
     }
 
     p {
         color: map-get($ios-colors, 'text-sec');
         font-size: 18px;
-        margin-bottom: 48px;
+        margin: 0 0 24px 0;
     }
 
     small {
         display: inline-flex;
         align-items: center;
         gap: 4px;
-        
         color: map-get($ios-colors, 'text-tert');
         font-size: 14px;
-        margin-top: -40px;
-        margin-bottom: 48px;
         
-        i { 
-            width: 14px; 
-            height: 14px; 
-            color: inherit;
-        }
+        i { width: 14px; height: 14px; color: inherit; }
     }
 
     > div {
         display: flex; gap: 16px; align-items: center;
-        
         @media (max-width: 480px) {
             flex-direction: column;
             width: 100%;
@@ -307,14 +293,13 @@ section {
     
             > div {
                 flex: 1;
+                display: block;
                 p { margin-bottom: 16px; font-size: 17px; line-height: 1.6; color: map-get($ios-colors, 'text-sec'); }
             }
     
             > img {
-                width: 140px; 
-                height: 180px; 
-                object-fit: cover; 
-                border-radius: 12px;
+                width: 140px; height: 180px; 
+                object-fit: cover; border-radius: 12px;
                 flex-shrink: 0; 
             }
     
@@ -329,14 +314,12 @@ section {
             border-top: 1px solid rgba(0,0,0,0.05);
             padding: 24px 40px;
             background: rgba(249, 249, 251, 0.5);
-          
             @media (max-width: 768px) { padding: 24px; }
     
             small {
                 display: block; font-size: 11px; font-weight: 600; text-transform: uppercase; 
                 color: map-get($ios-colors, 'text-tert'); margin-bottom: 12px; letter-spacing: 0.5px;
             }
-    
             div { display: flex; flex-wrap: wrap; gap: 10px; }
         }
     }
@@ -369,10 +352,5 @@ footer {
     font-size: 13px;
     background: map-get($ios-colors, 'bg');
     border-top: 1px solid rgba(0,0,0,0.05);
-    
-    i {
-        width: 12px; height: 12px;
-        color: #FF3B30;
-        vertical-align: -2px;
-    }
+    i { width: 12px; height: 12px; color: #FF3B30; vertical-align: -2px; }
 }
