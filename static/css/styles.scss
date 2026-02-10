@@ -9,7 +9,7 @@ $ios-colors: (
     'gray':        #8E8E93,
     'text-primary':#1C1C1E,
     'text-sec':    #3C3C43,
-    'text-tert':   #8E8E93,
+    'text-tert':   #6D6D72,
     'bg':          #F2F2F7,
     'card':        #FFFFFF
 );
@@ -57,7 +57,7 @@ img { display: block; max-width: 100%; }
 }
 
 @keyframes slide-up {
-    from { opacity: 0; transform: translateY(24px) scale(0.98); }
+    from { opacity: 0; transform: translateY(24px); }
     to   { opacity: 1; transform: translateY(0); }
 }
 
@@ -93,7 +93,7 @@ img { display: block; max-width: 100%; }
     border-radius: 24px;
     overflow: hidden;
     position: relative;
-    border: 0.5px solid rgba(0,0,0,0.03);
+    border: 1px solid rgba(0,0,0,0.03);
     
 
     > div {
@@ -129,7 +129,7 @@ img { display: block; max-width: 100%; }
         i { 
             color: map-get($ios-colors, 'text-tert'); 
             font-size: 16px; 
-            transition: color 0.2s ease;
+            transition: color 0.2s ease, transform 0.2s ease;
             transform: translateX(0);
         }
     }
@@ -144,7 +144,10 @@ a.card {
         &:hover {
             &.project > div > div:first-child {
                 h3 { color: map-get($ios-colors, 'blue'); }
-                i { color: map-get($ios-colors, 'blue'); }
+                i {
+                    color: map-get($ios-colors, 'blue');
+                    transform: translateX(2px);
+                }
             }
         }
     }
