@@ -8,9 +8,9 @@ $ios-colors: (
     'purple':      #AF52DE,
     'gray':        #8E8E93,
     'text-primary':#1C1C1E,
-    'text-sec':    #3C3C43,
+    'text-sec':    #48484A,
     'text-tert':   #6D6D72,
-    'bg':          #F2F2F7,
+    'bg':          #E5E5EA,
     'card':        #FFFFFF
 );
 
@@ -20,14 +20,20 @@ $ease-spring: cubic-bezier(0.25, 1, 0.5, 1);
 
 body {
     margin: 0;
-    background-color: map-get($ios-colors, 'bg');
+    background-color: #E2E4EB; 
+    background-image: 
+        linear-gradient(to bottom, rgba(226, 228, 235, 0.2) 0%, #F2F2F7 90%),
+        url('../images/background.webp');
+    background-size: cover;
+    background-position: center 20%;
+    background-attachment: fixed;
+    // ----------------------------
     color: map-get($ios-colors, 'text-primary');
-    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Inter", sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, "Inter", sans-serif;
     -webkit-font-smoothing: antialiased;
-    line-height: 1.5;
 }
 
-a { text-decoration: none; color: inherit; -webkit-tap-highlight-color: transparent; }
+a { text-decoration: none; color: inherit; }
 img { display: block; max-width: 100%; }
 
 :focus-visible {
@@ -36,29 +42,35 @@ img { display: block; max-width: 100%; }
     border-radius: 4px;
 }
 
+a, button { &:focus-visible { border-radius: 8px; } }
+
 /* =========================================
    2. Mixins & Animations
    ========================================= */
-@mixin glass-material {
+@mixin std-thin {
     background: rgba(255, 255, 255, 0.7);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     border: 1px solid rgba(255, 255, 255, 0.5);
 }
 
-@mixin active-press {
-    transition: transform 0.2s $ease-spring, opacity 0.2s ease;
-    will-change: transform;
-    
+@mixin tap-effect {
+    transition: transform 0.4s $ease-spring, opacity 0.2s ease;
     &:active {
-        transform: scale(0.98);
-        opacity: 0.7;
+        transform: scale(0.96);
+        opacity: 0.8;
     }
 }
 
 @keyframes slide-up {
-    from { opacity: 0; transform: translateY(24px); }
-    to   { opacity: 1; transform: translateY(0); }
+    from {
+        opacity: 0;
+        transform: translateY(30px) scale(0.98);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
 }
 
 /* =========================================
@@ -69,32 +81,42 @@ img { display: block; max-width: 100%; }
 .badge {
     display: inline-flex;
     align-items: center;
-    gap: 4px;
+    gap: 6px;
     padding: 4px 10px;
-    border-radius: 99px;
+    border-radius: 2em;
     font-size: 13px;
     font-weight: 600;
     user-select: none;
 
     @each $name, $hex in $ios-colors {
-        &.theme-#{$name} {
-            background-color: color-mix(in srgb, $hex, #fff 90%);
-            color: $hex;
-            border: 1px solid color-mix(in srgb, $hex, transparent 85%);
+        @if $name == 'blue' or $name == 'green' or $name == 'orange' or $name == 'purple' or $name == 'gray' {
+            &.theme-#{$name} {
+                background-color: color-mix(in srgb, $hex, #fff 92%); 
+                color: $hex;
+                border: 1px solid color-mix(in srgb, $hex, transparent 88%);
+            }
         }
     }
-    i { font-size: 12px; }
+    i { width: 14px; height: 14px; }
 }
 
 // --- Card ---
 .card {
     display: block; 
-    background: map-get($ios-colors, 'card');
+    @include std-thin;
     border-radius: 24px;
     overflow: hidden;
     position: relative;
-    border: 1px solid rgba(0,0,0,0.03);
+    border: none;
     
+    &:focus-visible { border-radius: 24px; }
+
+    > img {
+        height: 220px;
+        width: 100%;
+        object-fit: cover;
+        border-bottom: 1px solid rgba(0,0,0,0.05);
+    }
 
     > div {
         padding: 24px;
@@ -102,17 +124,10 @@ img { display: block; max-width: 100%; }
             margin: 0 0 16px 0; 
             font-size: 15px; 
             color: map-get($ios-colors, 'text-tert'); 
+            line-height: 1.5;
         }
     }
 
-    > img {
-        height: 224px;
-        width: 100%;
-        object-fit: cover;
-        border-bottom: 1px solid rgba(0,0,0,0.05);
-    }
-
-    // Project Header
     &.project > div > div:first-child {
         display: flex; 
         justify-content: space-between; 
@@ -122,34 +137,29 @@ img { display: block; max-width: 100%; }
         h3 { 
             margin: 0; 
             font-size: 20px; 
-            font-weight: 600;
             color: map-get($ios-colors, 'text-primary');
             transition: color 0.2s ease;
         }
+      
         i { 
             color: map-get($ios-colors, 'text-tert'); 
-            font-size: 16px; 
-            transition: color 0.2s ease, transform 0.2s ease;
-            transform: translateX(0);
+            width: 20px; height: 20px; 
+            transition: color 0.2s ease;
+        }
+    }
+
+    @media (hover: hover) {
+        &.project:hover > div > div:first-child {
+            h3, i { color: map-get($ios-colors, 'blue'); }
         }
     }
 }
 
-// --- Interactive Card (Projects Only) ---
 a.card {
-    cursor: pointer;
-    @include active-press;
-
-    @media (hover: hover) {
-        &:hover {
-            &.project > div > div:first-child {
-                h3 { color: map-get($ios-colors, 'blue'); }
-                i {
-                    color: map-get($ios-colors, 'blue');
-                    transform: translateX(2px);
-                }
-            }
-        }
+    @include tap-effect;
+    &:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 20px 40px -10px rgba(0,0,0,0.1);
     }
 }
 
@@ -157,42 +167,42 @@ a.card {
    4. Main Layout
    ========================================= */
 
+// --- Navigation ---
 nav {
     position: fixed;
     top: 24px; left: 24px;
-    z-index: 1000;
-    display: flex; 
-    gap: 12px;
+    z-index: 100;
+    display: flex; gap: 10px;
 
     @media (max-width: 768px) { display: none; }
 
     a {
-        width: 32px; height: 32px;
+        width: 36px; height: 36px;
         border-radius: 50%;
         display: flex; align-items: center; justify-content: center;
         color: map-get($ios-colors, 'text-primary');
-        font-size: 14px;
         
-        @include glass-material;
-        @include active-press;
-        
-        transition: background 0.2s ease;
-        @media (hover: hover) { 
-            &:hover { background: rgba(255, 255, 255, 0.9); } 
-        }
+        @include std-thin;
+        @include tap-effect;
+    
+        &:focus-visible { border-radius: 50%; }
+    
+        @media (hover: hover) { &:hover { background: rgba(255, 255, 255, 0.9); } }
+        i { width: 18px; height: 18px; }
     }
 }
 
 section {
     opacity: 0; 
-    animation: slide-up 1.0s $ease-spring forwards;
+    animation: slide-up 1.2s $ease-spring forwards;
     will-change: transform, opacity;
+    backface-visibility: hidden;
     
-    padding: 96px 24px;
-    max-width: 800px;
+    padding: 100px 24px;
+    max-width: 900px;
     margin: 0 auto;
     
-    @media (max-width: 768px) { padding: 64px 20px; }
+    @media (max-width: 768px) { padding: 60px 20px; }
 
     header {
         text-align: center;
@@ -201,188 +211,90 @@ section {
         small {
             display: block;
             color: map-get($ios-colors, 'blue');
-            font-size: 13px;
-            font-weight: 600;
+            font-size: 12px;
+            font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
+            letter-spacing: 1px;
             margin-bottom: 8px;
         }
     
         h2 {
-            font-size: 34px;
+            font-size: 32px;
             font-weight: 700;
             margin: 0;
             letter-spacing: -0.5px;
-            color: map-get($ios-colors, 'text-primary');
         }
     }
 }
 
-/* =========================================
-   5. Specific Section Styling
-   ========================================= */
+// --- Specific ID Styling ---
 
 #hero {
     animation-delay: 0.1s;
     min-height: 90vh;
-    display: flex; flex-direction: column;
-    align-items: center; justify-content: center; text-align: center;
-    gap: 24px;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;
+    gap: 16px;
     
     img {
-        width: 120px; height: 120px;
-        border-radius: 50%;
+        width: 120px; height: 120px; border-radius: 50%;
         border: 4px solid #fff;
-        box-shadow: 0 16px 32px rgba(0,0,0,0.1);
-        margin-bottom: 8px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        margin-bottom: 16px;
     }
 
-    h1 {
-        font-size: 48px;
-        font-weight: 800;
-        margin: 0;
-        letter-spacing: -1px;
-        @media (max-width: 768px) { font-size: 34px; }
-    }
-
-    p {
-        color: map-get($ios-colors, 'text-sec');
-        font-size: 20px;
-        margin: 0 0 8px 0;
-        font-weight: 500;
-    }
+    h1 { font-size: 48px; font-weight: 800; margin: 0; letter-spacing: -1px; }
+    p { color: map-get($ios-colors, 'text-sec'); font-size: 18px; margin: 0 0 24px 0; }
 
     small {
-        display: inline-flex; align-items: center; gap: 6px;
-        color: map-get($ios-colors, 'text-tert');
-        font-size: 15px;
-        i { font-size: 14px; }
+        display: inline-flex; align-items: center; gap: 4px;
+        color: map-get($ios-colors, 'text-tert'); font-size: 14px;
+        i { width: 14px; height: 14px; color: inherit; }
     }
 
     > div {
-        margin-top: 16px;
         display: flex; gap: 16px; align-items: center;
-        
-        @media (max-width: 480px) {
-            flex-direction: column; width: 100%;
-            a { width: 100%; justify-content: center; }
-        }
-    
         a {
-            padding: 12px 24px; 
-            border-radius: 99px;
-            font-size: 17px; 
-            font-weight: 600;
-            display: flex; align-items: center; gap: 8px;
-            @include active-press;
-    
-            &:first-child {
-                background-color: map-get($ios-colors, 'blue');
-                color: white;
-                box-shadow: 0 4px 12px rgba(0, 122, 255, 0.3);
-            }
-    
-            &:not(:first-child) {
-                background: rgba(255, 255, 255, 0.8);
-                color: map-get($ios-colors, 'blue');
-            }
+            padding: 14px 28px; border-radius: 99px; font-weight: 600; display: flex; align-items: center; gap: 8px;
+            @include tap-effect;
+            &:first-child { background-color: map-get($ios-colors, 'blue'); color: white; box-shadow: 0 4px 12px rgba(0, 122, 255, 0.25); }
+            &:not(:first-child) { background: rgba(255, 255, 255, 0.6); color: map-get($ios-colors, 'blue'); }
         }
-    }
-}
-
-#about, #now {
-    article.card > div:first-child, 
-    #now .card > div {
-        padding: 40px; 
-        @media (max-width: 768px) { padding: 24px; }
     }
 }
 
 #about {
-    animation-delay: 0.2s;
-    
+    animation-delay: 0.3s;
     article.card {
         padding: 0 !important; 
-    
         > div:first-child {
-            display: flex; gap: 32px; align-items: flex-start;
-    
-            > div {
-                flex: 1; display: block;
-                p { 
-                    margin-bottom: 24px; font-size: 17px; line-height: 1.5; color: map-get($ios-colors, 'text-sec'); 
-                    &:last-child { margin-bottom: 0; }
-                }
-            }
-    
-            > img {
-                width: 144px; height: 192px; 
-                object-fit: cover; border-radius: 12px;
-                flex-shrink: 0; 
-                background: map-get($ios-colors, 'bg');
-            }
-    
-            @media (max-width: 768px) {
-                flex-direction: column-reverse;
-                > img { width: 100%; height: auto; aspect-ratio: 16/9; }
-            }
+            display: flex; padding: 40px; gap: 32px; align-items: flex-start;
+            > div { flex: 1; display: block; p { margin-bottom: 16px; font-size: 17px; line-height: 1.6; color: map-get($ios-colors, 'text-sec'); } }
+            > img { width: 140px; height: 180px; object-fit: cover; border-radius: 12px; flex-shrink: 0; }
         }
-    
         > div:last-child {
             border-top: 1px solid rgba(0,0,0,0.05);
-            padding: 24px 40px; 
-            background: rgba(249, 249, 251, 0.6); 
-            @media (max-width: 768px) { padding: 24px; }
-    
-            small {
-                display: block; 
-                font-size: 11px; font-weight: 600; text-transform: uppercase; 
-                color: map-get($ios-colors, 'text-tert'); 
-                margin-bottom: 12px; 
-            }
-            div { display: flex; flex-wrap: wrap; gap: 8px; }
-        }
-    }
-}
-
-#now {
-    animation-delay: 0.3s;
-
-    .card > div {
-        display: flex; flex-direction: column; gap: 16px;
-        
-        p {
-            margin: 0; font-size: 17px; line-height: 1.5; color: map-get($ios-colors, 'text-sec');
-
-            strong {
-                color: map-get($ios-colors, 'text-primary');
-                font-weight: 600;
-                margin-right: 8px; 
-            }
+            padding: 24px 40px; background: rgba(249, 249, 251, 0.5);
+            small { display: block; font-size: 11px; font-weight: 600; color: map-get($ios-colors, 'text-tert'); margin-bottom: 12px; }
+            div { display: flex; flex-wrap: wrap; gap: 10px; }
         }
     }
 }
 
 #skills {
-    animation-delay: 0.4s;
-    article.card > div { display: flex; flex-wrap: wrap; gap: 8px; }
+    animation-delay: 0.5s;
+    article.card > div { display: flex; flex-wrap: wrap; gap: 12px; }
 }
 
 #projects {
-    animation-delay: 0.5s;
-    
+    animation-delay: 0.7s;
     .projects-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(304px, 1fr));
-        gap: 24px; 
-        @media (max-width: 600px) { grid-template-columns: 1fr; }
+        display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px;
     }
 }
 
 footer {
-    padding: 64px 24px 48px;
-    text-align: center;
-    color: map-get($ios-colors, 'text-tert');
-    font-size: 13px;
-    i { color: #FF3B30; }
+    padding: 48px; text-align: center; color: map-get($ios-colors, 'text-tert'); font-size: 13px;
+    background: map-get($ios-colors, 'bg');
+    border-top: 1px solid rgba(0,0,0,0.05);
+    i { width: 12px; height: 12px; color: #FF3B30; vertical-align: -2px; }
 }
