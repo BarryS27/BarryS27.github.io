@@ -281,6 +281,36 @@ section {
     }
 }
 
+#now {
+    animation-delay: 0.3s;
+
+    .card > div {
+        padding: 0;
+
+        p {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            
+            padding: 20px 40px; 
+            margin: 0;
+            
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05); 
+            
+            font-size: 17px; 
+
+            &:last-child { border-bottom: none; }
+
+            strong {
+                color: map-get($ios-colors, 'text-primary');
+                font-weight: 600;
+            }
+
+            span { color: map-get($ios-colors, 'text-sec'); }
+        }
+    }
+}
+
 #skills {
     animation-delay: 0.5s;
     article.card > div { display: flex; flex-wrap: wrap; gap: 12px; }
