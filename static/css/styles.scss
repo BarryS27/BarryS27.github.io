@@ -55,7 +55,8 @@ a, button { &:focus-visible { border-radius: 8px; } }
 }
 
 @mixin tap-effect {
-    transition: transform 0.4s $ease-spring, opacity 0.2s ease;
+    transition: transform 0.4s $ease-spring, opacity 0.2s ease, box-shadow 0.4s ease;
+    will-change: transform, opacity;
     &:active {
         transform: scale(0.96);
         opacity: 0.8;
