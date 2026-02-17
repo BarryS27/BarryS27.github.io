@@ -265,6 +265,10 @@ section {
         a {
             padding: 14px 28px; border-radius: 99px; font-weight: 600; display: flex; align-items: center; gap: 8px;
             @include tap-effect;
+            &:hover {
+               transform: translateY(-6px);
+               box-shadow: 0 20px 40px -10px rgba(0,0,0,0.1);
+            }
             &:first-child { background-color: map-get($ios-colors, 'blue'); color: white; box-shadow: 0 4px 12px rgba(0, 122, 255, 0.25); }
             &:not(:first-child) { background: rgba(255, 255, 255, 0.6); color: map-get($ios-colors, 'blue'); }
         }
@@ -289,7 +293,7 @@ section {
     }
 }
 
-#now {
+#now, #exp, #edu {
     animation-delay: 0.3s;
 
     .card > div {
