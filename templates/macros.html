@@ -7,7 +7,7 @@
     </span>
 {% endmacro %}
 
-{% macro icard(title, description, tags=none, image=none, link, color='blue') %}
+{% macro icard(title, description, link, tags=none, image=none, color='blue') %}
     <a href="{{ link }}" class="card project" target="_blank" rel="noopener noreferrer">
         {% if image %}
             <img src="{{ image }}" alt="{{ title }}">
