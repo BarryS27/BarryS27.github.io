@@ -42,12 +42,13 @@ nav {
 
 // --- Specific ID Styling ---
 
-#hero     { animation-delay: 0.1s; }
-#about    { animation-delay: 0.3s; }
-#now      { animation-delay: 0.5s; }
-#skills   { animation-delay: 0.7s; }
-#awards   { animation-delay: 0.9s; }
-#projects { animation-delay: 0.11s; }
+$sections: "hero", "about", "now", "skills", "awards", "projects";
+
+@for $i from 1 through length($sections) {
+    #{nth($sections, $i)} {
+        animation-delay: #{$i * 0.1}s;
+    }
+}
 
 #hero {
     min-height: 90vh;

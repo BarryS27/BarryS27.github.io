@@ -1,5 +1,4 @@
 Flask
 Frozen-Flask
 libsass
-os
 requests
