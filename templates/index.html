@@ -67,7 +67,7 @@
     </head>
     <body>
 
-        {% from "macros.html" import badge, project %}
+        {% from "macros.html" import badge, icard %}
 
         <nav>
             <a href="#hero" aria-label="Home"><i class="fa-solid fa-house"></i></a>
@@ -201,20 +201,20 @@
 
             <div class="grid">
                 {{ icard(
-                    title="Urban Scaling",
+                    title="Urban Scaling Simulator",
                     description="A data analysis project exploring the relationship between city size and various urban metrics.",
+                    link='https://github.com/BarryS27/Urban-Scaling-Simulator',
                     tags=['Python', 'Pandas', 'Matplotlib'], 
                     image="https://images.unsplash.com/photo-1480714378408-67cf0d13bc1b?w=800&h=600&fit=crop",
-                    link='https://github.com/BarryS27/Urban-Scaling-Simulator',
                     color='blue'
                 ) }}
 
                 {{ icard(
-                    title="uTerm-Lite",
+                    title="Financial-Terminal-Lite",
                     description="A lite web application with stock screener, heatmap and advanced chart.",
+                    link='https://github.com/BarryS27/Financial-Terminal-Lite',
                     tags=['Web'],
                     image="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&h=600&fit=crop",
-                    link='https://github.com/BarryS27/Financial-Terminal-Lite',
                     color='green'
                 ) }}
             </div>
