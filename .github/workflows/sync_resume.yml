@@ -1,0 +1,33 @@
+name: Sync Resume from Google Docs
+
+on:
+  schedule:
+    - cron: '0 0 * * 0' 
+  workflow_dispatch:
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Run sync script
+        run: python update_resume.py
+
+      - name: Commit and push changes
+        run: |
+          git config --global user.name 'resume-bot'
+          git config --global user.email 'bot@github.com'
+          git add static/resume.pdf
+          # "|| exit 0" prevents the action from failing if there are no changes
+          git commit -m "chore: automated weekly resume sync [skip ci]" || exit 0
+          git push
