@@ -4,7 +4,7 @@
 @import 'common/scss/layout';
 
 /* =========================================
-   4. Main Layout
+   Main Layout
    ========================================= */
 
 // --- Navigation ---
@@ -42,8 +42,14 @@ nav {
 
 // --- Specific ID Styling ---
 
+#hero     { animation-delay: 0.1s; }
+#about    { animation-delay: 0.3s; }
+#now      { animation-delay: 0.5s; }
+#skills   { animation-delay: 0.7s; }
+#awards   { animation-delay: 0.9s; }
+#projects { animation-delay: 0.11s; }
+
 #hero {
-    animation-delay: 0.1s;
     min-height: 90vh;
     display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;
     gap: 16px;
@@ -80,7 +86,6 @@ nav {
 }
 
 #about {
-    animation-delay: 0.3s;
     article.card {
         padding: 0 !important; 
         > div:first-child {
@@ -98,8 +103,6 @@ nav {
 }
 
 #now, #exp, #edu {
-    animation-delay: 0.3s;
-
     .card > div {
         padding: 0;
 
@@ -127,14 +130,6 @@ nav {
     }
 }
 
-#skills {
-    animation-delay: 0.5s;
-    article.card > div { display: flex; flex-wrap: wrap; gap: 12px; }
-}
+#skills { article.card > div { display: flex; flex-wrap: wrap; gap: 12px; } }
 
-#projects {
-    animation-delay: 0.7s;
-    .projects-grid {
-        display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px;
-    }
-}
+#awards, #projects { .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; } }

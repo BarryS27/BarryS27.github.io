@@ -164,14 +164,43 @@
             </article>
         </section>
 
+        <section id="awards">
+            <header>
+                <small>Certifications</small>
+                <h2>Awards & Honors</h2>
+            </header>
+            <div class="grid">
+                {{ icard(
+                    title="CS50x Certificate",
+                    description="Harvard University's introduction to the intellectual enterprises of computer science and the art of programming.",
+                    link='https://certificates.cs50.io/e7322fd8-f79a-4b52-81e0-b723d431409e.pdf?size=letter'
+                ) }}
+                {{ icard(
+                    title="CS50p Certificate",
+                    description="An in-depth introduction to programming with Python, focusing on object-oriented design and library integration.",
+                    link='https://certificates.cs50.io/fb71fc53-2fc2-4d31-b1e1-1151c0774de3.pdf?size=letter'
+                ) }}
+                {{ icard(
+                    title="CS50sql Certificate",
+                    description="A specialized course on relational database design, focusing on SQL, data modeling, and SQLite optimization.",
+                    link='https://certificates.cs50.io/929f5a2c-bb83-41c8-9b2d-e81914bde916.pdf?size=letter'
+                ) }}
+                {{ icard(
+                    title="Literary Achievement Award",
+                    description="Awarded for the "Most Creative Project" in Grade 9 Literature & Composition 1 for the Flash Fiction Portfolio project.",
+                    link='https://drive.google.com/file/d/1zaG7i2719bMFPoppC0buBTWwKAlP8YfI/view'
+                ) }}
+            </div>
+        </section>
+
         <section id="projects">
             <header>
                 <small>Portfolio</small>
                 <h2>Featured Work</h2>
             </header>
 
-            <div class="projects-grid">
-                {{ project(
+            <div class="grid">
+                {{ icard(
                     title="Urban Scaling",
                     description="A data analysis project exploring the relationship between city size and various urban metrics.",
                     tags=['Python', 'Pandas', 'Matplotlib'], 
@@ -180,7 +209,7 @@
                     color='blue'
                 ) }}
 
-                {{ project(
+                {{ icard(
                     title="uTerm-Lite",
                     description="A lite web application with stock screener, heatmap and advanced chart.",
                     tags=['Web'],

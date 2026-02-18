@@ -7,9 +7,11 @@
     </span>
 {% endmacro %}
 
-{% macro project(title, description, tags, image, link, color='blue') %}
+{% macro icard(title, description, tags=none, image=none, link, color='blue') %}
     <a href="{{ link }}" class="card project" target="_blank" rel="noopener noreferrer">
-        <img src="{{ image }}" alt="{{ title }}">
+        {% if image %}
+            <img src="{{ image }}" alt="{{ title }}">
+        {% endif %}
         
         <div>
             <div>
@@ -19,11 +21,13 @@
             
             <p>{{ description }}</p>
             
-            <div style="display: flex; flex-wrap: wrap; gap: 8px;">
-                {% for tag in tags %}
-                    {{ badge(tag, color=color) }}
-                {% endfor %}
-            </div>
+            {% if tags %}
+                <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+                    {% for tag in tags %}
+                        {{ badge(tag, color=color) }}
+                    {% endfor %}
+                </div>
+            {% endif %}
         </div>
     </a>
 {% endmacro %}
