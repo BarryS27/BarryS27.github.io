@@ -1,0 +1,21 @@
+User-agent: *
+
+Disallow: /static/barrys27.vcf
+Disallow: /static/resume.pdf
+
+Disallow: /templates/
+Disallow: /.github/
+Disallow: /requirements.txt
+Disallow: /.gitmodules
+
+Disallow: /app.py
+Disallow: /freeze.py
+Disallow: /resume.py
+Disallow: /scss.py
+Disallow: /*.py$
+
+Allow: /static/images/*
+Allow: /static/css/*
+Allow: /static/js/*
+
+Sitemap: https://barrys27.github.io/sitemap.xml
