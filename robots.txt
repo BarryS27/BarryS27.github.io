@@ -4,15 +4,12 @@
 
 User-agent: *
 
-Disallow: /static/js/vault.js
-Disallow: /static/js/contact-data.js
 Disallow: /templates/
 Disallow: /static/css/common/
 
 Disallow: /app.py
 Disallow: /freeze.py
 Disallow: /scss.py
-Disallow: /encrypt.py
 Disallow: /requirements.txt
 Disallow: /notes.txt
 Disallow: /.github/
