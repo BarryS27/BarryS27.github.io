@@ -2,4 +2,3 @@ Flask
 Frozen-Flask
 libsass
 requests
-dotenv
