@@ -1,21 +1,24 @@
+# =========================================
+# Barry's Portfolio - Optimized Robots File
+# =========================================
+
 User-agent: *
 
-Disallow: /static/barrys27.vcf
-Disallow: /static/resume.pdf
-
+Disallow: /static/js/vault.js
+Disallow: /static/js/contact-data.js
 Disallow: /templates/
-Disallow: /.github/
-Disallow: /requirements.txt
-Disallow: /.gitmodules
+Disallow: /static/css/common/
 
 Disallow: /app.py
 Disallow: /freeze.py
-Disallow: /resume.py
 Disallow: /scss.py
-Disallow: /*.py$
+Disallow: /encrypt.py
+Disallow: /requirements.txt
+Disallow: /notes.txt
+Disallow: /.github/
 
-Allow: /static/images/*
-Allow: /static/css/*
-Allow: /static/js/*
+Allow: /static/js/script.js
+Allow: /static/css/style.css
+Allow: /static/images/
 
 Sitemap: https://barrys27.github.io/sitemap.xml

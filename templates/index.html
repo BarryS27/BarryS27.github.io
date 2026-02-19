@@ -76,7 +76,6 @@
             <a href="#skills" aria-label="Capabilities"><i class="fa-solid fa-bolt"></i></a>
             <a href="#awards" aria-label="Awards"><i class="fa-solid fa-trophy"></i></a>
             <a href="#projects" aria-label="Portfolio"><i class="fa-solid fa-folder"></i></a>
-            <a href="../static/resume.pdf" target="_blank" aria-label="Resume"><i class="fa-solid fa-file-pdf"></i></a>
             <a href="https://www.canva.com/design/DAHBQl3FbHA/nZxeySAel_M5opdQpms4wA/view" target="_blank" aria-label="Business Card"><i class="fa-solid fa-address-card"></i></a>
         </nav>
 
@@ -227,6 +226,9 @@
             <p>© 2026 Bairu Song. Made with <i class="fa-solid fa-heart"></i> in Lexington</p>
         </footer>
 
-        <script src="static/js/script.js" defer></script>
+        <script src="{{ url_for('static', filename='js/vault.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/contact-data.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/easter-eggs.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/script.js') }}" defer></script>
     </body>
 </html>
