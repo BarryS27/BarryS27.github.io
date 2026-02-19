@@ -8,7 +8,7 @@
 $sections: "hero", "about", "now", "skills", "awards", "projects";
 
 @for $i from 1 through length($sections) {
-    #{nth($sections, $i)} {
+    #{'#' + nth($sections, $i)} {
         &.in-view {
             animation-delay: #{$i * 0.1}s;
         }
@@ -17,24 +17,22 @@ $sections: "hero", "about", "now", "skills", "awards", "projects";
 
 // Awards & Projects Grid
 #awards, #projects {
+    .in-view & {
+        animation: slide-up 1.2s $ease-spring forwards;
+
+        @for $j from 1 through 8 {
+            &:nth-child(#{$j}) {
+                animation-delay: #{$j * 0.1}s;
+            }
+        }
+    }
+
     .grid {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
         gap: 24px;
 
-        .card {
-            opacity: 0;
-            
-            section.in-view & {
-                animation: slide-up 1.2s $ease-spring forwards;
-
-                @for $j from 1 through 8 {
-                    &:nth-child(#{$j}) {
-                        animation-delay: #{$j * 0.1}s;
-                    }
-                }
-            }
-        }
+        .card { opacity: 0; }
     }
 }
 
