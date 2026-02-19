@@ -1,13 +1,49 @@
-@import 'common/scss/tokens';
-@import 'common/scss/mixins';
-@import 'common/scss/components';
-@import 'common/scss/layout';
+@import 'common/scss/core';
 
-/* =========================================
-   Main Layout
-   ========================================= */
 
-// --- Navigation ---
+// =========================================
+// Slide-In
+// =========================================
+
+$sections: "hero", "about", "now", "skills", "awards", "projects";
+
+@for $i from 1 through length($sections) {
+    #{nth($sections, $i)} {
+        &.in-view {
+            animation-delay: #{$i * 0.1}s;
+        }
+    }
+}
+
+// Awards & Projects Grid
+#awards, #projects {
+    .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 24px;
+
+        .card {
+            opacity: 0;
+            
+            section.in-view & {
+                animation: slide-up 1.2s $ease-spring forwards;
+
+                @for $j from 1 through 8 {
+                    &:nth-child(#{$j}) {
+                        animation-delay: #{$j * 0.1}s;
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+
+// =========================================
+// Navigation
+// =========================================
+
 nav {
     position: fixed;
     top: 24px; left: 24px;
@@ -40,15 +76,11 @@ nav {
     }
 }
 
-// --- Specific ID Styling ---
 
-$sections: "hero", "about", "now", "skills", "awards", "projects";
 
-@for $i from 1 through length($sections) {
-    #{nth($sections, $i)} {
-        animation-delay: #{$i * 0.1}s;
-    }
-}
+// =========================================
+// Specific ID Styling
+// =========================================
 
 #hero {
     min-height: 90vh;
@@ -131,6 +163,15 @@ $sections: "hero", "about", "now", "skills", "awards", "projects";
     }
 }
 
-#skills { article.card > div { display: flex; flex-wrap: wrap; gap: 12px; } }
+#skills {
+    article.card > div {
+        display: flex; flex-wrap: wrap; gap: 12px;
+    }
+}
 
-#awards, #projects { .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; } }
+#awards, #projects {
+    .grid {
+        display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 24px;
+    }
+}
