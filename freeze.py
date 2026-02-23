@@ -56,6 +56,20 @@ def clean_build_dir():
         print("Cleaning build directory...")
         shutil.rmtree(build_dir)
 
+def copy_extra_files():
+    print("Copying extra static files...")
+    build_dir = app.config['FREEZER_DESTINATION']
+    
+    extra_files = ['robots.txt', 'sitemap.xml']
+    
+    for filename in extra_files:
+        if os.path.exists(filename):
+            target = os.path.join(build_dir, filename)
+            shutil.copy2(filename, target)
+            print(f"✅ Copied {filename}")
+        else:
+            print(f"⚠️ Warning: {filename} not found in project root, skipping.")
+
 def verify_build():
     """Verify the build output"""
     print("Verifying build output...")
@@ -65,18 +79,21 @@ def verify_build():
         print("❌ Error: Build directory does not exist")
         return False
     
-    # Only verify files that strictly exist in your project
     essential_files = [
         'index.html',
-        os.path.join('static', 'css', 'styles.css') # Verify CSS was built and copied
+        os.path.join('static', 'css', 'styles.css'),
+        'robots.txt',
+        'sitemap.xml'
     ]
     
     missing_files = []
     
     for file_path in essential_files:
-        target = os.path.join(build_dir, file_path)
-        if not os.path.exists(target):
-            missing_files.append(file_path)
+        source_path = file_path if not file_path.startswith('static') else file_path
+        if os.path.exists(source_path) or file_path == 'index.html':
+            target = os.path.join(build_dir, file_path)
+            if not os.path.exists(target):
+                missing_files.append(file_path)
     
     if missing_files:
         print(f"❌ Error: Missing essential files in build: {missing_files}")
@@ -101,8 +118,13 @@ if __name__ == '__main__':
     except Exception as e:
         print(f"❌ Critical error during freezing:\n{e}")
         exit(1)
+
+    # Step 4: Copy extra files (robots.txt, sitemap.xml)
+    copy_extra_files()
     
-    # Step 4: Verify build
+    # Step 5: Verify build
     if not verify_build():
         print("Build verification failed")
         exit(1)# Final success message
+
+    print("🎉 All set!")
