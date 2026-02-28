@@ -68,165 +68,96 @@
     </head>
     <body>
 
-        {% from "macros.html" import badge, icard %}
+        {% from "macros.html" import badge, icard, section %}
 
-        <nav>
-            <a href="#hero" aria-label="Home"><i class="fa-solid fa-house"></i></a>
-            <a href="#about" aria-label="About Me"><i class="fa-solid fa-user"></i></a>
-            <a href="#now" aria-label="Current Focus"><i class="fa-solid fa-clock"></i></a>
-            <a href="#skills" aria-label="Capabilities"><i class="fa-solid fa-bolt"></i></a>
-            <a href="#awards" aria-label="Awards"><i class="fa-solid fa-trophy"></i></a>
-            <a href="#projects" aria-label="Portfolio"><i class="fa-solid fa-folder"></i></a>
+        <nav aria-label="Navigation">
+            <a href="#hero" aria-label="Home" title="Home"><span class="fa-solid fa-house" aria-hidden="true"></span></a>
+            <a href="#about" aria-label="About Me" title="About Me"><span class="fa-solid fa-user" aria-hidden="true"></span></a>
+            <a href="#now" aria-label="Current Focus" title="Current Focus"><span class="fa-solid fa-clock" aria-hidden="true"></span></a>
+            <a href="#skills" aria-label="Capabilities" title="Capabilities"><span class="fa-solid fa-bolt" aria-hidden="true"></span></a>
+            <a href="#awards" aria-label="Awards" title="Awards"><span class="fa-solid fa-trophy" aria-hidden="true"></span></a>
+            <a href="#projects" aria-label="Portfolio" title="Portfolio"><span class="fa-solid fa-folder" aria-hidden="true"></span></a>
         </nav>
 
-        <section id="hero">
-            <img src="{{ url_for('static', filename='images/profile.webp') }}" alt="Barry's Profile Picture">
-            <h1>Hello, I'm Barry 👋</h1>
-            <p>High School Student · Data Enthusiast</p>
-            <small><i class="fa-solid fa-location-dot"></i>Lexington, MA</small>
-            
-            <div>
-                <a href="#projects">
-                    <i class="fa-solid fa-arrow-right"></i>
-                    <span>View My Work</span>
-                </a>
+        <main>
+            <section id="hero" class="fade-in" aria-labelledby="hero-heading">
+                <figure><img src="{{ url_for('static', filename='images/profile.webp') }}" alt="Barry's Profile Picture" fetchpriority="high" decoding="sync"></figure>
+                <hgroup>
+                    <h1>Hello, I'm Bairu Song 👋</h1>
+                    <p itemprop="jobTitle">{{ data.profile.title }}</p>
+                </hgroup>
+                <address class="location"><span class="fa-solid fa-location-dot" aria-hidden="true"></span>{{ data.profile.location }}</address>
                 
-                <a href="https://forms.gle/f3LuCK4xRNjYVaaJ8" target="_blank" rel="noopener noreferrer">
-                    <span>Get in Touch</span>
-                </a>
-            </div>
-        </section>
+                <menu>
+                    <li><a href="#projects"><span>View My Work</span></a></li>
+                    <li><a href="https://forms.gle/f3LuCK4xRNjYVaaJ8" target="_blank" rel="noopener noreferrer"><span>Get in Touch</span></a></li>
+                </menu>
+            </section>
 
-        <section id="about">
-            <header>
-                <small>About Me</small>
-                <h2>My Journey</h2>
-            </header>
-
-            <article class="card">
+            {% call section("about", "About Me", "My Journey") %}
                 <div>
                     <div>
-                        <p>
-                            I'm a high school student passionate about data-driven decision making.
-                            My journey started with building a self-used academic manager CLI tool,
-                            and now I'm diving deep into data analyzation and visualization.
-                        </p>
-                        <p>
-                            Currently exploring the intersection of technology and liberal arts.
-                        </p>
+                        {% for paragraph in data.about.paragraphs %}
+                            <p>{{ paragraph }}</p>
+                        {% endfor %}
                     </div>
-                    <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=600&h=800&fit=crop" alt="">
+                    <figure><img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=600&h=800&fit=crop" alt="A glimpse into my daily life" loading="lazy" decoding="async"><figcaption class="sr-only">My daily workspace</figcaption></figure>
                 </div>
 
                 <div>
-                    <small>Interests</small>
-                    <div>
-                        {{ badge('Coding', icon='code', color='blue') }}
-                        {{ badge('Music', icon='music', color='orange') }}
-                        {{ badge('Learning', icon='book', color='green') }}
-                        {{ badge('Soccer', icon='futbol', color='purple') }}
-                    </div>
+                    <p>Interests</p>
+                    <ul>
+                        {% for interest in data.about.interests %}
+                            <li>{{ badge(interest.label, icon=interest.icon, color=interest.color) }}</li>
+                        {% endfor %}
+                    </ul>
                 </div>
-            </article>
-        </section>
+            {% endcall %}
 
-        <section id="now">
-            <header>
-                <small>Current Focus</small>
-                <h2>Now</h2>
-            </header>
-            
-            <article class="card">
-                <div>
-                    <p><strong>Research</strong> <span>Mongols</span></p>
-                    <p><strong>Listen</strong> <span>Skyfall by Adele</span></p>
-                    <p><strong>Read</strong> <span>Lord of the Flies</span></p>
-                </div>
-            </article>
-        </section>
+            {% call section("now", "Current Focus", "What I'm Up To") %}
+                <dl>
+                    {% for key, value in data.now.items() %}
+                        <div class="row">
+                            <dt>{{ key | capitalize }}</dt>
+                            <dd>{{ value }}</dd>
+                        </div>
+                    {% endfor %}
+                </dl>
+            {% endcall %}
 
-        <section id="skills">
-            <header>
-                <small>Capabilities</small>
-                <h2>Tech Stack</h2>
-            </header>
+            {% call section("skills", "Capabilities", "Tech Stack") %}
+                {% for category in data.skills %}
+                    {% for item in category.items %}
+                        {{ badge(item.name, icon=item.icon, color=item.color) }}
+                    {% endfor %}
+                {% endfor %}
+            {% endcall %}
 
-            <article class="card">
-                <div>
-                    {{ badge('Python', icon='fa-brands fa-python', color='blue') }}
-                    {{ badge('Pandas', icon='table', color='purple') }}
-                    {{ badge('NumPy', icon='calculator', color='orange') }}
-                    {{ badge('Seaborn', icon='chart-line', color='orange') }}
-                    {{ badge('SQL', icon='database', color='green') }}
-                    {{ badge('Flask', icon='flask', color='gray') }}
-                    {{ badge('C', icon='c', color='blue') }}
-                    {{ badge('HTML/CSS', icon='code', color='blue') }}
-                    {{ badge('Git', icon='fa-brands fa-git', color='gray') }}
-                </div>
-            </article>
-        </section>
+            {% call section("awards", "Certifications", "Awards & Honors", type="grid") %}
+                {% for award in data.awards %}
+                    {{ icard(award.title, award.description, award.link) }}
+                {% endfor %}
+            {% endcall %}
 
-        <section id="awards">
-            <header>
-                <small>Certifications</small>
-                <h2>Awards & Honors</h2>
-            </header>
-            <div class="grid">
-                {{ icard(
-                    title="CS50x Certificate",
-                    description="Harvard University's introduction to the intellectual enterprises of computer science and the art of programming.",
-                    link='https://certificates.cs50.io/e7322fd8-f79a-4b52-81e0-b723d431409e.pdf?size=letter'
-                ) }}
-                {{ icard(
-                    title="CS50p Certificate",
-                    description="An in-depth introduction to programming with Python, focusing on object-oriented design and library integration.",
-                    link='https://certificates.cs50.io/fb71fc53-2fc2-4d31-b1e1-1151c0774de3.pdf?size=letter'
-                ) }}
-                {{ icard(
-                    title="CS50sql Certificate",
-                    description="A specialized course on relational database design, focusing on SQL, data modeling, and SQLite optimization.",
-                    link='https://certificates.cs50.io/929f5a2c-bb83-41c8-9b2d-e81914bde916.pdf?size=letter'
-                ) }}
-                {{ icard(
-                    title="Literary Achievement Award",
-                    description='Awarded for the "Most Creative Project" in Grade 9 Literature & Composition 1 for the Flash Fiction Portfolio project.',
-                    link='https://drive.google.com/file/d/1zaG7i2719bMFPoppC0buBTWwKAlP8YfI/view'
-                ) }}
-            </div>
-        </section>
-
-        <section id="projects">
-            <header>
-                <small>Portfolio</small>
-                <h2>Featured Work</h2>
-            </header>
-
-            <div class="grid">
-                {{ icard(
-                    title="Urban Scaling Simulator",
-                    description="A data analysis project exploring the relationship between city size and various urban metrics.",
-                    link='https://github.com/BarryS27/Urban-Scaling-Simulator',
-                    tags=['Python', 'Pandas', 'Matplotlib'], 
-                    image="https://images.unsplash.com/photo-1480714378408-67cf0d13bc1b?w=800&h=600&fit=crop",
-                    color='blue'
-                ) }}
-
-                {{ icard(
-                    title="Financial-Terminal-Lite",
-                    description="A lite web application with stock screener, heatmap and advanced chart.",
-                    link='https://github.com/BarryS27/Financial-Terminal-Lite',
-                    tags=['Web'],
-                    image="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&h=600&fit=crop",
-                    color='green'
-                ) }}
-            </div>
-        </section>
+            {% call section("projects", "Portfolio", "Featured Work", type="grid") %}
+                {% for project in data.projects %}
+                    {{ icard(
+                        title=project.title,
+                        description=project.description,
+                        link=project.link,
+                        tags=project.tags,
+                        image=project.image,
+                        color=project.color
+                    ) }}
+                {% endfor %}
+            {% endcall %}
+        </main>
 
         <footer>
-            <p>© 2026 Bairu Song. Made with <i class="fa-solid fa-heart"></i> in Lexington</p>
+            <p>© 2026 Bairu Song. Made with <span class="fa-solid fa-heart" aria-label="love"></span> in Lexington</p>
         </footer>
 
-        <script src="{{ url_for('static', filename='js/easter-eggs.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/easter-eggs.js') }}" defer></script>
         <script src="{{ url_for('static', filename='js/script.js') }}" defer></script>
     </body>
 </html>
