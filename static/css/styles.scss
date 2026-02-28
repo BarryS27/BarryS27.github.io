@@ -1,414 +1,395 @@
-// =================================================
-// 1. TOKENS & VARIABLES
-// =================================================
-
-$ios-colors: (
-    'blue':        #007AFF,
-    'green':       #34C759,
-    'orange':      #FF9500,
-    'purple':      #AF52DE,
-    'gray':        #8E8E93,
-    'text-primary':#1C1C1E,
-    'text-sec':    #48484A,
-    'text-tert':   #6D6D72,
-    'bg':          #E5E5EA,
-    'card':        #FFFFFF
-);
-
-$ease-spring: cubic-bezier(0.25, 1, 0.5, 1);
-
-:root { color-scheme: light; }
-
+@import "barrys27-ui";
 
 
 // =================================================
-// 2. ANIMATIONS
-// =================================================
-
-@keyframes slide-up {
-    from {
-        opacity: 0;
-        transform: translateY(30px) scale(0.98);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-    }
-}
-
-
-
-// =================================================
-// 3. MIXINS
-// =================================================
-
-@mixin std-thin {
-    background: rgba(255, 255, 255, 0.7);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.5);
-}
-
-@mixin tap-effect {
-    transition: transform 0.4s $ease-spring, opacity 0.2s ease, box-shadow 0.4s ease;
-    will-change: transform, opacity;
-    &:active {
-        transform: scale(0.96);
-        opacity: 0.8;
-    }
-}
-
-
-
-// =================================================
-// 4. BASE & GLOBAL STYLES
-// =================================================
-
-body {
-    margin: 0;
-    background-color: #E2E4EB; 
-    background-image: 
-        linear-gradient(to bottom, rgba(226, 228, 235, 0.2) 0%, #F2F2F7 90%),
-        url('../images/background.webp');
-    background-size: cover;
-    background-position: center 20%;
-    background-attachment: fixed;
-    // ----------------------------
-    color: map-get($ios-colors, 'text-primary');
-    font-family: -apple-system, BlinkMacSystemFont, "Inter", sans-serif;
-    -webkit-font-smoothing: antialiased;
-}
-
-a { text-decoration: none; color: inherit; }
-img { display: block; max-width: 100%; }
-
-:focus-visible {
-    outline: 2px solid map-get($ios-colors, 'blue');
-    outline-offset: 2px;
-    border-radius: 4px;
-}
-
-a, button { &:focus-visible { border-radius: 8px; } }
-
-
-
-// =================================================
-// 5. LAYOUT & CONTAINERS
+// 1. LAYOUT SYSTEM
 // =================================================
 
 section {
-    opacity: 0; 
-    transform: translateY(30px) scale(0.98);
-    will-change: transform, opacity;
-    backface-visibility: hidden;
-    
     padding: 100px 24px;
     max-width: 900px;
     margin: 0 auto;
 
-    &.in-view { animation: slide-up 1.2s $ease-spring forwards; }
-    
-    @media (max-width: 768px) { padding: 60px 20px; }
+    // 使用 npm 的 fade-in 体系
+    @extend .fade-in;
 
-    header {
-        text-align: center;
-        margin-bottom: 48px;
+    @media (max-width: 768px) {
+        padding: 60px 20px;
+    }
+}
 
-        small {
-            display: block;
-            color: map-get($ios-colors, 'blue');
-            font-size: 12px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 8px;
-        }
-    
-        h2 {
-            font-size: 32px;
-            font-weight: 700;
-            margin: 0;
-            letter-spacing: -0.5px;
-        }
+.grid {
+    gap: var(--gap);
+}
+
+
+
+// =================================================
+// 2. SECTION HEADER
+// =================================================
+
+.section-header {
+    text-align: center;
+    margin-bottom: 48px;
+
+    p {
+        color: var(--blue);
+        font-size: 12px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 8px;
+    }
+
+    h2 {
+        margin: 0;
+        font-size: 32px;
+        font-weight: 700;
+        letter-spacing: -0.5px;
     }
 }
 
 
 
 // =================================================
-// 6. COMPONENTS
+// 3. CARD EXTENSIONS
 // =================================================
 
-// --- Badge ---
-.badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 4px 10px;
-    border-radius: 2em;
-    font-size: 13px;
-    font-weight: 600;
-    user-select: none;
-
-    @each $name, $hex in $ios-colors {
-        @if $name == 'blue' or $name == 'green' or $name == 'orange' or $name == 'purple' or $name == 'gray' {
-            &.theme-#{$name} {
-                background-color: color-mix(in srgb, $hex, #fff 92%); 
-                color: $hex;
-                border: 1px solid color-mix(in srgb, $hex, transparent 88%);
-            }
-        }
-    }
-    i { width: 14px; height: 14px; }
-}
-
-
-// --- Card ---
 .card {
-    display: block; 
-    @include std-thin;
-    border-radius: 24px;
-    overflow: hidden;
-    position: relative;
-    border: none;
-    
-    &:focus-visible { border-radius: 24px; }
 
-    > img {
-        height: 220px;
-        width: 100%;
-        object-fit: cover;
-        border-bottom: 1px solid rgba(0,0,0,0.05);
-    }
+    p {
+        font-size: 15px;
+        line-height: 1.5;
+        color: var(--text-tert);
+        margin-bottom: 16px;
 
-    > div {
-        padding: 24px;
-        p { 
-            margin: 0 0 16px 0; 
-            font-size: 15px; 
-            color: map-get($ios-colors, 'text-tert'); 
-            line-height: 1.5;
+        &:last-child {
+            margin-bottom: 0;
         }
     }
+}
 
-    &.project > div > div:first-child {
-        display: flex; 
-        justify-content: space-between; 
+
+
+// Project Card
+a.project.card {
+
+    @extend .is-interactive;
+
+    img {
+        width: 100%;
+        height: 220px;
+        object-fit: cover;
+        border-bottom: 1px solid var(--glass-border);
+    }
+
+    .p-card {
+        padding: var(--gap);
+    }
+
+    hgroup {
+        display: flex;
+        justify-content: space-between;
         align-items: center;
         margin-bottom: 8px;
 
-        h3 { 
-            margin: 0; 
-            font-size: 20px; 
-            color: map-get($ios-colors, 'text-primary');
-            transition: color 0.2s ease;
+        h3,
+        i {
+            transition: color 0.2s var(--ease-spring);
         }
-      
-        i { 
-            color: map-get($ios-colors, 'text-tert'); 
-            width: 20px; height: 20px; 
-            transition: color 0.2s ease;
+
+        h3 {
+            margin: 0;
+            font-size: 20px;
+            color: var(--text-primary);
         }
+
+        i {
+            font-size: 18px;
+            color: var(--text-tert);
+        }
+    }
+
+    .tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
     }
 
     @media (hover: hover) {
-        &.project:hover > div > div:first-child {
-            h3, i { color: map-get($ios-colors, 'blue'); }
-        }
-    }
-}
+        &:hover hgroup {
 
-a.card {
-    @include tap-effect;
-    &:hover {
-        transform: translateY(-6px);
-        box-shadow: 0 20px 40px -10px rgba(0,0,0,0.1);
-    }
-}
-
-
-
-// =================================================
-// 7. FOOTER
-// =================================================
-
-footer {
-    padding: 48px; text-align: center; color: map-get($ios-colors, 'text-tert'); font-size: 13px;
-    background: map-get($ios-colors, 'bg');
-    border-top: 1px solid rgba(0,0,0,0.05);
-    i { width: 12px; height: 12px; color: #FF3B30; vertical-align: -2px; }
-}
-
-
-// =========================================
-// Slide-In
-// =========================================
-
-$sections: "hero", "about", "now", "skills", "awards", "projects";
-
-@for $i from 1 through length($sections) {
-    #{'#' + nth($sections, $i)} {
-        &.in-view {
-            animation-delay: #{$i * 0.1}s;
-        }
-    }
-}
-
-// Awards & Projects Grid
-#awards, #projects {
-    .in-view & {
-        animation: slide-up 1.2s $ease-spring forwards;
-
-        @for $j from 1 through 8 {
-            &:nth-child(#{$j}) {
-                animation-delay: #{$j * 0.1}s;
+            h3,
+            i {
+                color: var(--blue);
             }
         }
     }
-
-    .grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-        gap: 24px;
-
-        .card { opacity: 0; }
-    }
 }
 
 
 
-// =========================================
-// Navigation
-// =========================================
+// =================================================
+// 4. NAVIGATION
+// =================================================
 
 nav {
     position: fixed;
-    top: 24px; left: 24px;
+    top: 24px;
+    left: 24px;
     z-index: 100;
-    display: flex; gap: 10px;
 
-    @media (max-width: 768px) { display: none; }
+    display: flex;
+    gap: 10px;
+
+    @media (max-width: 768px) {
+        display: none;
+    }
 
     a {
-        width: 36px; height: 36px;
+        width: 36px;
+        height: 36px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
         border-radius: 50%;
-        display: flex; align-items: center; justify-content: center;
+
         color: map-get($ios-colors, 'text-primary');
-        
+
         @include std-thin;
         @include tap-effect;
-    
-        &:focus-visible { border-radius: 50%; }
-    
-        @media (hover: hover) { &:hover { background: rgba(255, 255, 255, 0.9); } }
+
+        @media (hover: hover) {
+            &:hover {
+                background: rgba(255, 255, 255, 0.9);
+            }
+        }
+
         i {
-           display: flex; 
-           align-items: center;
-           justify-content: center;
-           font-size: 16px; 
-           width: 1em;
-           height: 1em;
-           line-height: 1;
+            font-size: 16px;
+            width: 1em;
+            height: 1em;
+            line-height: 1;
         }
     }
 }
 
 
 
-// =========================================
-// Specific ID Styling
-// =========================================
+// =================================================
+// 5. HERO
+// =================================================
 
 #hero {
     min-height: 90vh;
-    display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
     gap: 16px;
-    
-    img {
-        width: 120px; height: 120px; border-radius: 50%;
-        border: 4px solid #fff;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    text-align: center;
+
+    figure {
+        margin-bottom: 8px;
+
+        img {
+            width: 120px;
+            height: 120px;
+
+            border-radius: 50%;
+            border: 4px solid var(--card);
+
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+    }
+
+    h1 {
+        margin: 0;
+        font-size: 48px;
+        font-weight: 800;
+        letter-spacing: -1px;
+    }
+
+    p {
+        margin: 0;
+        font-size: 18px;
+        color: var(--text-sec);
+    }
+
+    address.location {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+
         margin-bottom: 16px;
+
+        font-size: 14px;
+        font-style: normal;
+
+        color: var(--text-tert);
     }
 
-    h1 { font-size: 48px; font-weight: 800; margin: 0; letter-spacing: -1px; }
-    p { color: map-get($ios-colors, 'text-sec'); font-size: 18px; margin: 0 0 24px 0; }
 
-    small {
-        display: inline-flex; align-items: center; gap: 4px;
-        color: map-get($ios-colors, 'text-tert'); font-size: 14px;
-        i { width: 14px; height: 14px; color: inherit; }
-    }
+    menu {
+        display: flex;
+        align-items: center;
+        gap: 16px;
 
-    > div {
-        display: flex; gap: 16px; align-items: center;
-        a {
-            padding: 14px 28px; border-radius: 99px; font-weight: 600; display: flex; align-items: center; gap: 8px;
-            @include tap-effect;
-            &:hover {
-               transform: translateY(-6px);
-               box-shadow: 0 20px 40px -10px rgba(0,0,0,0.1);
-            }
-            &:first-child { background-color: map-get($ios-colors, 'blue'); color: white; box-shadow: 0 4px 12px rgba(0, 122, 255, 0.25); }
-            &:not(:first-child) { background: rgba(255, 255, 255, 0.6); color: map-get($ios-colors, 'blue'); }
-        }
-    }
-}
-
-#about {
-    article.card {
-        padding: 0 !important; 
-        > div:first-child {
-            display: flex; padding: 40px; gap: 32px; align-items: flex-start;
-            > div { flex: 1; display: block; p { margin-bottom: 16px; font-size: 17px; line-height: 1.6; color: map-get($ios-colors, 'text-sec'); } }
-            > img { width: 140px; height: 180px; object-fit: cover; border-radius: 12px; flex-shrink: 0; }
-        }
-        > div:last-child {
-            border-top: 1px solid rgba(0,0,0,0.05);
-            padding: 24px 40px; background: rgba(249, 249, 251, 0.5);
-            small { display: block; font-size: 11px; font-weight: 600; color: map-get($ios-colors, 'text-tert'); margin-bottom: 12px; }
-            div { display: flex; flex-wrap: wrap; gap: 10px; }
-        }
-    }
-}
-
-#now, #exp, #edu {
-    .card > div {
+        margin: 0;
         padding: 0;
 
-        p {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            
-            padding: 20px 40px; 
-            margin: 0;
-            
-            border-bottom: 1px solid rgba(0, 0, 0, 0.05); 
-            
-            font-size: 17px; 
+        list-style: none;
 
-            &:last-child { border-bottom: none; }
+        li {
 
-            strong {
-                color: map-get($ios-colors, 'text-primary');
+            a {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+
+                padding: 14px 28px;
+                border-radius: 99px;
+
                 font-weight: 600;
+
+                @include tap-effect;
+
+                @media (hover: hover) {
+                    &:hover {
+                        transform: translateY(-6px);
+                        box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.1);
+                    }
+                }
             }
 
-            span { color: map-get($ios-colors, 'text-sec'); }
+
+            &:first-child a {
+                background: var(--blue);
+                color: #fff;
+
+                box-shadow: 0 4px 12px
+                    color-mix(in srgb, var(--blue), transparent 75%);
+            }
+
+
+            &:last-child a {
+                @include std-thin;
+                color: var(--blue);
+            }
         }
     }
 }
 
-#skills {
-    article.card > div {
-        display: flex; flex-wrap: wrap; gap: 12px;
+
+
+// =================================================
+// 6. ABOUT
+// =================================================
+
+#about .card {
+    padding: 0;
+
+    > div:first-child {
+        display: flex;
+        gap: var(--gap);
+
+        padding: calc(var(--gap) * 1.5);
+
+        align-items: flex-start;
+
+        @media (max-width: 768px) {
+            flex-direction: column;
+            align-items: center;
+        }
+
+        > div {
+            flex: 1;
+
+            p {
+                font-size: 17px;
+                line-height: 1.6;
+                color: var(--text-sec);
+            }
+        }
+
+        figure {
+            margin: 0;
+            flex-shrink: 0;
+
+            img {
+                width: 140px;
+                height: 180px;
+
+                object-fit: cover;
+                border-radius: 12px;
+            }
+        }
+    }
+
+
+    > div:last-child {
+        padding: var(--gap) calc(var(--gap) * 1.5);
+
+        background: color-mix(in srgb, var(--bg), transparent 50%);
+        border-top: 1px solid var(--glass-border);
+
+        p {
+            margin-bottom: 12px;
+
+            font-size: 11px;
+            font-weight: 600;
+
+            color: var(--text-tert);
+        }
+
+        ul {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+
+            margin: 0;
+            padding: 0;
+
+            list-style: none;
+        }
     }
 }
 
-#awards, #projects {
-    .grid {
-        display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-        gap: 24px;
+
+
+// =================================================
+// 7. SKILLS
+// =================================================
+
+#skills .card > div {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+
+
+// =================================================
+// 8. FOOTER
+// =================================================
+
+footer {
+    padding: 48px var(--gap);
+
+    text-align: center;
+    font-size: 13px;
+
+    color: var(--text-tert);
+    background: var(--bg);
+
+    border-top: 1px solid var(--glass-border);
+
+    span {
+        margin: 0 2px;
+        color: #FF3B30;
     }
 }
