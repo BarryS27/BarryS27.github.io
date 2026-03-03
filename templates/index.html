@@ -3,11 +3,11 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-        <title>Barry's Portfolio</title>
+        <title>{{ data.seo.title }}</title>
         
-        <meta name="description" content="Bairu Song - High school student at Lexington High School passionate about data-driven decision making and modern web development." />
-        <meta name="author" content="Bairu Song" />
-        <link rel="canonical" href="https://barrys27.github.io" />
+        <meta name="description" content="{{ data.seo.description }}" />
+        <meta name="author" content="{{ data.seo.author }}" />
+        <link rel="canonical" href="{{ data.seo.canonical }}" />
         <meta name="google-site-verification" content="PHhw6JXwL0IBOD9ozR4K5VOhAHEkHTWo3Rl6Qum9qzo" />
 
         <meta http-equiv="Content-Security-Policy" content="
@@ -20,16 +20,16 @@
         ">
 
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://barrys27.github.io/" />
-        <meta property="og:title" content="Bairu Song | High School Student · Data Enthusiast" />
-        <meta property="og:description" content="Student at Lexington High passionate about data-driven decision making, Python development, and minimalist iOS design principles." />
-        <meta property="og:image" content="https://barrys27.github.io/static/images/og-card.png">
+        <meta property="og:url" content="{{ data.seo.canonical }}" />
+        <meta property="og:title" content="{{ data.seo.og_title }}" />
+        <meta property="og:description" content="{{ data.seo.og_description }}" />
+        <meta property="og:image" content="{{ data.seo.og_image }}">
 
         <meta property="twitter:card" content="summary_large_image" />
-        <meta property="twitter:url" content="https://barrys27.github.io/" />
-        <meta property="twitter:title" content="Bairu Song | High School Student · Data Enthusiast" />
-        <meta property="twitter:description" content="Student at Lexington High passionate about data-driven decision making, Python development, and minimalist iOS design principles." />
-        <meta property="twitter:image" content="https://barrys27.github.io/static/images/og-card.png">
+        <meta property="twitter:url" content="{{ data.seo.canonical }}" />
+        <meta property="twitter:title" content="{{ data.seo.twitter_title }}" />
+        <meta property="twitter:description" content="{{ data.seo.twitter_description }}" />
+        <meta property="twitter:image" content="{{ data.seo.twitter_image }}">
 
         <meta name="theme-color" content="#F2F2F7" />
         <meta name="apple-mobile-web-app-title" content="Barry's Portfolio" />
@@ -51,14 +51,14 @@
         {
             "@context": "https://schema.org",
             "@type": "Person",
-            "name": "Bairu Song",
+            "name": "{{ data.seo.author }}",
             "alternateName": "Barry",
             "affiliation": {
                 "@type": "Organization",
                 "name": "Lexington High School"
             },
-            "description": "High school student passionate about data-driven decision making and web development",
-            "url": "https://barrys27.github.io",
+            "description": "{{ data.seo.description }}",
+            "url": "{{ data.seo.canonical }}",
             "sameAs": [
                 "https://github.com/BarryS27",
                 "https://medium.com/@BarryS27"
@@ -127,7 +127,7 @@
 
             {% call section("skills", "Capabilities", "Tech Stack") %}
                 {% for category in data.skills %}
-                    {% for item in category.items %}
+                    {% for item in category["items"] %}
                         {{ badge(item.name, icon=item.icon, color=item.color) }}
                     {% endfor %}
                 {% endfor %}

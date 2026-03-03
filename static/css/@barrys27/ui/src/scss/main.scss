@@ -1,0 +1,22 @@
+// Local compatibility shim for environments where package managers are unavailable.
+// CI can use pre-provisioned binaries, and this keeps local builds deterministic.
+
+.is-interactive {
+  transition: transform 0.4s $ease-spring, opacity 0.2s ease, box-shadow 0.4s ease;
+  will-change: transform, opacity;
+
+  &:active {
+    transform: scale(0.96);
+    opacity: 0.8;
+  }
+}
+
+.fade-in {
+  opacity: 0;
+  transform: translateY(30px) scale(0.98);
+  will-change: transform, opacity;
+
+  &.in-view {
+    animation: slide-up 1.2s $ease-spring forwards;
+  }
+}

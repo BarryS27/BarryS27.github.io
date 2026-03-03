@@ -1,4 +1,5 @@
-@import "barrys27-ui";
+@import "common/scss/core";
+@import "@barrys27/ui/src/scss/main";
 
 
 // =================================================
@@ -10,7 +11,7 @@ section {
     max-width: 900px;
     margin: 0 auto;
 
-    // 使用 npm 的 fade-in 体系
+    // 使用统一的 fade-in 体系
     @extend .fade-in;
 
     @media (max-width: 768px) {
