@@ -16,7 +16,7 @@ TOOLS_DIR: Final[Path] = Path(".tools")
 BIN_DIR: Final[Path] = TOOLS_DIR / "bin"
 DART_SASS_VERSION: Final[str] = os.getenv("DART_SASS_VERSION", "1.77.8")
 LIGHTNINGCSS_VERSION: Final[str] = os.getenv("LIGHTNINGCSS_VERSION", "1.27.0")
-VENDOR_UI_ROOT: Final[Path] = Path("vendor/@barrys27/ui")
+VENDOR_UI_ROOT: Final[Path] = Path("vendor/ui")
 
 
 def _platform_slug() -> tuple[str, str]:

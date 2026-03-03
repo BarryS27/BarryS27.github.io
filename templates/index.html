@@ -68,7 +68,7 @@
     </head>
     <body>
 
-        {% from "macros.html" import badge, icard, section %}
+        {% import "macros.html" as macros with context %}
 
         <nav aria-label="Navigation">
             <a href="#hero" aria-label="Home" title="Home"><span class="fa-solid fa-house" aria-hidden="true"></span></a>
@@ -94,7 +94,7 @@
                 </menu>
             </section>
 
-            {% call section("about", "About Me", "My Journey") %}
+            {% call macros.section("about", "About Me", "My Journey") %}
                 <div>
                     <div>
                         {% for paragraph in data.about.paragraphs %}
@@ -108,13 +108,13 @@
                     <p>Interests</p>
                     <ul>
                         {% for interest in data.about.interests %}
-                            <li>{{ badge(interest.label, icon=interest.icon, color=interest.color) }}</li>
+                            <li>{{ macros.render_item(interest.label, icon=interest.icon, color=interest.color) }}</li>
                         {% endfor %}
                     </ul>
                 </div>
             {% endcall %}
 
-            {% call section("now", "Current Focus", "What I'm Up To") %}
+            {% call macros.section("now", "Current Focus", "What I'm Up To") %}
                 <dl>
                     {% for key, value in data.now.items() %}
                         <div class="row">
@@ -125,23 +125,21 @@
                 </dl>
             {% endcall %}
 
-            {% call section("skills", "Capabilities", "Tech Stack") %}
+            {% call macros.section("skills", "Capabilities", "Tech Stack") %}
                 {% for category in data.skills %}
-                    {% for item in category["items"] %}
-                        {{ badge(item.name, icon=item.icon, color=item.color) }}
-                    {% endfor %}
+                    {{ macros.render_skill_category(category) }}
                 {% endfor %}
             {% endcall %}
 
-            {% call section("awards", "Certifications", "Awards & Honors", type="grid") %}
+            {% call macros.section("awards", "Certifications", "Awards & Honors", type="grid") %}
                 {% for award in data.awards %}
-                    {{ icard(award.title, award.description, award.link) }}
+                    {{ macros.render_card(award.title, award.description, award.link) }}
                 {% endfor %}
             {% endcall %}
 
-            {% call section("projects", "Portfolio", "Featured Work", type="grid") %}
+            {% call macros.section("projects", "Portfolio", "Featured Work", type="grid") %}
                 {% for project in data.projects %}
-                    {{ icard(
+                    {{ macros.render_card(
                         title=project.title,
                         description=project.description,
                         link=project.link,

@@ -12,7 +12,7 @@ class WorkflowCITests(unittest.TestCase):
     def test_workflow_vendors_package_without_node(self) -> None:
         workflow = Path('.github/workflows/deploy.yml').read_text(encoding='utf-8')
         self.assertIn('https://registry.npmjs.org/@barrys27%2fui/latest', workflow)
-        self.assertIn('vendor/@barrys27/ui', workflow)
+        self.assertIn('vendor/ui', workflow)
         self.assertNotIn('setup-node', workflow)
         self.assertNotIn('npm install', workflow)
 

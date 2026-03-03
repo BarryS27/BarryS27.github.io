@@ -43,23 +43,23 @@ jobs:
 
           echo "Resolved @barrys27/ui version: $version"
 
-          mkdir -p vendor/@barrys27/ui
+          mkdir -p vendor/ui
           curl -fsSL -o /tmp/barrys27-ui.tgz "$tarball_url" || {
             echo "❌ Failed to download tarball: $tarball_url"
             exit 1
           }
 
-          tar -xzf /tmp/barrys27-ui.tgz -C vendor/@barrys27/ui --strip-components=1 || {
+          tar -xzf /tmp/barrys27-ui.tgz -C vendor/ui --strip-components=1 || {
             echo "❌ Failed to extract @barrys27/ui tarball into vendor folder"
             exit 1
           }
 
-          if [ ! -f vendor/@barrys27/ui/src/scss/main.scss ]; then
-            echo "❌ Extraction verification failed: vendor/@barrys27/ui/src/scss/main.scss not found"
+          if [ ! -f vendor/ui/src/scss/main.scss ]; then
+            echo "❌ Extraction verification failed: vendor/ui/src/scss/main.scss not found"
             exit 1
           fi
 
-          echo "✅ Vendored @barrys27/ui package into ./vendor/@barrys27/ui"
+          echo "✅ Vendored @barrys27/ui package into ./vendor/ui"
 
       - name: Set up Python 🐍
         uses: actions/setup-python@v5

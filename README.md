@@ -62,7 +62,7 @@ The website implements a **Glassmorphism** visual language, drawing inspiration 
 └── static/
     ├── css/
     │   ├── styles.scss            # Main SCSS entrypoint
-    │   └── common/scss/_core.scss # Shared design tokens and mixins
+    │   └── _core.scss             # Shared design tokens and mixins
     ├── js/
     └── images/
 ```
@@ -74,10 +74,10 @@ Set `FLASK_ENV=development` for local debug mode, and optionally set `FREEZER_BA
 
 ## 🧱 Build Pipeline
 
-- `python scss.py`: downloads/uses Dart Sass Standalone + Lightning CSS to compile, prefix, and minify `static/css/styles.scss`, with `vendor/@barrys27/ui` as an additional load path when present.
+- `python scss.py`: downloads/uses Dart Sass Standalone + Lightning CSS to compile, prefix, and minify `static/css/styles.scss`, with `vendor/ui` as an additional load path when present.
 - `python freeze.py`: runs CSS build, optimizes images via Pillow, freezes the site, and verifies required artifacts.
 - `.browserslistrc`: centralized browser support targets consumed by Lightning CSS.
-- GitHub Actions runs weekly via cron and manually via `workflow_dispatch`, vendoring the latest `@barrys27/ui` tarball into `vendor/@barrys27/ui` without Node/npm.
+- GitHub Actions runs weekly via cron and manually via `workflow_dispatch`, vendoring the latest `@barrys27/ui` tarball into `vendor/ui` without Node/npm.
 
 ## 📜 License
 
