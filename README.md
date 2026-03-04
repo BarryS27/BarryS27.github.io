@@ -25,9 +25,10 @@ The website implements a **Glassmorphism** visual language, drawing inspiration 
 
 * **Backend**: Python (Flask) for routing and site management.
 * **Templating**: Jinja2 with custom macros to ensure modular and reusable UI components.
-* **Styling**: SCSS (Sass) utilizing variables, mixins, and nested rules for maintainable design.
+* **Styling**: Dart Sass Standalone + Lightning CSS binaries for modern SCSS support, autoprefixing, and minified output without Node runtime dependencies.
 * **Deployment**: Flask-Freeze for generating the static site architecture for GitHub Pages.
 * **Optimization**: GPU-accelerated animations using `will-change` and hardware-layering properties for smooth 120Hz performance.
+* **Zero-JS motion**: smooth scrolling and section reveals are handled by CSS only.
 
 ---
 
@@ -52,16 +53,32 @@ The website implements a **Glassmorphism** visual language, drawing inspiration 
 
 ```text
 /
-├── app.py           # Flask core application
-├── freeze.py        # Static site generation script
-├── templates/       
-│   ├── index.html   # Main entry template
-│   ├── layout.html  # Base HTML skeleton
-│   └── macros.html  # Reusable UI components
+├── app.py                         # Flask app + JSON data loader
+├── data.json                      # Portfolio content source of truth
+├── scss.py                        # Python wrapper for standalone Sass + Lightning CSS
+├── freeze.py                      # Flask-Frozen build + artifact verification
+├── templates/
+│   ├── index.html                 # Main page template
+│   └── macros.html                # Reusable Jinja UI macros
 └── static/
-    ├── styles.scss  # Source SCSS with glassmorphism logic
-    └── images/      # Optimized assets and project media
+    ├── css/
+    │   ├── styles.scss            # Main SCSS entrypoint
+    │   └── _core.scss             # Shared design tokens and mixins
+    ├── js/
+    └── images/
 ```
+
+Build flow uses `python scss.py` + `python freeze.py`; both scripts provision standalone binaries and run a Node-free pipeline.
+
+Set `FLASK_ENV=development` for local debug mode, and optionally set `FREEZER_BASE_URL` (for example, `https://username.github.io/repo-name/`) to harden sub-path GitHub Pages builds.
+
+
+## 🧱 Build Pipeline
+
+- `python scss.py`: downloads/uses Dart Sass Standalone + Lightning CSS to compile, prefix, and minify `static/css/styles.scss`, with `vendor/ui` as an additional load path when present.
+- `python freeze.py`: runs CSS build, optimizes images via Pillow, freezes the site, and verifies required artifacts.
+- `.browserslistrc`: centralized browser support targets consumed by Lightning CSS.
+- GitHub Actions runs weekly via cron and manually via `workflow_dispatch`, vendoring the latest `@barrys27/ui` tarball into `vendor/ui` without Node/npm.
 
 ## 📜 License
 
