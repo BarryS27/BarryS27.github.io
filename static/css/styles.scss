@@ -1,5 +1,5 @@
-@import "core";
-@import "ui/src/scss/main";
+@use "core";
+@use "@barrys27/ui/main";
 
 
 // =================================================
@@ -11,7 +11,6 @@ section {
     max-width: 900px;
     margin: 0 auto;
 
-    // 使用统一的 fade-in 体系
     @extend .fade-in;
 
     @media (max-width: 768px) {

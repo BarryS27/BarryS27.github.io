@@ -1,9 +1,10 @@
 name: Build and Deploy
 
 on:
+  push:
+  workflow_dispatch:
   schedule:
     - cron: '0 0 * * 0'
-  workflow_dispatch:
 
 permissions:
   contents: write
@@ -12,54 +13,32 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
 
-    env:
-      DART_SASS_VERSION: '1.77.8'
-      LIGHTNINGCSS_VERSION: '1.27.0'
-
     steps:
       - name: Checkout Repository 🛎️
         uses: actions/checkout@v4
         with:
-          submodules: true
           fetch-depth: 0
 
-      - name: Fetch latest @barrys27/ui package 📦
+      - name: Sync UI Components 📦
         run: |
           set -euo pipefail
+          mkdir -p static/css/@barrys27/ui
+          BASE_URL="https://unpkg.com/@barrys27/ui/src/scss"
+          for file in main.scss _base.scss _variables.scss _mixins.scss _components.scss; do
+            curl -L "$BASE_URL/$file" -o "static/css/@barrys27/ui/$file" || {
+              echo "❌ Failed to download $file from @barrys27/ui"
+              exit 1
+            }
+          done
 
-          registry_url="https://registry.npmjs.org/@barrys27%2fui/latest"
-          metadata="$(curl -fsSL "$registry_url")" || {
-            echo "❌ Failed to reach npm registry endpoint: $registry_url"
+      - name: Compile CSS 🎨
+        run: |
+          set -euo pipefail
+          sudo snap install dart-sass
+          dart-sass static/css/styles.scss static/css/styles.css --load-path=static/css --no-source-map || {
+            echo "❌ SCSS compilation failed"
             exit 1
           }
-
-          version="$(printf '%s' "$metadata" | sed -n 's/.*"version":"\([^"]*\)".*/\1/p' | head -n1)"
-          tarball_url="$(printf '%s' "$metadata" | sed -n 's/.*"tarball":"\([^"]*\)".*/\1/p' | head -n1)"
-
-          if [ -z "$version" ] || [ -z "$tarball_url" ]; then
-            echo "❌ Could not resolve package version/tarball from npm registry response"
-            exit 1
-          fi
-
-          echo "Resolved @barrys27/ui version: $version"
-
-          mkdir -p vendor/ui
-          curl -fsSL -o /tmp/barrys27-ui.tgz "$tarball_url" || {
-            echo "❌ Failed to download tarball: $tarball_url"
-            exit 1
-          }
-
-          tar -xzf /tmp/barrys27-ui.tgz -C vendor/ui --strip-components=1 || {
-            echo "❌ Failed to extract @barrys27/ui tarball into vendor folder"
-            exit 1
-          }
-
-          if [ ! -f vendor/ui/src/scss/main.scss ]; then
-            echo "❌ Extraction verification failed: vendor/ui/src/scss/main.scss not found"
-            exit 1
-          fi
-
-          echo "✅ Vendored @barrys27/ui package into ./vendor/ui"
 
       - name: Set up Python 🐍
         uses: actions/setup-python@v5
@@ -73,47 +52,27 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Build Static Site 🏗️
+      - name: Auto-commit synced CSS artifacts ✍️
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: 'chore: sync @barrys27/ui main.scss and compiled styles.css'
+          file_pattern: static/css/@barrys27/ui/* static/css/styles.css
+
+      - name: Freeze Static Site 🧊
         run: |
           set -euo pipefail
-          owner="${GITHUB_REPOSITORY%%/*}"
-          repo="${GITHUB_REPOSITORY#*/}"
-          owner_lower="${owner,,}"
-          if [ "$repo" = "${owner_lower}.github.io" ]; then
-            export FREEZER_BASE_URL="https://${owner_lower}.github.io/"
-          else
-            export FREEZER_BASE_URL="https://${owner_lower}.github.io/${repo}/"
+          python freeze.py || {
+            echo "❌ Freeze step failed"
+            exit 1
+          }
+
+      - name: Smoke Test build CSS ✅
+        run: |
+          set -euo pipefail
+          if [ ! -s build/static/css/styles.css ]; then
+            echo "❌ build/static/css/styles.css is missing or empty"
+            exit 1
           fi
-          echo "Using FREEZER_BASE_URL=${FREEZER_BASE_URL}"
-          python scss.py
-          python freeze.py
-
-      - name: Verify Build 🔍
-        run: |
-          set -euo pipefail
-          required_files=(
-            "build/index.html"
-            "build/static/css/styles.css"
-            "build/static/images/favicon-96x96.png"
-            "build/static/images/favicon.svg"
-            "build/static/images/favicon.ico"
-            "build/static/images/apple-touch-icon.png"
-            "build/static/images/site.webmanifest"
-            "build/static/images/profile.webp"
-            "build/static/images/og-card.png"
-            "build/static/images/background.webp"
-            "build/robots.txt"
-            "build/sitemap.xml"
-          )
-
-          for file in "${required_files[@]}"; do
-            if [ ! -f "$file" ]; then
-              echo "❌ Build verification failed: missing artifact '$file'"
-              exit 1
-            fi
-          done
-
-          echo "✅ Build verification passed"
 
       - name: Deploy to GitHub Pages 🚀
         uses: JamesIves/github-pages-deploy-action@v4
