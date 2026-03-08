@@ -19,7 +19,6 @@ except ModuleNotFoundError:  # pragma: no cover - only for constrained local env
 from flask_frozen import Freezer
 
 from app import app
-from scss import compile_scss
 
 # Configure Freezer
 app.config["FREEZER_DESTINATION"] = "build"
@@ -143,9 +142,6 @@ if __name__ == "__main__":
     # Why: freezing targets production parity and avoids debug overhead in static generation.
     os.environ["FLASK_ENV"] = "production"
 
-    if not compile_scss():
-        print("❌ Build failed due to CSS errors")
-        sys.exit(1)
 
     if not optimize_images():
         print("❌ Build failed during image optimization")
