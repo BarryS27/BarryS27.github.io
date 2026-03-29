@@ -3,19 +3,20 @@ from pathlib import Path
 
 
 class WorkflowCITests(unittest.TestCase):
-    def test_workflow_has_schedule_and_manual_trigger(self) -> None:
+    def test_workflow_triggers_include_push_schedule_and_manual(self) -> None:
         workflow = Path('.github/workflows/deploy.yml').read_text(encoding='utf-8')
+        self.assertIn('push:', workflow)
         self.assertIn('schedule:', workflow)
         self.assertIn("cron: '0 0 * * 0'", workflow)
         self.assertIn('workflow_dispatch:', workflow)
 
-    def test_workflow_vendors_package_without_node(self) -> None:
+    def test_workflow_uses_direct_curl_sass_and_auto_commit(self) -> None:
         workflow = Path('.github/workflows/deploy.yml').read_text(encoding='utf-8')
-        self.assertIn('https://registry.npmjs.org/@barrys27%2fui/latest', workflow)
-        self.assertIn('vendor/ui', workflow)
-        self.assertNotIn('setup-node', workflow)
-        self.assertNotIn('npm install', workflow)
-        self.assertNotIn('build/static/js/script.js', workflow)
+        self.assertIn('curl -L https://unpkg.com/@barrys27/ui/src/scss/main.scss -o static/css/main.scss', workflow)
+        self.assertIn('sudo snap install dart-sass', workflow)
+        self.assertIn('dart-sass static/css/styles.scss static/css/styles.css --no-source-map', workflow)
+        self.assertIn('stefanzweifel/git-auto-commit-action@v5', workflow)
+        self.assertIn('build/static/css/styles.css is missing or empty', workflow)
 
 
 if __name__ == '__main__':

@@ -25,7 +25,7 @@ The website implements a **Glassmorphism** visual language, drawing inspiration 
 
 * **Backend**: Python (Flask) for routing and site management.
 * **Templating**: Jinja2 with custom macros to ensure modular and reusable UI components.
-* **Styling**: Dart Sass Standalone + Lightning CSS binaries for modern SCSS support, autoprefixing, and minified output without Node runtime dependencies.
+* **Styling**: SCSS compiled in CI with Dart Sass, using a synced `main.scss` from `@barrys27/ui`.
 * **Deployment**: Flask-Freeze for generating the static site architecture for GitHub Pages.
 * **Optimization**: GPU-accelerated animations using `will-change` and hardware-layering properties for smooth 120Hz performance.
 * **Zero-JS motion**: smooth scrolling and section reveals are handled by CSS only.
@@ -55,7 +55,6 @@ The website implements a **Glassmorphism** visual language, drawing inspiration 
 /
 ├── app.py                         # Flask app + JSON data loader
 ├── data.json                      # Portfolio content source of truth
-├── scss.py                        # Python wrapper for standalone Sass + Lightning CSS
 ├── freeze.py                      # Flask-Frozen build + artifact verification
 ├── templates/
 │   ├── index.html                 # Main page template
@@ -64,21 +63,20 @@ The website implements a **Glassmorphism** visual language, drawing inspiration 
     ├── css/
     │   ├── styles.scss            # Main SCSS entrypoint
     │   └── _core.scss             # Shared design tokens and mixins
-    ├── js/
     └── images/
 ```
 
-Build flow uses `python scss.py` + `python freeze.py`; both scripts provision standalone binaries and run a Node-free pipeline.
+Build flow is CI-driven: the workflow syncs `static/css/main.scss`, compiles `static/css/styles.scss` into `static/css/styles.css`, then runs `python freeze.py` for static export.
 
 Set `FLASK_ENV=development` for local debug mode, and optionally set `FREEZER_BASE_URL` (for example, `https://username.github.io/repo-name/`) to harden sub-path GitHub Pages builds.
 
 
 ## 🧱 Build Pipeline
 
-- `python scss.py`: downloads/uses Dart Sass Standalone + Lightning CSS to compile, prefix, and minify `static/css/styles.scss`, with `vendor/ui` as an additional load path when present.
-- `python freeze.py`: runs CSS build, optimizes images via Pillow, freezes the site, and verifies required artifacts.
-- `.browserslistrc`: centralized browser support targets consumed by Lightning CSS.
-- GitHub Actions runs weekly via cron and manually via `workflow_dispatch`, vendoring the latest `@barrys27/ui` tarball into `vendor/ui` without Node/npm.
+- GitHub Actions triggers on `push`, weekly `schedule`, and `workflow_dispatch`.
+- CI downloads `@barrys27/ui` SCSS entrypoint directly to `static/css/main.scss`.
+- CI compiles SCSS using `dart-sass static/css/styles.scss static/css/styles.css --no-source-map`.
+- CI auto-commits updated `main.scss` and `styles.css`, then runs `python freeze.py` and deploys `build/` to GitHub Pages.
 
 ## 📜 License
 
